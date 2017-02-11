@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChinhTLDKBG", "ChinhTLDKBG\ChinhTLDKBG.csproj", "{936F3124-101B-4A5B-9A05-9659A4E73712}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TienIchBG", "TienIchBG\TienIchBG.csproj", "{1913761C-DE2D-4CE4-B81C-9642960A0A0B}"
