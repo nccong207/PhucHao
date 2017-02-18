@@ -24,7 +24,7 @@ namespace XulyGiaDHMi
 
             //RepositoryItemGridLookUpEdit glu = gcMain.RepositoryItems["Ma"] as RepositoryItemGridLookUpEdit;
             GridLookUpEdit cbKH = (_data.FrmMain.Controls.Find("MaKH", true)[0] as GridLookUpEdit);
-            cbKH.TextChanged += cbKH_TextChanged;
+            cbKH.EditValueChanged += cbKH_TextChanged;
             gvMain = gcMain.MainView as GridView;
             gvMain.CellValueChanged += gvMain_CellValueChanged;
             
