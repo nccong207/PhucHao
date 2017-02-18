@@ -24,13 +24,13 @@ namespace XulyGiaDHMi
 
             //RepositoryItemGridLookUpEdit glu = gcMain.RepositoryItems["Ma"] as RepositoryItemGridLookUpEdit;
             GridLookUpEdit cbKH = (_data.FrmMain.Controls.Find("MaKH", true)[0] as GridLookUpEdit);
-            cbKH.EditValueChanged += cbKH_TextChanged;
+            cbKH.EditValueChanged += cbKH_EditValueChanged;
             gvMain = gcMain.MainView as GridView;
             gvMain.CellValueChanged += gvMain_CellValueChanged;
             
         }
 
-        void cbKH_TextChanged(object sender, EventArgs e)
+        void cbKH_EditValueChanged(object sender, EventArgs e)
         {
             GridLookUpEdit cbKH = sender as GridLookUpEdit;
             if (cbKH.Properties.ReadOnly == true)
