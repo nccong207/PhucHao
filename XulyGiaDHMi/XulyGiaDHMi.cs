@@ -21,8 +21,34 @@ namespace XulyGiaDHMi
         public void AddEvent()
         {
             GridControl gcMain = (_data.FrmMain.Controls.Find("gcMain", true)[0] as GridControl);
+
+            //RepositoryItemGridLookUpEdit glu = gcMain.RepositoryItems["Ma"] as RepositoryItemGridLookUpEdit;
+            GridLookUpEdit cbKH = (_data.FrmMain.Controls.Find("MaKH", true)[0] as GridLookUpEdit);
+            cbKH.TextChanged += cbKH_TextChanged;
             gvMain = gcMain.MainView as GridView;
             gvMain.CellValueChanged += gvMain_CellValueChanged;
+            
+        }
+
+        void cbKH_TextChanged(object sender, EventArgs e)
+        {
+            DataRowView drMaster = _data.BsMain.Current as DataRowView;
+
+            string maKH = drMaster.Row["MaKH"].ToString();
+            if (!string.IsNullOrEmpty(maKH))
+            {
+                for (int i = 0; i < gvMain.DataRowCount; i++)
+                {
+                    var maSP = gvMain.GetRowCellValue(i, "MaSP").ToString();
+                    double dongia = getGiaDH(maKH, maSP);
+                    if ( dongia.Equals((double) -1)) {
+                        gvMain.SetRowCellValue(i, "DonGia", null);
+                        gvMain.SetRowCellValue(i, "ThanhTien", null);
+                    } else {
+                        gvMain.SetRowCellValue(i, "DonGia", dongia);
+                    }
+                }
+            }
         }
 
         private void gvMain_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
@@ -36,21 +62,33 @@ namespace XulyGiaDHMi
             DataRowView drMaster = _data.BsMain.Current as DataRowView;
             
             string maKH = drMaster.Row["MaKH"].ToString();
-            // Lay bang gia theo ma khach hang.
-            DataTable dtBangGia = db.GetDataTable(string.Format(@"select gb.MaKH, gb.MaSP, GiaBan from wBangGia gb left join mDMKH kh on gb.KhuVuc = kh.KhuVuc
-                where gb.Duyet = 1 and (gb.MaKH = '{0}' or kh.MaKH = '{0}') and MaSP = '{1}'", maKH, MaSP));
-            if (dtBangGia.Rows.Count == 0)
+            if (string.IsNullOrEmpty(maKH))
+            {
+                XtraMessageBox.Show("Chưa chọn khách hàng cho đơn hàng này!", Config.GetValue("PackageName").ToString());
+                return;
+            }
+            double dongia = getGiaDH(maKH, MaSP);
+            if (dongia == -1)
             {
                 XtraMessageBox.Show("Chưa cài đặt giá bán cho khách hàng/khu vực này", Config.GetValue("PackageName").ToString());
                 return;
             }
-            // Cap nhat don gia.
-            double dongia = double.Parse(dtBangGia.Rows[0]["GiaBan"].ToString());
             var data = _data.FrmMain.Controls.Find("gcMain", true);
             gvMain.SetFocusedRowCellValue(gvMain.Columns["DGGoc"], dongia);
             
         }
 
+        private double getGiaDH (string maKH, string maSP) {
+              DataTable dtBangGia = db.GetDataTable(string.Format(@"select gb.MaKH, gb.MaSP, GiaBan from wBangGia gb left join mDMKH kh on gb.KhuVuc = kh.KhuVuc
+                where gb.Duyet = 1 and (gb.MaKH = '{0}' or kh.MaKH = '{0}') and MaSP = '{1}'", maKH, maSP));
+            if (dtBangGia.Rows.Count == 0)
+            {
+                return -1;
+            }
+            // Cap nhat don gia.
+            double dongia = double.Parse(dtBangGia.Rows[0]["GiaBan"].ToString());
+            return dongia;
+        }
         public DataCustomFormControl Data
         {
             set { _data = value; }
