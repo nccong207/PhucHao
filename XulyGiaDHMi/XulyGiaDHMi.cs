@@ -32,8 +32,17 @@ namespace XulyGiaDHMi
 
         void cbKH_TextChanged(object sender, EventArgs e)
         {
+            GridLookUpEdit cbKH = sender as GridLookUpEdit;
+            if (cbKH.Properties.ReadOnly == true)
+            {
+                return;
+            }
             DataRowView drMaster = _data.BsMain.Current as DataRowView;
-
+            if (drMaster.Row.RowState == DataRowState.Unchanged)
+            {
+                return;
+            }
+            
             string maKH = drMaster.Row["MaKH"].ToString();
             if (!string.IsNullOrEmpty(maKH))
             {
