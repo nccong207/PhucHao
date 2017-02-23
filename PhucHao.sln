@@ -83,6 +83,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XuLyBangIn", "XuLyBangIn\Xu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinhNgayGH", "TinhNgayGH\TinhNgayGH.csproj", "{606E956D-7EEE-42D5-8D98-ED30A8360FE8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaySoBGCopy", "LaySoBGCopy\LaySoBGCopy.csproj", "{6F324861-EDA2-49FB-B127-C41A9776179B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -249,6 +251,10 @@ Global
 		{606E956D-7EEE-42D5-8D98-ED30A8360FE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{606E956D-7EEE-42D5-8D98-ED30A8360FE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{606E956D-7EEE-42D5-8D98-ED30A8360FE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F324861-EDA2-49FB-B127-C41A9776179B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F324861-EDA2-49FB-B127-C41A9776179B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F324861-EDA2-49FB-B127-C41A9776179B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F324861-EDA2-49FB-B127-C41A9776179B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
