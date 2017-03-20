@@ -27,11 +27,14 @@ namespace LaySoBGCopy
 
         void BaoGia_RowChanged(object sender, DataRowChangeEventArgs e)
         {
-            // Set số báo giá cũ cho form mới
-            if (string.IsNullOrEmpty(e.Row["SoBGCopy"].ToString()) && !string.IsNullOrEmpty(oldBG))
+            if (e.Action == DataRowAction.Add)
             {
-                e.Row["SoBGCopy"] = oldBG;
-                oldBG = "";
+                // Set số báo giá cũ cho form mới
+                if (string.IsNullOrEmpty(e.Row["SoBGCopy"].ToString()) && !string.IsNullOrEmpty(oldBG))
+                {
+                    e.Row["SoBGCopy"] = oldBG;
+                    oldBG = "";
+                }
             }
         }
         private void BaoGia_TableNewRow(object sender, DataTableNewRowEventArgs e)
