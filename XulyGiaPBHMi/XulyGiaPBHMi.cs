@@ -32,6 +32,12 @@ namespace XulyGiaPBHMi
                     return;
                 }
 
+                DataRowView drMaster = _data.BsMain.Current as DataRowView;
+                if (!string.IsNullOrEmpty(drMaster.Row["SoDH"].ToString()))
+                {
+                    return;
+                }
+
                 string maSP = e.Value.ToString();
                 // Lay gia theo MaSP
                 DataTable dtBangGia = db.GetDataTable(string.Format("select * from wBangGia where MaKH is null and KhuVuc is null and MaSP = '{0}'", maSP));
