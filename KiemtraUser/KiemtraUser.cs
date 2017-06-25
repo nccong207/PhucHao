@@ -26,8 +26,6 @@ namespace KiemtraUser
             {
                 LoginForm frm = new LoginForm();
                 if (frm.ShowDialog() != System.Windows.Forms.DialogResult.OK)
-                    return;
-                else
                     _data.FrmMain.Close();
             }
         }
