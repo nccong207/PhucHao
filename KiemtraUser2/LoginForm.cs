@@ -44,5 +44,10 @@ namespace KiemtraUser2
         {
             this.DialogResult = DialogResult.Cancel;
         }
+
+        private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+        }
     }
 }
