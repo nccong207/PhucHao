@@ -16,14 +16,6 @@ namespace KiemtraUser
         private InfoCustomReport _info = new InfoCustomReport(IDataType.Report);
         public void Execute()
         {
-            if (!isAcess())
-            {
-                LoginForm frm = new LoginForm();
-                if (frm.ShowDialog() != System.Windows.Forms.DialogResult.OK)
-                    return;
-                //else
-                //    _info. = false;
-            }
             _data.FrmMain.HandleCreated += FrmMain_HandleCreated;
             _data.FrmMain.Activated += FrmMain_Activated;
         }
