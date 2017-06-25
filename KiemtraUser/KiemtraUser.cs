@@ -36,15 +36,11 @@ namespace KiemtraUser
         {
             if (!isAcess(true))
             {
-                (_data.FrmMain.Controls.Find("gcMain", true)[0] as GridControl).Visible = false;
+                _data.FrmMain.Visible = false;
                 LoginForm frm = new LoginForm();
                 if (frm.ShowDialog() != System.Windows.Forms.DialogResult.OK)
                 {
-                    (_data.FrmMain.Controls.Find("gcMain", true)[0] as GridControl).Visible = true;
-                    return;
-                }
-                else
-                {
+                    _data.FrmMain.Visible = true;
                     _data.FrmMain.Close();
                 }
             }
