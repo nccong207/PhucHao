@@ -55,31 +55,29 @@ namespace KiemtraUser2
 
         private bool isAcess(bool isActiveActin = false)
         {
-            string isAdmin = Config.GetValue("Admin").ToString();
-            if (!Convert.ToBoolean(isAdmin))
+            string sysUserID = Config.GetValue("sysUserID").ToString();
+
+            string sql = string.Format("SELECT TOP 3 * FROM sysHistory WHERE sysUserID = {0} ORDER by hDateTime DESC", sysUserID);
+            Database db = Database.NewStructDatabase();
+            DataTable dttime = db.GetDataTable(sql);
+
+            if (dttime.Rows.Count > 0)
             {
-                string sysUserID = Config.GetValue("sysUserID").ToString();
+                int pos = isActiveActin ? 0 : 2;
+                DateTime timeloginStart = DateTime.Parse(dttime.Rows[pos]["hDateTime"].ToString());
+                int lgintime = 10;
+                int.TryParse(Config.GetValue("LoginTime").ToString(), out lgintime);
 
-                string sql = string.Format("SELECT TOP 1 * FROM sysHistory WHERE sysUserID = {0} ORDER by hDateTime DESC", sysUserID);
-                Database db = Database.NewStructDatabase();
-                DataTable dttime = db.GetDataTable(sql);
-
-                if (dttime.Rows.Count > 0)
+                if ((DateTime.Now - timeloginStart).TotalMinutes > lgintime)
                 {
-                    int pos = isActiveActin ? 0 : 1;
-                    DateTime timeloginStart = DateTime.Parse(dttime.Rows[pos]["hDateTime"].ToString());
-                    int lgintime = 10;
-                    int.TryParse(Config.GetValue("LoginTime").ToString(), out lgintime);
-
-                    if ((DateTime.Now - timeloginStart).TotalMinutes > lgintime)
-                    {
-                        return false;
-                    }
+                    return false;
                 }
                 else
-                    return false;
+                {
+                    return true;
+                }
             }
-            return true;
+            return false;
         }
     }
 }

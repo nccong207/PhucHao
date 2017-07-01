@@ -33,9 +33,6 @@ namespace KiemtraUser
             DataTable dtUser = db.GetDataTable(sql);
             if (dtUser.Rows.Count > 0)
             {
-                string hisId = dtUser.Rows[0]["sysHistoryID"].ToString();
-                string sqlUpdate = string.Format("UPDATE sysHistory SET hDateTime = GETDATE() WHERE sysHistoryID = '{0}'", hisId);
-                db.UpdateByNonQuery(sqlUpdate);
                 this.DialogResult = DialogResult.OK;
             }
             else
