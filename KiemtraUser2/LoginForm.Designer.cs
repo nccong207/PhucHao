@@ -117,7 +117,6 @@
             this.MinimizeBox = false;
             this.Name = "LoginForm";
             this.Text = "Xác thực đăng nhập";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LoginForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             this.panelControl1.PerformLayout();

@@ -41,10 +41,5 @@ namespace KiemtraUser
                 Config.NewKeyValue("NoBackup", 1);
             }
         }
-
-        private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            this.DialogResult = DialogResult.Cancel;
-        }
     }
 }

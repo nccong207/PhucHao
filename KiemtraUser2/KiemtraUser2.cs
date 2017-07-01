@@ -1,6 +1,7 @@
 ﻿using CDTDatabase;
 using CDTLib;
 using DevExpress.XtraGrid;
+using DevExpress.XtraGrid.Views.Grid;
 using Plugins;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace KiemtraUser2
     {
         private DataCustomReport _data;
         private InfoCustomReport _info = new InfoCustomReport(IDataType.Report);
+        private bool blockAccess = false;
+        GridView gvMain;
         public DataCustomReport Data
         {
             set { _data = value; }
@@ -25,17 +28,24 @@ namespace KiemtraUser2
 
         public void Execute()
         {
-            _data.FrmMain.Activated += FrmMain_Activated;
-            _data.FrmMain.HandleCreated += FrmMain_HandleCreated;
-        }
-
-        private void FrmMain_HandleCreated(object sender, EventArgs e)
-        {
+            gvMain = (_data.FrmMain.Controls.Find("gridControlReport", true)[0] as GridControl).MainView as GridView;
             if (!isAcess())
             {
                 LoginForm frm = new LoginForm();
                 if (frm.ShowDialog() != System.Windows.Forms.DialogResult.OK)
-                    _data.FrmMain.Close();
+                    blockAccess = true;
+            }
+
+            _data.FrmMain.Activated += FrmMain_Activated;
+            _data.FrmMain.Shown += FrmMain_Shown;
+        }
+
+        private void FrmMain_Shown(object sender, EventArgs e)
+        {
+            if (blockAccess)
+            {
+                blockAccess = false;
+                _data.FrmMain.Close();
             }
         }
 
@@ -43,12 +53,15 @@ namespace KiemtraUser2
         {
             if (!isAcess(true))
             {
-                _data.FrmMain.Visible = false;
-                LoginForm frm = new LoginForm();
+                gvMain.ActiveFilterString = "1 = 0";
+                 LoginForm frm = new LoginForm();
                 if (frm.ShowDialog() != System.Windows.Forms.DialogResult.OK)
                 {
-                    _data.FrmMain.Visible = true;
                     _data.FrmMain.Close();
+                }
+                else
+                {
+                    gvMain.ActiveFilterString = "1 = 1";
                 }
             }
         }

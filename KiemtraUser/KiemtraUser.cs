@@ -14,19 +14,38 @@ namespace KiemtraUser
     {
         private DataCustomReport _data;
         private InfoCustomReport _info = new InfoCustomReport(IDataType.Report);
-        public void Execute()
+        private bool blockAccess = false;
+        GridView gvMain;
+        public DataCustomReport Data
         {
-            _data.FrmMain.HandleCreated += FrmMain_HandleCreated;
-            _data.FrmMain.Activated += FrmMain_Activated;
+            set { _data = value; }
         }
 
-        private void FrmMain_HandleCreated(object sender, EventArgs e)
+        public InfoCustomReport Info
         {
+            get { return _info; }
+        }
+
+        public void Execute()
+        {
+            gvMain = (_data.FrmMain.Controls.Find("gridControlReport", true)[0] as GridControl).MainView as GridView;
             if (!isAcess())
             {
                 LoginForm frm = new LoginForm();
                 if (frm.ShowDialog() != System.Windows.Forms.DialogResult.OK)
-                    _data.FrmMain.Close();
+                    blockAccess = true;
+            }
+
+            _data.FrmMain.Activated += FrmMain_Activated;
+            _data.FrmMain.Shown += FrmMain_Shown;
+        }
+
+        private void FrmMain_Shown(object sender, EventArgs e)
+        {
+            if (blockAccess)
+            {
+                blockAccess = false;
+                _data.FrmMain.Close();
             }
         }
 
@@ -34,52 +53,43 @@ namespace KiemtraUser
         {
             if (!isAcess(true))
             {
-                _data.FrmMain.Visible = false;
+                gvMain.ActiveFilterString = "1 = 0";
                 LoginForm frm = new LoginForm();
                 if (frm.ShowDialog() != System.Windows.Forms.DialogResult.OK)
                 {
-                    _data.FrmMain.Visible = true;
                     _data.FrmMain.Close();
+                } else
+                {
+                    gvMain.ActiveFilterString = "1 = 0";
                 }
             }
         }
 
         private bool isAcess(bool isActiveActin = false)
         {
-            string isAdmin = Config.GetValue("Admin").ToString();
-            if (!Convert.ToBoolean(isAdmin))
+            string sysUserID = Config.GetValue("sysUserID").ToString();
+
+            string sql = string.Format("SELECT TOP 3 * FROM sysHistory WHERE sysUserID = {0} ORDER by hDateTime DESC", sysUserID);
+            Database db = Database.NewStructDatabase();
+            DataTable dttime = db.GetDataTable(sql);
+
+            if (dttime.Rows.Count > 0)
             {
-                string sysUserID = Config.GetValue("sysUserID").ToString();
+                int pos = isActiveActin ? 0 : 2;
+                DateTime timeloginStart = DateTime.Parse(dttime.Rows[pos]["hDateTime"].ToString());
+                int lgintime = 10;
+                int.TryParse(Config.GetValue("LoginTime").ToString(), out lgintime);
 
-                string sql = string.Format("SELECT TOP 3 * FROM sysHistory WHERE sysUserID = {0} ORDER by hDateTime DESC", sysUserID);
-                Database db = Database.NewStructDatabase();
-                DataTable dttime = db.GetDataTable(sql);
-
-                if (dttime.Rows.Count > 0)
+                if ((DateTime.Now - timeloginStart).TotalMinutes > lgintime)
                 {
-                    int pos = isActiveActin ? 0 : 2;
-                    DateTime timeloginStart = DateTime.Parse(dttime.Rows[pos]["hDateTime"].ToString());
-                    int lgintime = 10;
-                    int.TryParse(Config.GetValue("LoginTime").ToString(), out lgintime);
-
-                    if ((DateTime.Now - timeloginStart).TotalMinutes > lgintime)
-                    {
-                        return false;
-                    }
+                    return false;
                 }
                 else
-                    return false;
+                {
+                    return true;
+                }
             }
-            return true;
-        }
-        public InfoCustomReport Info
-        {
-            get { return _info; }
-        }
-
-        public DataCustomReport Data
-        {
-            set { _data = value; }
+            return false;
         }
     }
 }
