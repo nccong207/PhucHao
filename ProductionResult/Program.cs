@@ -108,8 +108,8 @@ namespace ProductionResult
 
         static string CopyDataFile(DateTime dtToDay)
         {
-            //DateTime dtToDay = DateTime.Today;
             //Sample file: D:\2016.Y\03.Mon\1.20160306.txt
+            //string sourceFileName = "1.20170325.txt";
             string sourceFileName = string.Format(@"{0}\{1}.Y\{2}.Mon\1.{1}{2}{3}.txt", ac.GetValue("DataPath"),
                 dtToDay.Year, dtToDay.Month.ToString("D2"), dtToDay.Day.ToString("D2"));
             if (!File.Exists(sourceFileName))
@@ -170,7 +170,7 @@ namespace ProductionResult
             return temp;
         }
 
-        static void AddResultLog(DataTable dtResultLog, Dictionary<string, object> allDataItems)
+        static bool AddResultLog(DataTable dtResultLog, Dictionary<string, object> allDataItems)
         {
             try
             {
@@ -180,11 +180,35 @@ namespace ProductionResult
                         drNew[dc.ColumnName] = allDataItems[dc.ColumnName].ToString() == string.Empty ? DBNull.Value : allDataItems[dc.ColumnName];
                 drNew["TotalQTY"] = drNew[slName];
                 dtResultLog.Rows.Add(drNew);
+                return true;
             }
             catch (Exception ex)
             {
                 WriteLog(LogType.Error, "Error when add result log: \n" + ex.Message);
+                return false;
             }
+        }
+
+        static bool CheckDuplicate(DataTable dtResultLog, Dictionary<string, object> allDataItems)
+        {
+            bool isDuplicated = false;
+
+            try
+            {
+                StringBuilder sql = new StringBuilder();
+                foreach (DataColumn dc in dtResultLog.Columns)
+                    if (allDataItems.ContainsKey(dc.ColumnName))
+                        if (allDataItems[dc.ColumnName].ToString() != string.Empty)
+                            sql.AppendFormat("{0} = '{1}' and ", dc.ColumnName, allDataItems[dc.ColumnName]);
+                sql.Remove(sql.Length - 5, 5);
+                isDuplicated = db.GetDataTable("select ID from POResultLog where " + sql.ToString()).Rows.Count > 0;
+            }
+            catch (Exception ex)
+            {
+                WriteLog(LogType.Error, "Error when checking duplicated order: \n" + ex.Message);
+            }
+
+            return isDuplicated;
         }
 
         static DataTable GetDataFromFile(string fileName, int fromLineNo)
@@ -203,8 +227,8 @@ namespace ProductionResult
                     WriteLog(LogType.Warning, string.Format("{0}: No new Orders to update!", DateTime.Now));
                     return null;
                 }
-                List<string> lstOrders = new List<string>();
-                WriteLog(LogType.Info, string.Format("{0}: Start to update production result.", DateTime.Now));
+                WriteLog(LogType.Info, string.Format("{0}: Start to update production result. Updated record is {1}, total lines of data file is {2}"
+                    , DateTime.Now, fromLineNo, dataLines.Length));
                 for (int i = fromLineNo; i < dataLines.Length; i++)
                 {
                     string rawData = dataLines[i];
@@ -214,18 +238,19 @@ namespace ProductionResult
                         string soLSX = allDataItems[lsxName].ToString();
                         string strSLSX = allDataItems[slName].ToString();
                         int slSX = 0;
-                        //if (lstOrders.Contains(soLSX))
-                        //    WriteLog(LogType.Warning, "There is duplicated Order number: " + soLSX);
-                        //else
+                        if (CheckDuplicate(dtResultLog, allDataItems))
+                            WriteLog(LogType.Warning, "There is duplicated Order number: " + soLSX);
+                        else
                             if (!Int32.TryParse(strSLSX, out slSX))
                                 WriteLog(LogType.Error, "Wrong format of Finish Job Quantity: " + strSLSX);
                             else
                             {
-                                lstOrders.Add(soLSX);
-                                WriteLog(LogType.Info, string.Format("Finish Job Quantity of Order number {0} is {1}", soLSX, slSX));
+                                if (AddResultLog(dtResultLog, allDataItems))
+                                    WriteLog(LogType.Info, string.Format("Finish Job Quantity of Order number {0} is {1}", soLSX, slSX));
+                                else
+                                    WriteLog(LogType.Error, string.Format("Cannot add Order number {0} with Job Quantity {1} into Log table", soLSX, slSX));
                             }
                     }
-                    AddResultLog(dtResultLog, allDataItems);
                 }
                 WriteLog(LogType.Info, string.Format("{0}: Update production result successfully.", DateTime.Now));
                 return dtResultLog;

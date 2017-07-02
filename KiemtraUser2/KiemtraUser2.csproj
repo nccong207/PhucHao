@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -28,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CBSControls">
@@ -61,14 +63,9 @@
     <Reference Include="FormFactory">
       <HintPath>..\..\..\CDTLibaries\FormFactory.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlHelp">
-      <HintPath>..\..\..\CDTLibaries\HtmlHelp.DLL</HintPath>
-    </Reference>
-    <Reference Include="NumberReader">
-      <HintPath>..\..\..\CDTLibaries\NumberReader.dll</HintPath>
-    </Reference>
-    <Reference Include="Plugins">
-      <HintPath>..\CDT\bin\Debug\Plugins\HTC\Plugins.dll</HintPath>
+    <Reference Include="Plugins, Version=1.0.6385.27377, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\HoaTieu Accounting.Net 2013\Plugins.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -90,7 +87,6 @@
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

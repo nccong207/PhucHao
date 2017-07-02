@@ -60,7 +60,7 @@ namespace KiemtraUser
                     _data.FrmMain.Close();
                 } else
                 {
-                    gvMain.ActiveFilterString = "1 = 0";
+                    gvMain.ClearColumnsFilter();
                 }
             }
         }

@@ -61,7 +61,7 @@ namespace KiemtraUser2
                 }
                 else
                 {
-                    gvMain.ActiveFilterString = "1 = 1";
+                    gvMain.ClearColumnsFilter();
                 }
             }
         }
