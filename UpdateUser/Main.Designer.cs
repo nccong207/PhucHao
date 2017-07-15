@@ -32,8 +32,10 @@
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.txtPass = new System.Windows.Forms.TextBox();
             this.gridLookUpEdit1 = new DevExpress.XtraEditors.GridLookUpEdit();
             this.gridLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -42,8 +44,6 @@
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
             this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.txtPass = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridLookUpEdit1.Properties)).BeginInit();
@@ -97,6 +97,13 @@
             this.panelControl1.Size = new System.Drawing.Size(346, 134);
             this.panelControl1.TabIndex = 3;
             // 
+            // txtPass
+            // 
+            this.txtPass.Location = new System.Drawing.Point(119, 40);
+            this.txtPass.Name = "txtPass";
+            this.txtPass.Size = new System.Drawing.Size(196, 20);
+            this.txtPass.TabIndex = 9;
+            // 
             // gridLookUpEdit1
             // 
             this.gridLookUpEdit1.EditValue = "Tùng";
@@ -121,6 +128,14 @@
             this.gridLookUpEdit1View.Name = "gridLookUpEdit1View";
             this.gridLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gridLookUpEdit1View.OptionsView.ShowGroupPanel = false;
+            // 
+            // gridColumn6
+            // 
+            this.gridColumn6.Caption = "UserID";
+            this.gridColumn6.FieldName = "sysUserID";
+            this.gridColumn6.Name = "gridColumn6";
+            this.gridColumn6.Visible = true;
+            this.gridColumn6.VisibleIndex = 0;
             // 
             // gridColumn2
             // 
@@ -163,6 +178,8 @@
             this.txtDate.Name = "txtDate";
             this.txtDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.txtDate.Properties.Mask.EditMask = "dd/MM/yyyy";
+            this.txtDate.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.txtDate.Properties.VistaTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.txtDate.Size = new System.Drawing.Size(196, 20);
@@ -192,21 +209,6 @@
             this.gridColumn1.Name = "gridColumn1";
             this.gridColumn1.Visible = true;
             this.gridColumn1.VisibleIndex = 0;
-            // 
-            // gridColumn6
-            // 
-            this.gridColumn6.Caption = "UserID";
-            this.gridColumn6.FieldName = "sysUserID";
-            this.gridColumn6.Name = "gridColumn6";
-            this.gridColumn6.Visible = true;
-            this.gridColumn6.VisibleIndex = 0;
-            // 
-            // txtPass
-            // 
-            this.txtPass.Location = new System.Drawing.Point(119, 40);
-            this.txtPass.Name = "txtPass";
-            this.txtPass.Size = new System.Drawing.Size(196, 20);
-            this.txtPass.TabIndex = 9;
             // 
             // Main
             // 
