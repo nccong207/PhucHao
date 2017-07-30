@@ -4,9 +4,8 @@ using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
 using Plugins;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
+using System.Windows.Forms;
 
 namespace KiemtraUser2
 {
@@ -14,7 +13,7 @@ namespace KiemtraUser2
     {
         private DataCustomReport _data;
         private InfoCustomReport _info = new InfoCustomReport(IDataType.Report);
-        private bool blockAccess = false;
+        private bool isFirstTime = true;
         GridView gvMain;
         public DataCustomReport Data
         {
@@ -29,55 +28,63 @@ namespace KiemtraUser2
         public void Execute()
         {
             gvMain = (_data.FrmMain.Controls.Find("gridControlReport", true)[0] as GridControl).MainView as GridView;
-            if (!isAcess())
-            {
-                LoginForm frm = new LoginForm();
-                if (frm.ShowDialog() != System.Windows.Forms.DialogResult.OK)
-                    blockAccess = true;
-            }
-
-            _data.FrmMain.Activated += FrmMain_Activated;
             _data.FrmMain.Shown += FrmMain_Shown;
+            _data.FrmMain.Activated += FrmMain_Activated;
         }
 
-        private void FrmMain_Shown(object sender, EventArgs e)
-        {
-            if (blockAccess)
-            {
-                blockAccess = false;
-                _data.FrmMain.Close();
-            }
-        }
-
-        private void FrmMain_Activated(object sender, EventArgs e)
+        private void CheckAccess()
         {
             if (!isAcess(true))
             {
                 gvMain.ActiveFilterString = "1 = 0";
-                 LoginForm frm = new LoginForm();
-                if (frm.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                LoginForm frm = new LoginForm();
+                if (frm.ShowDialog() != DialogResult.OK)
                 {
                     _data.FrmMain.Close();
                 }
                 else
                 {
-                    gvMain.ActiveFilterString = "1 = 1";
+                    gvMain.ActiveFilterString = "";
                 }
             }
         }
 
-        private bool isAcess(bool isActiveActin = false)
+        private void FrmMain_Shown(object sender, EventArgs e)
+        {
+            if (_data.FrmMain.Modal)
+                return;
+
+            if (!isFirstTime)
+                return;
+            isFirstTime = false;
+
+            CheckAccess();
+        }
+
+        private void FrmMain_Activated(object sender, EventArgs e)
+        {
+            if (_data.FrmMain.Modal)
+                return;
+
+            if (isFirstTime)
+                return;
+
+            CheckAccess();
+        }
+
+        private bool isAcess(bool isActivated)
         {
             string sysUserID = Config.GetValue("sysUserID").ToString();
 
-            string sql = string.Format("SELECT TOP 3 * FROM sysHistory WHERE sysUserID = {0} ORDER by hDateTime DESC", sysUserID);
+            string sql =
+                (isActivated) ? string.Format("SELECT TOP 1 * FROM sysHistory WHERE sysUserID = {0} ORDER by hDateTime DESC", sysUserID)
+                : string.Format("SELECT TOP 1 * FROM sysHistory WHERE sysUserID = {0} and (sysMenuID is null or (sysMenuID != 9520 and sysMenuID != 9531)) ORDER by hDateTime DESC", sysUserID);
             Database db = Database.NewStructDatabase();
             DataTable dttime = db.GetDataTable(sql);
 
             if (dttime.Rows.Count > 0)
             {
-                int pos = isActiveActin ? 0 : 2;
-                DateTime timeloginStart = DateTime.Parse(dttime.Rows[pos]["hDateTime"].ToString());
+                DateTime timeloginStart = DateTime.Parse(dttime.Rows[0]["hDateTime"].ToString());
                 int lgintime = 10;
                 int.TryParse(Config.GetValue("LoginTime").ToString(), out lgintime);
 
