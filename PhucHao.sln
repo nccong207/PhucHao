@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChinhTLDKBG", "ChinhTLDKBG\ChinhTLDKBG.csproj", "{936F3124-101B-4A5B-9A05-9659A4E73712}"
 EndProject
@@ -84,6 +84,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinhNgayGH", "TinhNgayGH\TinhNgayGH.csproj", "{606E956D-7EEE-42D5-8D98-ED30A8360FE8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaySoBGCopy", "LaySoBGCopy\LaySoBGCopy.csproj", "{6F324861-EDA2-49FB-B127-C41A9776179B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateUser", "UpdateUser\UpdateUser.csproj", "{A3D9CD1D-41AA-4037-8CC4-9DB17EE338C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -255,6 +257,10 @@ Global
 		{6F324861-EDA2-49FB-B127-C41A9776179B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F324861-EDA2-49FB-B127-C41A9776179B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F324861-EDA2-49FB-B127-C41A9776179B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3D9CD1D-41AA-4037-8CC4-9DB17EE338C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3D9CD1D-41AA-4037-8CC4-9DB17EE338C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3D9CD1D-41AA-4037-8CC4-9DB17EE338C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3D9CD1D-41AA-4037-8CC4-9DB17EE338C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
