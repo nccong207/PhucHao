@@ -81,8 +81,6 @@
             this.clIdnksx.Caption = "ID Nhật ký sản xuất";
             this.clIdnksx.FieldName = "IDNKSX";
             this.clIdnksx.Name = "clIdnksx";
-            this.clIdnksx.Visible = true;
-            this.clIdnksx.VisibleIndex = 0;
             // 
             // clUser
             // 
@@ -90,7 +88,7 @@
             this.clUser.FieldName = "UserName";
             this.clUser.Name = "clUser";
             this.clUser.Visible = true;
-            this.clUser.VisibleIndex = 1;
+            this.clUser.VisibleIndex = 0;
             // 
             // clDate
             // 
@@ -98,23 +96,23 @@
             this.clDate.FieldName = "Date";
             this.clDate.Name = "clDate";
             this.clDate.Visible = true;
-            this.clDate.VisibleIndex = 2;
+            this.clDate.VisibleIndex = 1;
             // 
             // clOldValue
             // 
-            this.clOldValue.Caption = "Giá trị trước cập nhật";
+            this.clOldValue.Caption = "Số lượng trước cập nhật";
             this.clOldValue.FieldName = "OLDVALUE";
             this.clOldValue.Name = "clOldValue";
             this.clOldValue.Visible = true;
-            this.clOldValue.VisibleIndex = 3;
+            this.clOldValue.VisibleIndex = 2;
             // 
             // clNewValue
             // 
-            this.clNewValue.Caption = "Giá trị đã cập nhật";
+            this.clNewValue.Caption = "Số lượng sau cập nhật";
             this.clNewValue.FieldName = "NEWVALUE";
             this.clNewValue.Name = "clNewValue";
             this.clNewValue.Visible = true;
-            this.clNewValue.VisibleIndex = 4;
+            this.clNewValue.VisibleIndex = 3;
             // 
             // panelControl1
             // 
