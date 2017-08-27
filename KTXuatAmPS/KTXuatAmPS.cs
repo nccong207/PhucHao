@@ -17,7 +17,6 @@ namespace KTXuatAmPS
 
         public void ExecuteAfter()
         {
-            throw new NotImplementedException();
         }
 
         public void ExecuteBefore()
@@ -29,22 +28,23 @@ namespace KTXuatAmPS
             dv.RowStateFilter = DataViewRowState.Added | DataViewRowState.ModifiedCurrent;
 
             string sql = @"select sum(isnull(soluong,0) - isnull(soluong_x,0)) from wBLPS 
-                        where MTIDDT <> '{0}' and DTDHID = '{1}'";
+                        where MTIDDT <> '{0}' and DTDHID = '{1}' and NgayCT <= '{2}'";
             foreach (DataRowView drv in dv)
             {
                 string dtid = drv["DTID"].ToString();
                 string dtdhid = drv["DTDHID"].ToString();
                 string tenHH = drv["TenHang"].ToString();
+                string ngayct = drCur["NgayCT"].ToString();
 
                 // int loi = Boolean.Parse(drv["Loi"].ToString()) ? 1 : 0;
-                object slConLai = _data.DbData.GetValue(string.Format(sql, dtid, dtdhid));
+                object slConLai = _data.DbData.GetValue(string.Format(sql, dtid, dtdhid, ngayct));
 
                 decimal slConLaiNum = slConLai == DBNull.Value ? 0 : decimal.Parse(slConLai.ToString());
                 decimal slXuat = decimal.Parse(string.IsNullOrEmpty(drv["SoLuong"].ToString())? "0": drv["SoLuong"].ToString());
 
                 if (slXuat > slConLaiNum)
                 {
-                    XtraMessageBox.Show("Chỉ được xuất vượt tối đa số lượng tồn.\n" +
+                    XtraMessageBox.Show("Không được xuất vượt quá số lượng tồn.\n" +
                         tenHH + ": Số lượng xuất = " + slXuat.ToString("###,##0") + "; Số lượng tồn = " + slConLaiNum.ToString("###,##0"),
                         Config.GetValue("PackageName").ToString());
                     _info.Result = false;
