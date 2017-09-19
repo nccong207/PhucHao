@@ -15,6 +15,7 @@ namespace LaySoBGCopy
         private DataCustomFormControl _data;
         private InfoCustomControl _info = new InfoCustomControl(IDataType.MasterDetailDt);
         string oldBG = "";
+        DataTable dmnl = null;
         Database db = Database.NewDataDatabase();
         public void AddEvent()
         {
@@ -35,6 +36,9 @@ namespace LaySoBGCopy
                 return;
             }
 
+            if (dmnl == null)
+                dmnl = db.GetDataTable(string.Format("SELECT Ma, DL, GiaBan from DMNL"));
+
             CDTForm frm = (_data.FrmMain as CDTForm);
             if (frm.FrmDesigner.formAction == FormAction.Copy)
             {
@@ -48,71 +52,71 @@ namespace LaySoBGCopy
 
                 if (!string.IsNullOrEmpty(mat))
                 {
-                    var dt = db.GetDataTable(string.Format("SELECT DL, GiaBan from DMNL WHERE Ma = '{0}'", mat));
-                    if (dt.Rows.Count > 0)
+                    DataRow[] drs = dmnl.Select(string.Format("Ma = '{0}'", mat));
+                    if (drs.Length > 0)
                     {
-                        e.Row["Mat_DL"] = dt.Rows[0]["DL"];
-                        e.Row["Mat_DG"] = dt.Rows[0]["GiaBan"];
+                        e.Row["Mat_DL"] = drs[0]["DL"];
+                        e.Row["Mat_DG"] = drs[0]["GiaBan"];
                     }
                 }
 
                 if (!string.IsNullOrEmpty(sb))
                 {
-                    var dt = db.GetDataTable(string.Format("SELECT DL, GiaBan from DMNL WHERE Ma = '{0}'", sb));
-                    if (dt.Rows.Count > 0)
+                    DataRow[] drs = dmnl.Select(string.Format("Ma = '{0}'", sb));
+                    if (drs.Length > 0)
                     {
-                        e.Row["SB_DL"] = dt.Rows[0]["DL"];
-                        e.Row["SB_DG"] = dt.Rows[0]["GiaBan"];
+                        e.Row["SB_DL"] = drs[0]["DL"];
+                        e.Row["SB_DG"] = drs[0]["GiaBan"];
                     }
                 }
 
                 if (!string.IsNullOrEmpty(mb))
                 {
-                    var dt = db.GetDataTable(string.Format("SELECT DL, GiaBan from DMNL WHERE Ma = '{0}'", mb));
-                    if (dt.Rows.Count > 0)
+                    DataRow[] drs = dmnl.Select(string.Format("Ma = '{0}'", mb));
+                    if (drs.Length > 0)
                     {
-                        e.Row["MB_DL"] = dt.Rows[0]["DL"];
-                        e.Row["MB_DG"] = dt.Rows[0]["GiaBan"];
+                        e.Row["MB_DL"] = drs[0]["DL"];
+                        e.Row["MB_DG"] = drs[0]["GiaBan"];
                     }
                 }
 
                 if (!string.IsNullOrEmpty(sc))
                 {
-                    var dt = db.GetDataTable(string.Format("SELECT DL, GiaBan from DMNL WHERE Ma = '{0}'", sc));
-                    if (dt.Rows.Count > 0)
+                    DataRow[] drs = dmnl.Select(string.Format("Ma = '{0}'", sc));
+                    if (drs.Length > 0)
                     {
-                        e.Row["SC_DL"] = dt.Rows[0]["DL"];
-                        e.Row["SC_DG"] = dt.Rows[0]["GiaBan"];
+                        e.Row["SC_DL"] = drs[0]["DL"];
+                        e.Row["SC_DG"] = drs[0]["GiaBan"];
                     }
                 }
 
                 if (!string.IsNullOrEmpty(mc))
                 {
-                    var dt = db.GetDataTable(string.Format("SELECT DL, GiaBan from DMNL WHERE Ma = '{0}'", mc));
-                    if (dt.Rows.Count > 0)
+                    DataRow[] drs = dmnl.Select(string.Format("Ma = '{0}'", mc));
+                    if (drs.Length > 0)
                     {
-                        e.Row["MC_DL"] = dt.Rows[0]["DL"];
-                        e.Row["MC_DG"] = dt.Rows[0]["GiaBan"];
+                        e.Row["MC_DL"] = drs[0]["DL"];
+                        e.Row["MC_DG"] = drs[0]["GiaBan"];
                     }
                 }
 
                 if (!string.IsNullOrEmpty(se))
                 {
-                    var dt = db.GetDataTable(string.Format("SELECT DL, GiaBan from DMNL WHERE Ma = '{0}'", se));
-                    if (dt.Rows.Count > 0)
+                    DataRow[] drs = dmnl.Select(string.Format("Ma = '{0}'", se));
+                    if (drs.Length > 0)
                     {
-                        e.Row["SE_DL"] = dt.Rows[0]["DL"];
-                        e.Row["SE_DG"] = dt.Rows[0]["GiaBan"];
+                        e.Row["SE_DL"] = drs[0]["DL"];
+                        e.Row["SE_DG"] = drs[0]["GiaBan"];
                     }
                 }
 
                 if (!string.IsNullOrEmpty(me))
                 {
-                    var dt = db.GetDataTable(string.Format("SELECT DL, GiaBan from DMNL WHERE Ma = '{0}'", me));
-                    if (dt.Rows.Count > 0)
+                    DataRow[] drs = dmnl.Select(string.Format("Ma = '{0}'", me));
+                    if (drs.Length > 0)
                     {
-                        e.Row["ME_DL"] = dt.Rows[0]["DL"];
-                        e.Row["ME_DG"] = dt.Rows[0]["GiaBan"];
+                        e.Row["ME_DL"] = drs[0]["DL"];
+                        e.Row["ME_DG"] = drs[0]["GiaBan"];
                     }
                 }
             }
