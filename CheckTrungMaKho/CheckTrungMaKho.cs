@@ -8,37 +8,48 @@ using System.Text;
 
 namespace CheckTrungMaKho
 {
-    public class CheckTrungMaKho : ICData
+    public class CheckTrungMaKho : ICControl
     {
-        DataCustomData _data;
-        InfoCustomData _info = new InfoCustomData(IDataType.MasterDetailDt);
-
-        public DataCustomData Data
+        DataCustomFormControl _data;
+        InfoCustomControl _info = new InfoCustomControl(IDataType.MasterDetailDt);
+        public DataCustomFormControl Data
         {
             set { _data = value; }
         }
 
-        public InfoCustomData Info
+        public InfoCustomControl Info
         {
             get { return _info; }
         }
 
-        public void ExecuteAfter()
+        public void AddEvent()
         {
-            
+            DataTable dt = (_data.BsMain.DataSource as DataSet).Tables[0];
+            dt.ColumnChanged += Dt_ColumnChanged;
         }
 
-        public void ExecuteBefore()
+        private void Dt_ColumnChanged(object sender, DataColumnChangeEventArgs e)
         {
-            DataRow drCur = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
-            if (drCur.RowState == DataRowState.Deleted)
+            if (_data.BsMain.Current == null)
                 return;
 
-            if (drCur["MaKho"].ToString().Equals(drCur["MaKhoN"].ToString()))
+            if (e.Column.ToString().Equals("MaKho") && e.Column.ToString().Equals("MaKhoN"))
             {
-                XtraMessageBox.Show("Mã kho chuyển đến không được trùng với mã kho xuất.",Config.GetValue("PackageName").ToString());
-                _info.Result = false;
                 return;
+            }
+
+            DataRow drCur = (_data.BsMain.Current as DataRowView).Row;
+            string makhox = drCur["MaKho"].ToString();
+            string makhon = drCur["MaKhoN"].ToString();
+
+            if (!string.IsNullOrEmpty(makhox) && !string.IsNullOrEmpty(makhon))
+            {
+                if (makhox.Equals(makhon))
+                {
+                    XtraMessageBox.Show("Mã kho nhập không được trùng với mã kho xuất.", Config.GetValue("PackageName").ToString());
+                    drCur[e.Column.ToString()] = "";
+                    return;
+                }
             }
         }
     }
