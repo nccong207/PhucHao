@@ -24,7 +24,17 @@ namespace CheckTrungMaKho
 
         public void AddEvent()
         {
-            DataTable dt = (_data.BsMain.DataSource as DataSet).Tables[0];
+            _data.BsMain.DataSourceChanged += new EventHandler(BsMain_DataSourceChanged);
+            BsMain_DataSourceChanged(_data.BsMain, new EventArgs());
+        }
+
+        void BsMain_DataSourceChanged(object sender, EventArgs e)
+        {
+            DataSet ds = _data.BsMain.DataSource as DataSet;
+            if (ds == null)
+                return;
+
+            DataTable dt = ds.Tables[0];
             dt.ColumnChanged += Dt_ColumnChanged;
         }
 
