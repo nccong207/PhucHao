@@ -37,6 +37,10 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CDTDatabase, Version=1.0.5058.18349, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\HoaTieu Accounting.Net 2013\CDTDatabase.dll</HintPath>
+    </Reference>
     <Reference Include="CDTLib, Version=1.0.4906.20029, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\LayPNM\bin\Debug\CDTLib.dll</HintPath>
@@ -65,8 +69,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormDTDonHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDTDonHang.Designer.cs">
+      <DependentUpon>FormDTDonHang.cs</DependentUpon>
+    </Compile>
     <Compile Include="TinhNgayGH.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FormDTDonHang.resx">
+      <DependentUpon>FormDTDonHang.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace TinhNgayGH
 {
-    public partial class FormDTDonHang : Form
+    public partial class FormDTDonHang : XtraForm
     {
         public string MaKH;
         public DataTable DtDonHang;
@@ -102,7 +102,7 @@ namespace TinhNgayGH
 
         private void FormDTDonHang_FormClosed(object sender, FormClosedEventArgs e)
         {
-            DtDonHang.AcceptChanges();
+            gridDTDonHang.RefreshDataSource();
         }
 
         private void simpleButton1_Click(object sender, EventArgs e)
