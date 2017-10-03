@@ -48,49 +48,79 @@ namespace TinhNgayGH
         }
         private void GetXuatPS()
         {
-            string sql = string.Format("select * from wDTLSX where MaKH = '{0}'", MaKH);
+            string sql = string.Format(@"SELECT *, [SL đã nhập] + [SL hàng trả] - [SL đã xuất] - [SL giấy phế] as [SL tồn]
+                                        FROM wDTTONTP WHERE makh = '{0}'", MaKH);
             DataTable dt = db.GetDataTable(sql);
             rilookUpEditPS.DataSource = dt;
-            rilookUpEditPS.DisplayMember = "TenHang";
-            rilookUpEditPS.ValueMember = "DTDHID";
+            rilookUpEditPS.DisplayMember = "tenhang";
+            rilookUpEditPS.ValueMember = "dtdhid";
             rilookUpEditPS.View.BestFitColumns();
-            rilookUpEditPS.View.Columns["DTDHID"].Visible = false;
 
-            rilookUpEditPS.View.Columns["Lop"].Caption = "Lớp";
-            rilookUpEditPS.View.Columns["Lop"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            rilookUpEditPS.View.Columns["Lop"].DisplayFormat.FormatString = "###,###";
+            //hide column
+            rilookUpEditPS.View.Columns["makh"].Visible = false;
+            rilookUpEditPS.View.Columns["tenkh"].Visible = false;
+            rilookUpEditPS.View.Columns["ngaygh"].Visible = false;
+            rilookUpEditPS.View.Columns["quycach"].Visible = false;
+            rilookUpEditPS.View.Columns["dvt"].Visible = false;
+            rilookUpEditPS.View.Columns["dongia"].Visible = false;
+            rilookUpEditPS.View.Columns["SL giấy phế"].Visible = false;
+            rilookUpEditPS.View.Columns["MTDHID"].Visible = false;
+            rilookUpEditPS.View.Columns["dtdhid"].Visible = false;
+            rilookUpEditPS.View.Columns["mahh"].Visible = false;
+            rilookUpEditPS.View.Columns["loi"].Visible = false;
+            rilookUpEditPS.View.Columns["SoPOKH"].Visible = false;
+            rilookUpEditPS.View.Columns["SoLietKe"].Visible = false;
+            rilookUpEditPS.View.Columns["ghichu"].Visible = false;
+            rilookUpEditPS.View.Columns["DGVC"].Visible = false;
 
-            rilookUpEditPS.View.Columns["Ngày"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            rilookUpEditPS.View.Columns["Ngày"].DisplayFormat.FormatString = "dd/MM/yyyy";
-            
 
-            rilookUpEditPS.View.Columns["TenHang"].Caption = "Tên hàng";
+            //show column
+            rilookUpEditPS.View.Columns["sodh"].VisibleIndex = 0;
+            rilookUpEditPS.View.Columns["sodh"].Caption = "Số đơn hàng";
 
-            rilookUpEditPS.View.Columns["Dai"].Caption = "Dài";
-            rilookUpEditPS.View.Columns["Dai"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            rilookUpEditPS.View.Columns["Dai"].DisplayFormat.FormatString = "###,###.###";
+            rilookUpEditPS.View.Columns["ngaydh"].VisibleIndex = 1;
+            rilookUpEditPS.View.Columns["ngaydh"].Caption = "Ngày đơn hàng";
+            rilookUpEditPS.View.Columns["ngaydh"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            rilookUpEditPS.View.Columns["ngaydh"].DisplayFormat.FormatString = "dd/MM/yyyy";
 
-            rilookUpEditPS.View.Columns["Rong"].Caption = "Rộng";
-            rilookUpEditPS.View.Columns["Rong"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            rilookUpEditPS.View.Columns["Rong"].DisplayFormat.FormatString = "###,###.###";
 
-            rilookUpEditPS.View.Columns["Cao"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            rilookUpEditPS.View.Columns["Cao"].DisplayFormat.FormatString = "###,###.###";
+            rilookUpEditPS.View.Columns["lop"].Caption = "Lớp";
+            rilookUpEditPS.View.Columns["lop"].VisibleIndex = 2;
+            rilookUpEditPS.View.Columns["lop"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            rilookUpEditPS.View.Columns["lop"].DisplayFormat.FormatString = "###,###";
 
-            rilookUpEditPS.View.Columns["SL đã sx"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            rilookUpEditPS.View.Columns["SL đã sx"].DisplayFormat.FormatString = "###,###";
+            rilookUpEditPS.View.Columns["tenhang"].Caption = "Tên hàng";
 
-            rilookUpEditPS.View.Columns["SL xuất"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            rilookUpEditPS.View.Columns["SL xuất"].DisplayFormat.FormatString = "###,###";
+            rilookUpEditPS.View.Columns["dai"].Caption = "Dài";
+            rilookUpEditPS.View.Columns["dai"].VisibleIndex = 3;
+            rilookUpEditPS.View.Columns["dai"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            rilookUpEditPS.View.Columns["dai"].DisplayFormat.FormatString = "###,###.###";
 
+            rilookUpEditPS.View.Columns["rong"].Caption = "Rộng";
+            rilookUpEditPS.View.Columns["rong"].VisibleIndex = 4;
+            rilookUpEditPS.View.Columns["rong"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            rilookUpEditPS.View.Columns["rong"].DisplayFormat.FormatString = "###,###.###";
+
+            rilookUpEditPS.View.Columns["cao"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            rilookUpEditPS.View.Columns["cao"].VisibleIndex = 5;
+            rilookUpEditPS.View.Columns["cao"].DisplayFormat.FormatString = "###,###.###";
+
+            rilookUpEditPS.View.Columns["SL đặt"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            rilookUpEditPS.View.Columns["SL đặt"].VisibleIndex = 6;
+            rilookUpEditPS.View.Columns["SL đặt"].DisplayFormat.FormatString = "###,###";
+
+            rilookUpEditPS.View.Columns["SL đã nhập"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            rilookUpEditPS.View.Columns["SL đã nhập"].VisibleIndex = 7;
+            rilookUpEditPS.View.Columns["SL đã nhập"].DisplayFormat.FormatString = "###,###";
+
+            rilookUpEditPS.View.Columns["SL hàng trả"].VisibleIndex = 8;
+            rilookUpEditPS.View.Columns["SL hàng trả"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            rilookUpEditPS.View.Columns["SL hàng trả"].DisplayFormat.FormatString = "###,###";
+
+            rilookUpEditPS.View.Columns["SL tồn"].VisibleIndex = 9;
             rilookUpEditPS.View.Columns["SL tồn"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            rilookUpEditPS.View.Columns["SL tồn"].DisplayFormat.FormatString = "###,###";
+            rilookUpEditPS.View.Columns["SL tồn"].DisplayFormat.FormatString = "###,###.###";
 
-            rilookUpEditPS.View.Columns["SLNhap"].Caption = "SL nhập";
-            rilookUpEditPS.View.Columns["SLNhap"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            rilookUpEditPS.View.Columns["SLNhap"].DisplayFormat.FormatString = "###,###.###";
-
-            rilookUpEditPS.View.Columns["MaKH"].Visible = false;
             rilookUpEditPS.PopupFormMinSize = new Size (1000,400);
         }
 
