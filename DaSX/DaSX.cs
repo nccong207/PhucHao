@@ -4,6 +4,7 @@ using System.Text;
 using Plugins;
 using System.Data;
 using System.Text.RegularExpressions;
+using CDTDatabase;
 
 namespace DaSX
 {
@@ -108,6 +109,60 @@ namespace DaSX
                     sS3 = sS3.Substring(sS3.LastIndexOf('.') + 1);
                     if (Regex.IsMatch(sS3, @"^\d+$") && sS3 != drv["SDL3"].ToString())
                         drv["SDL3"] = sS3;
+                }
+            }
+
+            var drCur = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
+            if (drCur.RowState == DataRowState.Deleted)
+                return;
+
+            string pk = _data.DrTableMaster["Pk"].ToString();
+            string pkValue = drCur[pk].ToString();
+            DataTable dt = _data.DsData.Tables[1];
+            DataRow[] drs = dt.Select(pk + " = '" + pkValue + "'");
+            Database db = Database.NewDataDatabase();
+
+            foreach (DataRow row in drs)
+            {
+                string dtlsxid = row["DTLSXID"].ToString();
+                var dtlsx = db.GetDataTable(string.Format("SELECT * FROM DTLSX WHERE DTLSXID = '{0}'", dtlsxid));
+                if (dtlsx.Rows.Count > 0)
+                {
+                    string dtdhid = dtlsx.Rows[0]["DTDHID"].ToString();
+                    var dtdh = db.GetDataTable(string.Format("SELECT * FROM DTDonHang WHERE DTDHID = '{0}'", dtdhid));
+                    if (dtdh.Rows.Count > 0)
+                    {
+                        if (!string.IsNullOrEmpty(dtdh.Rows[0]["DTDHPSID"].ToString()) && double.Parse(dtdh.Rows[0]["SoLuong"].ToString()) > 0)
+                        {
+                            var soluong = double.Parse(dtdh.Rows[0]["SoLuong"].ToString());
+                            var dao = double.Parse(dtdh.Rows[0]["Dao"].ToString());
+                            string mact = "PNP";
+                            string mtid = drCur["MTKHID"].ToString();
+                            string soct = drCur["SoKH"].ToString();
+                            string ngayct = drCur["NgayCT"].ToString();
+                            string diengiai = row["GhiChu"].ToString();
+                            string makh = row["MaKH"].ToString();
+                            string tentat = row["TenTat"].ToString();
+                            string nhomDk = "PNP1";
+                            string loai = row["Loai"].ToString();
+
+                            var dai = row["Dai"].ToString();
+                            var rong = row["Rong"].ToString();
+                            var cao = row["Cao"].ToString();
+                            var lop = row["Lop"].ToString();
+
+                            string mahh = makh + "_" + dai + "*" + rong + (!string.IsNullOrEmpty(cao) ? "*" + cao : "")	+ "_" + lop + "L";
+
+                            var soluongkh = dao == 0 ? soluong : soluong/dao; 
+                            string mtiddt = row["DTKHID"].ToString();
+                            string tenhang = row["TenHang"].ToString();
+
+                            string sql = @"INSERT INTO wBLPS (MaCT,MTID,SoCT,NgayCT,DienGiai,MaKH,TenTat,NhomDk,Loai,MaHH,SoLuong,MTIDDT,DTDHID,TenHH)
+                                                      VALUES ('{0}','{1}' ,'{2}' ,'{3}' ,'{4}' ,'{5}' ,'{6}' ,'{7}','{8}' ,'{9}' ,'{10}' ,'{11}','{12}' ,'{13}')";
+                            //MaCT,MTID, SoCT, NgayCT, DienGiai, MaKH, TenTat, NhomDk, Loai, MaHH, SoLuong,   MTIDDT, DTDHID, TenHH
+                            db.UpdateByNonQuery(string.Format(sql, mact, mtid, soct, ngayct, diengiai, makh, tentat, nhomDk, loai, mahh, soluongkh, mtiddt, dtdhid, tenhang));
+                        }
+                    }
                 }
             }
         }
