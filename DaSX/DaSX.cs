@@ -1,10 +1,12 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using Plugins;
 using System.Data;
 using System.Text.RegularExpressions;
 using CDTDatabase;
+using System.Windows.Forms;
+using CDTLib;
 
 namespace DaSX
 {
@@ -39,7 +41,7 @@ namespace DaSX
                 {
                     case DataRowState.Added:
                     case DataRowState.Modified:
-                        string t = ht ? "Ho�n th�nh" : "KHSX";
+                        string t = ht ? "Hoàn thành" : "KHSX";
                         _data.DbData.UpdateByNonQuery(string.Format(slsx, t, lsxid));
                         _data.DbData.UpdateByNonQuery(string.Format(sdh, t, lsxid));
                         break;
@@ -48,6 +50,21 @@ namespace DaSX
                         _data.DbData.UpdateByNonQuery(string.Format(slsx, lsxid));
                         _data.DbData.UpdateByNonQuery(string.Format(sdh, "LSX", lsxid));
                         break;
+                }
+
+                //kiểm tra có thuộc trường hợp đơn hàng chọn phôi sóng không
+                if ((drv.Row.RowState == DataRowState.Modified || drv.Row.RowState == DataRowState.Deleted) &&
+                    drv.Row["SoLuong", DataRowVersion.Original].ToString() != "" && Convert.ToDouble(drv.Row["SoLuong", DataRowVersion.Original]) > 0)
+                {
+                    string dtlsxid = drv.Row["DTLSXID", DataRowVersion.Original].ToString();
+                    var dtdh = _data.DbData.GetDataTable(string.Format("SELECT dh.* FROM DTLSX lsx INNER JOIN DTDonHang dh on lsx.DTDHID = dh.DTDHID WHERE lsx.DTLSXID = '{0}' and DTDHPSID is not null", dtlsxid));
+                    if (dtdh.Rows.Count > 0)
+                    {
+                        MessageBox.Show("Đã nhập phôi sóng cho lệnh sản xuất này, không thể thay đổi số liệu!",
+                            Config.GetValue("PackageName").ToString());
+                        _info.Result = false;
+                        return;
+                    }
                 }
 
                 //tinh lai ma ky hieu
@@ -112,9 +129,15 @@ namespace DaSX
                 }
             }
 
+            TaoPhieuXuat();
+        }
+
+        private void TaoPhieuXuat()
+        {
             var drCur = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
             if (drCur.RowState == DataRowState.Deleted)
                 return;
+            _data.DbData.EndMultiTrans();
 
             string pk = _data.DrTableMaster["Pk"].ToString();
             string pkValue = drCur[pk].ToString();
@@ -124,44 +147,38 @@ namespace DaSX
 
             foreach (DataRow row in drs)
             {
+                if (row["SoLuong"].ToString() == "" || Convert.ToDouble(row["SoLuong"]) == 0)
+                    continue;
+                var soluong = double.Parse(row["SoLuong"].ToString());
+                var dao = double.Parse(row["Dao"].ToString());
                 string dtlsxid = row["DTLSXID"].ToString();
-                var dtlsx = db.GetDataTable(string.Format("SELECT * FROM DTLSX WHERE DTLSXID = '{0}'", dtlsxid));
-                if (dtlsx.Rows.Count > 0)
+                var dtdh = db.GetDataTable(string.Format("SELECT dh.DTDHPSID FROM DTLSX lsx INNER JOIN DTDonHang dh on lsx.DTDHID = dh.DTDHID WHERE lsx.DTLSXID = '{0}' and DTDHPSID is not null", dtlsxid));
+                if (dtdh.Rows.Count > 0)
                 {
-                    string dtdhid = dtlsx.Rows[0]["DTDHID"].ToString();
-                    var dtdh = db.GetDataTable(string.Format("SELECT * FROM DTDonHang WHERE DTDHID = '{0}'", dtdhid));
-                    if (dtdh.Rows.Count > 0)
+                    var dtdhid = dtdh.Rows[0]["DTDHPSID"].ToString();
+                    string mact = "PNP";
+                    string mtid = drCur["MTKHID"].ToString();
+                    string soct = drCur["SoKH"].ToString();
+                    string ngayct = drCur["NgayCT"].ToString();
+                    string diengiai = "Nhập phôi sóng từ kế hoạch sản xuất";
+                    string makh = row["MaKH"].ToString();
+                    string nhomDk = "PNP1";
+
+                    string query = "SELECT * FROM wDTTONTP WHERE dtdhid = '{0}'";
+                    DataTable data = db.GetDataTable(string.Format(query, dtdhid));
+                    if (data.Rows.Count > 0)
                     {
-                        if (!string.IsNullOrEmpty(dtdh.Rows[0]["DTDHPSID"].ToString()) && double.Parse(dtdh.Rows[0]["SoLuong"].ToString()) > 0)
-                        {
-                            var soluong = double.Parse(dtdh.Rows[0]["SoLuong"].ToString());
-                            var dao = double.Parse(dtdh.Rows[0]["Dao"].ToString());
-                            string mact = "PNP";
-                            string mtid = drCur["MTKHID"].ToString();
-                            string soct = drCur["SoKH"].ToString();
-                            string ngayct = drCur["NgayCT"].ToString();
-                            string diengiai = row["GhiChu"].ToString();
-                            string makh = row["MaKH"].ToString();
-                            string tentat = row["TenTat"].ToString();
-                            string nhomDk = "PNP1";
-                            string loai = row["Loai"].ToString();
-
-                            var dai = row["Dai"].ToString();
-                            var rong = row["Rong"].ToString();
-                            var cao = row["Cao"].ToString();
-                            var lop = row["Lop"].ToString();
-
-                            string mahh = makh + "_" + dai + "*" + rong + (!string.IsNullOrEmpty(cao) ? "*" + cao : "")	+ "_" + lop + "L";
-
-                            var soluongkh = dao == 0 ? soluong : soluong/dao; 
-                            string mtiddt = row["DTKHID"].ToString();
-                            string tenhang = row["TenHang"].ToString();
-
-                            string sql = @"INSERT INTO wBLPS (MaCT,MTID,SoCT,NgayCT,DienGiai,MaKH,TenTat,NhomDk,Loai,MaHH,SoLuong,MTIDDT,DTDHID,TenHH)
-                                                      VALUES ('{0}','{1}' ,'{2}' ,'{3}' ,'{4}' ,'{5}' ,'{6}' ,'{7}','{8}' ,'{9}' ,'{10}' ,'{11}','{12}' ,'{13}')";
-                            //MaCT,MTID, SoCT, NgayCT, DienGiai, MaKH, TenTat, NhomDk, Loai, MaHH, SoLuong,   MTIDDT, DTDHID, TenHH
-                            db.UpdateByNonQuery(string.Format(sql, mact, mtid, soct, ngayct, diengiai, makh, tentat, nhomDk, loai, mahh, soluongkh, mtiddt, dtdhid, tenhang));
-                        }
+                        var currentRow = data.Rows[0];
+                        string mahh = currentRow["mahh"].ToString();
+                        string dongia = currentRow["dongia"].ToString();
+                        var soluongkh = dao == 0 ? soluong : soluong / dao;
+                        string loai = currentRow["loai"].ToString();
+                        string tentat = currentRow["tenkh"].ToString();
+                        string tenhang = currentRow["tenhang"].ToString();
+                        string mtiddt = row["DTKHID"].ToString();
+                        string sql = @"INSERT INTO wBLPS (MaCT,MTID,SoCT,NgayCT,DienGiai,MaKH,TenTat,NhomDk,Loai,MaHH,SoLuong,MTIDDT,DTDHID,TenHH)
+                                                      VALUES ('{0}','{1}' ,'{2}' ,'{3}', N'{4}' ,'{5}' ,'{6}' ,'{7}','{8}' ,'{9}' ,'{10}' ,'{11}','{12}' ,'{13}')";
+                        db.UpdateByNonQuery(string.Format(sql, mact, mtid, soct, ngayct, diengiai, makh, tentat, nhomDk, loai, mahh, soluongkh, mtiddt, dtdhid, tenhang));
                     }
                 }
             }
