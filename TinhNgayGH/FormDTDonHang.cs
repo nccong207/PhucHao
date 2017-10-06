@@ -64,6 +64,7 @@ namespace TinhNgayGH
             rilookUpEditPS.View.Columns["dtdhid"].Visible = false;
             rilookUpEditPS.View.Columns["mahh"].Visible = false;
             rilookUpEditPS.View.Columns["ghichu"].Visible = false;
+            rilookUpEditPS.View.Columns["[SL giấy phế]"].Visible = false;
 
 
             //show column
@@ -75,46 +76,49 @@ namespace TinhNgayGH
             rilookUpEditPS.View.Columns["ngaydh"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             rilookUpEditPS.View.Columns["ngaydh"].DisplayFormat.FormatString = "dd/MM/yyyy";
 
-            rilookUpEditPS.View.Columns["loai"].VisibleIndex = 2;
+
+            rilookUpEditPS.View.Columns["tenhang"].VisibleIndex = 2;
+            rilookUpEditPS.View.Columns["tenhang"].Caption = "Tên hàng";
+
+            rilookUpEditPS.View.Columns["loai"].VisibleIndex = 3;
+            rilookUpEditPS.View.Columns["loai"].Caption = "Loại";
 
             rilookUpEditPS.View.Columns["lop"].Caption = "Lớp";
-            rilookUpEditPS.View.Columns["lop"].VisibleIndex = 3;
+            rilookUpEditPS.View.Columns["lop"].VisibleIndex = 4;
             rilookUpEditPS.View.Columns["lop"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             rilookUpEditPS.View.Columns["lop"].DisplayFormat.FormatString = "###,###";
 
-            rilookUpEditPS.View.Columns["tenhang"].Caption = "Tên hàng";
-
             rilookUpEditPS.View.Columns["dai"].Caption = "Dài";
-            rilookUpEditPS.View.Columns["dai"].VisibleIndex = 4;
+            rilookUpEditPS.View.Columns["dai"].VisibleIndex = 5;
             rilookUpEditPS.View.Columns["dai"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             rilookUpEditPS.View.Columns["dai"].DisplayFormat.FormatString = "###,###.###";
 
             rilookUpEditPS.View.Columns["rong"].Caption = "Rộng";
-            rilookUpEditPS.View.Columns["rong"].VisibleIndex = 5;
+            rilookUpEditPS.View.Columns["rong"].VisibleIndex = 6;
             rilookUpEditPS.View.Columns["rong"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             rilookUpEditPS.View.Columns["rong"].DisplayFormat.FormatString = "###,###.###";
 
             rilookUpEditPS.View.Columns["cao"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            rilookUpEditPS.View.Columns["cao"].VisibleIndex = 6;
+            rilookUpEditPS.View.Columns["cao"].VisibleIndex = 7;
             rilookUpEditPS.View.Columns["cao"].DisplayFormat.FormatString = "###,###.###";
 
             rilookUpEditPS.View.Columns["SL đặt"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            rilookUpEditPS.View.Columns["SL đặt"].VisibleIndex = 7;
+            rilookUpEditPS.View.Columns["SL đặt"].VisibleIndex = 8;
             rilookUpEditPS.View.Columns["SL đặt"].DisplayFormat.FormatString = "###,###";
 
             rilookUpEditPS.View.Columns["SL đã xuất"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            rilookUpEditPS.View.Columns["SL đã xuất"].VisibleIndex = 8;
+            rilookUpEditPS.View.Columns["SL đã xuất"].VisibleIndex = 9;
             rilookUpEditPS.View.Columns["SL đã xuất"].DisplayFormat.FormatString = "###,###";
 
             rilookUpEditPS.View.Columns["SL đã nhập"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            rilookUpEditPS.View.Columns["SL đã nhập"].VisibleIndex = 9;
+            rilookUpEditPS.View.Columns["SL đã nhập"].VisibleIndex = 10;
             rilookUpEditPS.View.Columns["SL đã nhập"].DisplayFormat.FormatString = "###,###";
 
-            rilookUpEditPS.View.Columns["SL hàng trả"].VisibleIndex = 10;
+            rilookUpEditPS.View.Columns["SL hàng trả"].VisibleIndex = 11;
             rilookUpEditPS.View.Columns["SL hàng trả"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             rilookUpEditPS.View.Columns["SL hàng trả"].DisplayFormat.FormatString = "###,###";
 
-            rilookUpEditPS.View.Columns["SL tồn"].VisibleIndex = 11;
+            rilookUpEditPS.View.Columns["SL tồn"].VisibleIndex = 12;
             rilookUpEditPS.View.Columns["SL tồn"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             rilookUpEditPS.View.Columns["SL tồn"].DisplayFormat.FormatString = "###,###.###";
 
