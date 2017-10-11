@@ -19,14 +19,26 @@ namespace LaySoBGCopy
         Database db = Database.NewDataDatabase();
         public void AddEvent()
         {
+
             DataSet dsData = _data.BsMain.DataSource as DataSet;
-            
             if (dsData == null)
                 return;
+
+            _data.BsMain.DataSourceChanged += BsMain_DataSourceChanged;
+
             dsData.Tables[0].TableNewRow += new DataTableNewRowEventHandler(BaoGia_TableNewRow);
             dsData.Tables[0].RowChanged += BaoGia_RowChanged;
             dsData.Tables[1].RowChanged += LaySoBGCopy_RowChanged;
 
+        }
+
+        private void BsMain_DataSourceChanged(object sender, EventArgs e)
+        {
+            DataSet dsData = _data.BsMain.DataSource as DataSet;
+            _data.BsMain.DataSourceChanged += BsMain_DataSourceChanged;
+            dsData.Tables[0].TableNewRow += new DataTableNewRowEventHandler(BaoGia_TableNewRow);
+            dsData.Tables[0].RowChanged += BaoGia_RowChanged;
+            dsData.Tables[1].RowChanged += LaySoBGCopy_RowChanged;
         }
 
         private void LaySoBGCopy_RowChanged(object sender, DataRowChangeEventArgs e)
