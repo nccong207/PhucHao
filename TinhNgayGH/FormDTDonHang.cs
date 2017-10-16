@@ -64,7 +64,7 @@ namespace TinhNgayGH
             rilookUpEditPS.View.Columns["dtdhid"].Visible = false;
             rilookUpEditPS.View.Columns["mahh"].Visible = false;
             rilookUpEditPS.View.Columns["ghichu"].Visible = false;
-            rilookUpEditPS.View.Columns["[SL giấy phế]"].Visible = false;
+            rilookUpEditPS.View.Columns["SL giấy phế"].Visible = false;
 
 
             //show column
