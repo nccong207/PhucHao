@@ -75,10 +75,12 @@ namespace ChonPMH
                 gvMain.SetFocusedRowCellValue(gvMain.Columns["DonGia"], dr["DonGia"]);
                 gvMain.SetFocusedRowCellValue(gvMain.Columns["ThanhTien"], dr["ThanhTien"]);
                 gvMain.SetFocusedRowCellValue(gvMain.Columns["NgayMua"], dr["Ngày mua"]);
-                gvMain.SetFocusedRowCellValue(gvMain.Columns["MaNCC"], dr["NCC"]);
-                gvMain.SetFocusedRowCellValue(gvMain.Columns["DTMHID"], dr["DTMHID"]);
-                gvMain.SetFocusedRowCellValue(gvMain.Columns["MaBT"], dr["MaBT"]);
+                gvMain.SetFocusedRowCellValue(gvMain.Columns["MaNCC"], dr["MaNCC"]);
+                
                 gvMain.SetFocusedRowCellValue(gvMain.Columns["SoPhieu"], dr["SoPhieu"]);
+                gvMain.SetFocusedRowCellValue(gvMain.Columns["MaPX"], dr["MaPX"]);
+                gvMain.SetFocusedRowCellValue(gvMain.Columns["MaMay"], dr["MaMay"]);
+                gvMain.SetFocusedRowCellValue(gvMain.Columns["MaVT"], dr["MaVT"]);
             }
         }
 
