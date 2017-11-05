@@ -47,10 +47,10 @@ namespace CaptureHoaDon
             if (pe.Properties.ReadOnly)
                 return;
             FrmMain frm = new FrmMain();
-            if (frm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (frm.ShowDialog() == DialogResult.OK)
             {
                 ImageConverter converter = new ImageConverter();
-                (_data.BsMain.Current as DataRowView).Row["Hinh"] = converter.ConvertTo(frm.image, typeof(byte[]));
+                (_data.BsMain.Current as DataRowView).Row["HoaDon"] = converter.ConvertTo(frm.image, typeof(byte[]));
             }
             if (flag)
             {
