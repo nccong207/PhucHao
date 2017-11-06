@@ -32,6 +32,14 @@ namespace ChonPMH
             LayoutControlItem lci = lcMain.AddItem("", btnChon);
             lci.Name = "cusChonPMH";
             btnChon.Click += new EventHandler(btnChon_Click);
+
+            //thêm nút xem phiếu mua hàng
+            SimpleButton btnView = new SimpleButton();
+            btnView.Name = "btnView";
+            btnView.Text = "Xem phiếu mua hàng";
+            LayoutControlItem lci2 = lcMain.AddItem("", btnView);
+            lci2.Name = "cusViewPMH";
+            btnView.Click += new EventHandler(btnChon_Click2);
         }
         void btnChon_Click(object sender, EventArgs e)
         {
@@ -48,6 +56,21 @@ namespace ChonPMH
             SimpleButton btnXuLy = (frmDS.Controls.Find("btnXuLy", true)[0] as SimpleButton);
             btnXuLy.Text = "Chọn phiếu";
             btnXuLy.Click += new EventHandler(btnXuLy_Click);
+            frmDS.WindowState = FormWindowState.Maximized;
+            frmDS.ShowDialog();
+        }
+
+        void btnChon_Click2(object sender, EventArgs e)
+        {
+            drCur = (_data.BsMain.Current as DataRowView).Row;
+            Config.NewKeyValue("@MTDNTTID", drCur["MTDNTTID"].ToString());
+
+            frmDS = FormFactory.FormFactory.Create(FormType.Report, "1598") as ReportPreview;
+            gvDS = (frmDS.Controls.Find("gridControlReport", true)[0] as GridControl).MainView as GridView;
+
+            SimpleButton btnXuLy = (frmDS.Controls.Find("btnXuLy", true)[0] as SimpleButton);
+            btnXuLy.Visible = false;
+       
             frmDS.WindowState = FormWindowState.Maximized;
             frmDS.ShowDialog();
         }
@@ -81,6 +104,7 @@ namespace ChonPMH
                 gvMain.SetFocusedRowCellValue(gvMain.Columns["MaPX"], dr["MaPX"]);
                 gvMain.SetFocusedRowCellValue(gvMain.Columns["MaMay"], dr["MaMay"]);
                 gvMain.SetFocusedRowCellValue(gvMain.Columns["MaVT"], dr["MaVT"]);
+                gvMain.SetFocusedRowCellValue(gvMain.Columns["DTMHID"], dr["DTMHID"].ToString());
             }
         }
 
