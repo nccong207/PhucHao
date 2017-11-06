@@ -63,7 +63,7 @@ namespace ChonPMH
         void btnChon_Click2(object sender, EventArgs e)
         {
             drCur = (_data.BsMain.Current as DataRowView).Row;
-            Config.NewKeyValue("@MTDNTTID", drCur["MTDNTTID"].ToString());
+            Config.NewKeyValue("@SoPhieu", drCur["SoPhieu"].ToString());
 
             frmDS = FormFactory.FormFactory.Create(FormType.Report, "1598") as ReportPreview;
             gvDS = (frmDS.Controls.Find("gridControlReport", true)[0] as GridControl).MainView as GridView;
