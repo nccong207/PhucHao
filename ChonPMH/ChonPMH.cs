@@ -68,9 +68,9 @@ namespace ChonPMH
             frmDS = FormFactory.FormFactory.Create(FormType.Report, "1598") as ReportPreview;
             gvDS = (frmDS.Controls.Find("gridControlReport", true)[0] as GridControl).MainView as GridView;
 
-            SimpleButton btnXuLy = (frmDS.Controls.Find("btnXuLy", true)[0] as SimpleButton);
-            btnXuLy.Visible = false;
-       
+            var para = (frmDS.Controls.Find("SoPhieu", true)[0] as TextEdit);
+            para.Enabled = false;
+
             frmDS.WindowState = FormWindowState.Maximized;
             frmDS.ShowDialog();
         }
