@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.ComponentModel;
 using System.Collections.Generic;
 using DevExpress.XtraEditors;
+using Camera_NET;
 
 
 
@@ -14,8 +15,8 @@ namespace MyWebCam
 
     public partial class FrmMain : DevExpress.XtraEditors.XtraForm
     {
-        WebCam webcam;
         public Image image;
+        private CameraChoice _CameraChoice = new CameraChoice();
 
         public FrmMain()
         {
@@ -23,29 +24,112 @@ namespace MyWebCam
         }
         private void mainWinForm_Load(object sender, EventArgs e)
         {
-            webcam = new WebCam();
-            webcam.InitializeWebCam(ref imgVideo);
+            //webcam = new WebCam();
+            //webcam.InitializeWebCam(ref imgVideo);
+
+            FillCameraList();
+
+            // Select the first one
+            if (comboBoxCameraList.Items.Count > 0)
+            {
+                comboBoxCameraList.SelectedIndex = 0;
+            }
+
+            // Fill camera list combobox with available resolutions
+            FillResolutionList();
+        }
+        #region Camera and resolution selection
+
+        private void FillCameraList()
+        {
+            comboBoxCameraList.Items.Clear();
+
+            _CameraChoice.UpdateDeviceList();
+
+            foreach (var camera_device in _CameraChoice.Devices)
+            {
+                comboBoxCameraList.Items.Add(camera_device.Name);
+            }
         }
 
-        private void bntStart_Click(object sender, EventArgs e)
+        private void FillResolutionList()
         {
-            webcam.Start();
+            comboBoxResolutionList.Items.Clear();
+
+            if (!cameraControl.CameraCreated)
+                return;
+
+            ResolutionList resolutions = Camera.GetResolutionList(cameraControl.Moniker);
+
+            if (resolutions == null)
+                return;
+
+            int index_to_select = -1;
+
+            for (int index = 0; index < resolutions.Count; index++)
+            {
+                comboBoxResolutionList.Items.Add(resolutions[index].ToString());
+
+                if (resolutions[index].CompareTo(cameraControl.Resolution) == 0)
+                {
+                    index_to_select = index;
+                }
+            }
+
+            // select current resolution
+            if (index_to_select >= 0)
+            {
+                comboBoxResolutionList.SelectedIndex = index_to_select;
+            }
         }
 
-        private void bntStop_Click(object sender, EventArgs e)
+        private void comboBoxCameraList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            webcam.Stop();
+            if (comboBoxCameraList.SelectedIndex < 0)
+            {
+                cameraControl.CloseCamera();
+            }
+            else
+            {
+                // Set camera
+                cameraControl.SetCamera(_CameraChoice.Devices[comboBoxCameraList.SelectedIndex].Mon, null);
+                //SetCamera(_CameraChoice.Devices[ comboBoxCameraList.SelectedIndex ].Mon, null);
+            }
+
+            FillResolutionList();
         }
 
-        private void bntContinue_Click(object sender, EventArgs e)
+        private void comboBoxResolutionList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            webcam.Continue();
+            if (!cameraControl.CameraCreated)
+                return;
+
+            int comboBoxResolutionIndex = comboBoxResolutionList.SelectedIndex;
+            if (comboBoxResolutionIndex < 0)
+            {
+                return;
+            }
+            ResolutionList resolutions = Camera.GetResolutionList(cameraControl.Moniker);
+
+            if (resolutions == null)
+                return;
+
+            if (comboBoxResolutionIndex >= resolutions.Count)
+                return; // throw
+
+            if (0 == resolutions[comboBoxResolutionIndex].CompareTo(cameraControl.Resolution))
+            {
+                // this resolution is already selected
+                return;
+            }
+
+            // Recreate camera
+            //SetCamera(_Camera.Moniker, resolutions[comboBoxResolutionIndex]);
+            cameraControl.SetCamera(cameraControl.Moniker, resolutions[comboBoxResolutionIndex]);
+
         }
 
-        private void bntCapture_Click(object sender, EventArgs e)
-        {
-            imgCapture.Image = imgVideo.Image;
-        }
+        #endregion
 
         private Image ResizeImage(Image imgToResize, Size destinationSize)
         {
@@ -86,6 +170,22 @@ namespace MyWebCam
 
         }
 
+        private void bntStart_Click(object sender, EventArgs e)
+        {
+            cameraControl.Camera.RunGraph();
+        }
+
+        private void bntStop_Click(object sender, EventArgs e)
+        {
+            cameraControl.Camera.StopGraph();
+        }
+
+        private void bntCapture_Click(object sender, EventArgs e)
+        {
+            imgCapture.Image = cameraControl.SnapshotOutputImage();
+            imgCapture.Image.RotateFlip(RotateFlipType.Rotate270FlipNone);
+        }
+        
         private void bntSave_Click(object sender, EventArgs e)
         {
             if (imgCapture.Image == null)
@@ -93,31 +193,24 @@ namespace MyWebCam
                 XtraMessageBox.Show("Vui lòng chọn Capture để lấy hình trước!");
                 return;
             }
-            image = ResizeImage(imgCapture.Image, imgCapture.Size);
+            var stream = new System.IO.MemoryStream();
+            imgCapture.Image.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+            image = Image.FromStream(stream);
+
             this.DialogResult = DialogResult.OK;
         }
 
-        private void bntVideoFormat_Click(object sender, EventArgs e)
+        private void FrmMain_FormClosed(object sender, FormClosedEventArgs e)
         {
-            webcam.ResolutionSetting();
+            cameraControl.CloseCamera();
         }
 
-        private void bntVideoSource_Click(object sender, EventArgs e)
+        private void FrmMain_KeyUp(object sender, KeyEventArgs e)
         {
-            webcam.AdvanceSetting();
+            if (e.KeyCode == Keys.F2)
+                bntCapture_Click(bntCapture, new EventArgs());
+            if (e.KeyCode == Keys.F12)
+                bntSave_Click(bntSave, new EventArgs());
         }
-
-        private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            webcam.Stop();
-            webcam.Dispose();
-        }
-
-        private void FrmMain_Shown(object sender, EventArgs e)
-        {
-            webcam.Start();
-        }
-
-        
     }
 }
