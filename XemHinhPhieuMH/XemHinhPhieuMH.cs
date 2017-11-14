@@ -10,6 +10,7 @@ using System.IO;
 using System.Diagnostics;
 using CDTLib;
 using XuLyBangIn;
+using System.Data;
 
 namespace XemHinhPhieuMH
 {
@@ -17,11 +18,11 @@ namespace XemHinhPhieuMH
     {
         DataCustomFormControl _data;
         InfoCustomControl _info = new InfoCustomControl(IDataType.MasterDetailDt);
-        GridLookUpEdit gluMau1, gluMau2, gluMau3, gluMau4, gluMau5, gluMau6, gluMaKH;
-        string sqlLayMau = "select Hinh from DMMS where MaM = '{0}'";
         ZoomPictureEdit peHinhZoom = new ZoomPictureEdit();
         SimpleButton btnXemFile;
         Point _startPoint;
+        PictureEdit peHinhGoc;
+
         public DataCustomFormControl Data
         {
             set { _data = value; }
@@ -35,6 +36,7 @@ namespace XemHinhPhieuMH
         public void AddEvent()
         {
             LayoutControl lcMain = _data.FrmMain.Controls.Find("lcMain", true)[0] as LayoutControl;
+            peHinhGoc = _data.FrmMain.Controls.Find("HoaDon", true)[0] as PictureEdit;
             //thêm nút Xem file hình
             btnXemFile = new SimpleButton();
             btnXemFile.Name = "btnXemFile";
@@ -54,7 +56,39 @@ namespace XemHinhPhieuMH
             peHinhZoom.Properties.MouseDown += new MouseEventHandler(Properties_MouseDown);
             peHinhZoom.Properties.MouseMove += new MouseEventHandler(Properties_MouseMove);
             peHinhZoom.Properties.MouseUp += new MouseEventHandler(Properties_MouseUp);
+
+            //thêm nút Rotate hình
+            SimpleButton btnRotateLeft = new SimpleButton();
+            btnRotateLeft.Name = "btnRotateLeft";
+            btnRotateLeft.Text = "Xoay trái";
+            LayoutControlItem lci3 = lcMain.AddItem("", btnRotateLeft);
+            lci3.Name = "cusRotateLeft";
+            btnRotateLeft.Click += BtnRotateLeft_Click;
+
+            SimpleButton btnRotateRight = new SimpleButton();
+            btnRotateRight.Name = "btnRotateRight";
+            btnRotateRight.Text = "Xoay phải";
+            LayoutControlItem lci4 = lcMain.AddItem("", btnRotateRight);
+            lci4.Name = "cusRotateRight";
+            btnRotateRight.Click += BtnRotateRight_Click;
         }
+
+        private void BtnRotateRight_Click(object sender, EventArgs e)
+        {
+            var img = peHinhZoom.Image;
+            img.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            var converter = new ImageConverter();
+            (_data.BsMain.Current as DataRowView).Row["HoaDon"] = converter.ConvertTo(img, typeof(byte[]));
+        }
+
+        private void BtnRotateLeft_Click(object sender, EventArgs e)
+        {
+            var img = peHinhZoom.Image;
+            img.RotateFlip(RotateFlipType.Rotate270FlipNone);
+            var converter = new ImageConverter();
+            (_data.BsMain.Current as DataRowView).Row["HoaDon"] = converter.ConvertTo(img, typeof(byte[]));
+        }
+
         void btnXemFile_Click(object sender, EventArgs e)
         {
             if (peHinhZoom.Image != null)
