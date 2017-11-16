@@ -37,16 +37,57 @@ namespace KTraSLPMH
                         dt.MTDNID = mt.MTDNID
                         WHERE mt.SoPhieu = '{0}'
                         and dt.MaVT = '{1}' and dt.MaPX = '{2}'";
+            string getPmhSql = "SELECT SoPhieuMH FROM MTDeNghi WHERE SoPhieu = '{0}'";
+
+            // getso phieu mua hang cua phieu de nghi
+            bool skip = false;
+            string sophieuMh = db.GetValue(string.Format(getPmhSql, sophieuDn)).ToString();
+            string getVT = @"SELECT dt.MaVT, sum(dt.SoLuong) as TongSo FROM DTMuaHang dt 
+                            JOIN MTMuaHang mt ON dt.MTMHID = mt.MTMHID
+                            WHERE mt.SoPhieu in ({0}) and dt.MaVT = {1} and dt.MaPX = '{2}'
+                            GROUP BY dt.MaVT";
+
+            string dataMh = "";
+            if (!string.IsNullOrEmpty(sophieuMh))
+            {
+                string[] mhList = sophieuMh.Split(',');
+                dataMh =  "'" + string.Join("','", mhList) + "'";
+            } else
+            {
+                skip = true;
+            }
 
             foreach (var row in drs)
             {
                 string mavt = row["MaVT"].ToString();
                 string mapx = row["MaPX"].ToString();
-                double soluong = Convert.ToDouble(row["SoLuong"].ToString());
+                double soluongNew = 0d, total = 0d, delta = 0d;
+
+                soluongNew = Convert.ToDouble(row["SoLuong"].ToString());
+
+                if (drCur.RowState == DataRowState.Modified)
+                {
+                    double soluongOld = Convert.ToDouble(row["SoLuong", DataRowVersion.Original].ToString());
+                    delta = soluongNew - soluongOld;
+                } else
+                {
+                    delta = soluongNew;
+                }
+
+                if (!skip)
+                {
+                    DataTable vattuDt = db.GetDataTable(string.Format(getVT, dataMh, mavt, mapx));
+                    if (vattuDt.Rows.Count > 0)
+                    {
+                        double soluong = Convert.ToDouble(vattuDt.Rows[0]["TongSo"].ToString());
+                        total = soluong + delta;
+                    }
+                }
+               
                 object vl = db.GetValue(string.Format(sql, sophieuDn, mavt, mapx));
                 if (vl != null)
                 {
-                    if (soluong > Convert.ToDouble(vl.ToString()))
+                    if (total > Convert.ToDouble(vl.ToString()))
                     {
                         object ten = db.GetValue(string.Format("SELECT TenVT FROM DMVatTu WHERE ID = '{0}'", mavt));
                         string tenvt = ten != null ? ten.ToString(): null;
