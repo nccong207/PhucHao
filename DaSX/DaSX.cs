@@ -15,6 +15,7 @@ namespace DaSX
         DataTable dtKyHieu;
         DataCustomData _data;
         InfoCustomData _info = new InfoCustomData(IDataType.MasterDetailDt);
+        Database db = Database.NewDataDatabase();
         #region ICData Members
 
         public DataCustomData Data
@@ -34,7 +35,7 @@ namespace DaSX
             foreach (DataRowView drv in dv)
             {
                 string slsx = "update DTLSX set TinhTrang = N'{0}' where DTLSXID = '{1}'";
-                string sdh = "update DTDonHang set TinhTrang = N'{0}' from DTLSX lsx where DTDonHang.DTDHID = lsx.DTDHID and lsx.DTLSXID = '{1}'";
+                string sdh = "update dh set TinhTrang = N'{0}' from DTDonHang dh inner join DTLSX lsx on dh.DTDHID = lsx.DTDHID where lsx.DTLSXID = '{1}'";
                 string lsxid = drv["DTLSXID"].ToString();
                 bool ht = Boolean.Parse(drv["HT"].ToString());
                 switch (drv.Row.RowState)
@@ -42,13 +43,13 @@ namespace DaSX
                     case DataRowState.Added:
                     case DataRowState.Modified:
                         string t = ht ? "Hoàn thành" : "KHSX";
-                        _data.DbData.UpdateByNonQuery(string.Format(slsx, t, lsxid));
-                        _data.DbData.UpdateByNonQuery(string.Format(sdh, t, lsxid));
+                        db.UpdateByNonQueryNoTrans(string.Format(slsx, t, lsxid));
+                        db.UpdateByNonQueryNoTrans(string.Format(sdh, t, lsxid));
                         break;
                     case DataRowState.Deleted: 
                         slsx = "update DTLSX set TinhTrang = null where DTLSXID = '{0}'";
-                        _data.DbData.UpdateByNonQuery(string.Format(slsx, lsxid));
-                        _data.DbData.UpdateByNonQuery(string.Format(sdh, "LSX", lsxid));
+                        db.UpdateByNonQueryNoTrans(string.Format(slsx, lsxid));
+                        db.UpdateByNonQueryNoTrans(string.Format(sdh, "LSX", lsxid));
                         break;
                 }
 
@@ -57,7 +58,7 @@ namespace DaSX
                     drv.Row["SoLuong", DataRowVersion.Original].ToString() != "" && Convert.ToDouble(drv.Row["SoLuong", DataRowVersion.Original]) > 0)
                 {
                     string dtlsxid = drv.Row["DTLSXID", DataRowVersion.Original].ToString();
-                    var dtdh = _data.DbData.GetDataTable(string.Format("SELECT dh.* FROM DTLSX lsx INNER JOIN DTDonHang dh on lsx.DTDHID = dh.DTDHID WHERE lsx.DTLSXID = '{0}' and DTDHPSID is not null", dtlsxid));
+                    var dtdh = _data.DbData.GetDataTable(string.Format("SELECT dh.DTDHPSID FROM DTLSX lsx INNER JOIN DTDonHang dh on lsx.DTDHID = dh.DTDHID WHERE lsx.DTLSXID = '{0}' and DTDHPSID is not null", dtlsxid));
                     if (dtdh.Rows.Count > 0)
                     {
                         MessageBox.Show("Đã nhập phôi sóng cho lệnh sản xuất này, không thể thay đổi số liệu!",
