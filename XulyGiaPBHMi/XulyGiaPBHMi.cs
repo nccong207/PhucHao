@@ -28,7 +28,20 @@ namespace XulyGiaPBHMi
 
         void gvMain_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
-                if (e.Value == null || e.Column.FieldName != "MaSP") {
+            // Xử lý duyệt khi thay đổi số lượng và mã sản phẩm khi có khuyến mãi
+            if (e.Column.FieldName == "MaSP" || e.Column.FieldName == "SoLuong")
+            {
+                var iskm = gvMain.GetFocusedRowCellValue("isKM");
+                if ((bool) iskm)
+                {
+                    DataRowView curDr = _data.BsMain.Current as DataRowView;
+                    curDr.Row["Duyet"] = false;
+                }
+            }
+
+
+            //
+            if (e.Value == null || e.Column.FieldName != "MaSP") {
                     return;
                 }
 
