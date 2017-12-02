@@ -22,7 +22,28 @@ namespace KTraSLPMH
 
         public void ExecuteBefore()
         {
+            //kiem tra da tao phieu de nghi thanh toan
             var drCur = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
+            if (drCur.RowState == DataRowState.Deleted || drCur.RowState == DataRowState.Modified)
+            { 
+                string mtmhid = drCur["MTMHID", DataRowVersion.Original].ToString();
+
+                string sqlPdntt = @"SELECT* from DTDNTT dt
+                    LEFT JOIN DTMuaHang dtmh ON dt.DTMHID = dtmh.DTMHID
+                    LEFT JOIN MTMuaHang mtmh ON dtmh.MTMHID = mtmh.MTMHID
+                    WHERE mtmh.MTMHID = '{0}'";
+
+                DataTable dtdntt = db.GetDataTable(string.Format(sqlPdntt, mtmhid));
+                if (dtdntt.Rows.Count > 0)
+                {
+                    XtraMessageBox.Show("Phiếu mua hàng này đã tạo phiếu đề nghị thanh toán, không được sửa hoặc xóa.",
+                         Config.GetValue("PackageName").ToString());
+                    _info.Result = false;
+                    return;
+                }
+            }
+
+            //kiem tra so luong trong phieu mua hang khong vuot qua so luong phieu de nghi
             if (drCur.RowState == DataRowState.Deleted)
                 return;
 
@@ -82,6 +103,9 @@ namespace KTraSLPMH
                         double soluong = Convert.ToDouble(vattuDt.Rows[0]["TongSo"].ToString());
                         total = soluong + delta;
                     }
+                } else
+                {
+                    total = soluongNew;
                 }
                
                 object vl = db.GetValue(string.Format(sql, sophieuDn, mavt, mapx));
