@@ -41,32 +41,44 @@ namespace KTraPNNL
                     continue;
                 string manl = row["MaNL"].ToString();
                 string soDh = row["SoDH"].ToString();
-                var curNL = GetExisted(dt41id, nl);
+                var curNL = GetExisted(dt41id, manl, nl);
                 if (curNL == null)
                 {
                     var ngL = new NguyenLieu();
                     ngL.DT41ID = dt41id;
                     ngL.MaNL = manl;
                     ngL.SoDH = soDh;
-                    ngL.SoLuong = 1;
+                    ngL.SoCuon = 1;
                     nl.Add(ngL);
                 }
                 else
                 {
-                    curNL.SoLuong += 1;
+                    curNL.SoCuon += 1;
                 }
             }
 
             foreach (var nlitem in nl)
             {
-                string sql = @"SELECT SoLuong FROM DT41 dt WHERE dt.DT41ID = '{0}'";
-                object sl = db.GetValue(string.Format(sql, nlitem.DT41ID));
+                //số cuộn đang có trong db không phải của phiếu mua hàng hiện tại.
+                string sql = @"SELECT COUNT(*) as Cuon FROM DT42 
+                WHERE DT41ID = '{0}' and MaNL = '{1}'
+                and MT42ID <> '{2}'
+                GROUP BY MaNL";
+                object sl = db.GetValue(string.Format(sql, nlitem.DT41ID, nlitem.MaNL, pkValue));
                 if (sl == null)
                     continue;
-                decimal socuon = Convert.ToDecimal(sl);
-                if (nlitem.SoLuong > socuon)
+                decimal socuonOld = Convert.ToDecimal(sl);
+
+                //Số cuộn có trong đơn hàng
+                sql = @"SELECT SoLuong FROM DT41 dt WHERE dt.DT41ID = '{0}'";
+                object slDh = db.GetValue(string.Format(sql, nlitem.DT41ID));
+                if (slDh == null)
+                    continue;
+                decimal socuonDh = Convert.ToDecimal(slDh);
+
+                if (nlitem.SoCuon + socuonOld > socuonDh)
                 {
-                    XtraMessageBox.Show(string.Format("Nguyên liệu {0} có số cuộn vượt quá số cuộn trong đơn hàng {2}",
+                    XtraMessageBox.Show(string.Format("Nguyên liệu {0} có số cuộn vượt quá số cuộn trong đơn hàng {1}",
                         nlitem.MaNL, nlitem.SoDH), Config.GetValue("PackageName").ToString());
                     _info.Result = false;
                     return;
@@ -74,11 +86,11 @@ namespace KTraPNNL
             }
         }
 
-        private NguyenLieu GetExisted(string dt41id, List<NguyenLieu> nl)
+        private NguyenLieu GetExisted(string dt41id, string maNl, List<NguyenLieu> nl)
         {
             foreach (var item in nl)
             {
-                if (item.MaNL.Equals(dt41id))
+                if (item.DT41ID.Equals(dt41id) && item.MaNL.Equals(maNl))
                 {
                     return item;
                 }
@@ -92,7 +104,7 @@ namespace KTraPNNL
         public string DT41ID { get; set; }
         public string SoDH { get; set; }
         public string MaNL { get; set; }
-        public decimal SoLuong { get; set; }
+        public decimal SoCuon { get; set; }
 
     }
 }
