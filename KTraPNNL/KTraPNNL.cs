@@ -37,7 +37,7 @@ namespace KTraPNNL
             foreach (var row in drs)
             {
                 string manl = row["MaNL"].ToString();
-                string soDh = row["SoDH"].ToString();
+                string soDh = row["DT41ID"].ToString();
                 var curNL = GetExisted(manl, soDh, nl);
                 if (!string.IsNullOrEmpty(manl) && curNL == null)
                 {
@@ -59,7 +59,7 @@ namespace KTraPNNL
                 string sql = @"SELECT dt.MaNL, nl.Ten, mt.SoCT, sum(dt.SoLuong) as Cuon FROM MT41 mt
                                 LEFT JOIN DT41 dt on dt.MT41ID = mt.MT41ID
                                 LEFT JOIN DMNL nl ON dt.MaNL = nl.Ma
-                                WHERE mt.SoCT = '{0}' and dt.MaNL = '{1}'
+                                WHERE dt.DT41ID = '{0}' and dt.MaNL = '{1}'
                                 GROUP BY dt.MaNL, mt.SoCT, nl.Ten";
                 DataTable dtDh = db.GetDataTable(string.Format(sql, nlitem.SoDH, nlitem.MaNL));
                 if (dtDh.Rows.Count > 0)
