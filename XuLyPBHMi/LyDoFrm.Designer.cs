@@ -67,7 +67,7 @@
             this.Controls.Add(this.simpleButton1);
             this.Controls.Add(this.textEdit1);
             this.Name = "LyDoFrm";
-            this.Text = "Nhập lý do cho phiếu bán hàng";
+            this.Text = "Lý do điều chỉnh hàng KM";
             this.Load += new System.EventHandler(this.LyDoFrm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
             this.ResumeLayout(false);
