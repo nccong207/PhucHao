@@ -36,52 +36,49 @@ namespace KTraPNNL
             List<NguyenLieu> nl = new List<NguyenLieu>();
             foreach (var row in drs)
             {
+                string dt41id = row["DT41ID"].ToString();
+                if (string.IsNullOrEmpty(dt41id))
+                    continue;
                 string manl = row["MaNL"].ToString();
-                string soDh = row["DT41ID"].ToString();
-                var curNL = GetExisted(manl, soDh, nl);
-                if (!string.IsNullOrEmpty(manl) && curNL == null)
+                string soDh = row["SoDH"].ToString();
+                var curNL = GetExisted(dt41id, nl);
+                if (curNL == null)
                 {
-                    NguyenLieu ngL = new NguyenLieu();
+                    var ngL = new NguyenLieu();
+                    ngL.DT41ID = dt41id;
                     ngL.MaNL = manl;
                     ngL.SoDH = soDh;
                     ngL.SoLuong = 1;
                     nl.Add(ngL);
                 }
-                else if (!string.IsNullOrEmpty(manl))
+                else
                 {
                     curNL.SoLuong += 1;
                 }
             }
 
-
             foreach (var nlitem in nl)
             {
-                string sql = @"SELECT dt.MaNL, nl.Ten, mt.SoCT, sum(dt.SoLuong) as Cuon FROM MT41 mt
-                                LEFT JOIN DT41 dt on dt.MT41ID = mt.MT41ID
-                                LEFT JOIN DMNL nl ON dt.MaNL = nl.Ma
-                                WHERE dt.DT41ID = '{0}' and dt.MaNL = '{1}'
-                                GROUP BY dt.MaNL, mt.SoCT, nl.Ten";
-                DataTable dtDh = db.GetDataTable(string.Format(sql, nlitem.SoDH, nlitem.MaNL));
-                if (dtDh.Rows.Count > 0)
+                string sql = @"SELECT SoLuong FROM DT41 dt WHERE dt.DT41ID = '{0}'";
+                object sl = db.GetValue(string.Format(sql, nlitem.DT41ID));
+                if (sl == null)
+                    continue;
+                decimal socuon = Convert.ToDecimal(sl);
+                if (nlitem.SoLuong > socuon)
                 {
-                    decimal socuon = Convert.ToDecimal(dtDh.Rows[0]["Cuon"].ToString());
-                    if (nlitem.SoLuong > socuon)
-                    {
-                        string tennl = dtDh.Rows[0]["Ten"].ToString();
-                        XtraMessageBox.Show("Mã nguyên liệu " + tennl + " có số cuộn vượt quá số cuộn trong đơn hàng giấy cuộn. Kiểm tra lại số cuộn của mã nguyên liệu " + tennl,
-                         Config.GetValue("PackageName").ToString());
-                        _info.Result = false;
-                        return;
-                    }
+                    XtraMessageBox.Show(string.Format("Nguyên liệu {0} có số cuộn vượt quá số cuộn trong đơn hàng {2}",
+                        nlitem.MaNL, nlitem.SoDH), Config.GetValue("PackageName").ToString());
+                    _info.Result = false;
+                    return;
                 }
             }
         }
 
-        private NguyenLieu GetExisted(string maNl, string soDh, List<NguyenLieu> nl)
+        private NguyenLieu GetExisted(string dt41id, List<NguyenLieu> nl)
         {
             foreach (var item in nl)
             {
-                if (item.MaNL.Equals(maNl) && item.SoDH.Equals(soDh))
+                if (item.MaNL.Equals(dt41id))
                 {
                     return item;
                 }
@@ -90,9 +87,10 @@ namespace KTraPNNL
         }
     }
 
-    public class NguyenLieu {
+    public class NguyenLieu
+    {
+        public string DT41ID { get; set; }
         public string SoDH { get; set; }
-        public string TenNL { get; set; }
         public string MaNL { get; set; }
         public decimal SoLuong { get; set; }
 
