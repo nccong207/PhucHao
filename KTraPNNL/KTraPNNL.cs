@@ -41,7 +41,7 @@ namespace KTraPNNL
                     continue;
                 string manl = row["MaNL"].ToString();
                 string soDh = row["SoDH"].ToString();
-                var curNL = GetExisted(dt41id, manl, nl);
+                var curNL = GetExisted(dt41id, nl);
                 if (curNL == null)
                 {
                     var ngL = new NguyenLieu();
@@ -61,10 +61,8 @@ namespace KTraPNNL
             {
                 //số cuộn đang có trong db không phải của phiếu mua hàng hiện tại.
                 string sql = @"SELECT COUNT(*) as Cuon FROM DT42 
-                WHERE DT41ID = '{0}' and MaNL = '{1}'
-                and MT42ID <> '{2}'
-                GROUP BY MaNL";
-                object sl = db.GetValue(string.Format(sql, nlitem.DT41ID, nlitem.MaNL, pkValue));
+                WHERE DT41ID = '{0}' and MT42ID <> '{1}'";
+                object sl = db.GetValue(string.Format(sql, nlitem.DT41ID, pkValue));
                 if (sl == null)
                     continue;
                 decimal socuonOld = Convert.ToDecimal(sl);
@@ -86,11 +84,11 @@ namespace KTraPNNL
             }
         }
 
-        private NguyenLieu GetExisted(string dt41id, string maNl, List<NguyenLieu> nl)
+        private NguyenLieu GetExisted(string dt41id, List<NguyenLieu> nl)
         {
             foreach (var item in nl)
             {
-                if (item.DT41ID.Equals(dt41id) && item.MaNL.Equals(maNl))
+                if (item.DT41ID.Equals(dt41id))
                 {
                     return item;
                 }
