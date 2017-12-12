@@ -1,6 +1,7 @@
 ﻿using CDTDatabase;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Repository;
+using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,19 @@ namespace LayDuLieuKhuyenMai
             GetDataSP();
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            
+            gridView1.OptionsView.NewItemRowPosition = NewItemRowPosition.Bottom;
+            gridControl1.ProcessGridKey += GridControl1_ProcessGridKey;
+        }
+
+        private void GridControl1_ProcessGridKey(object sender, KeyEventArgs e)
+        {
+            var grid = sender as GridControl;
+            var view = grid.FocusedView as GridView;
+            if (e.KeyData == Keys.Delete)
+            {
+                view.DeleteSelectedRows();
+                e.Handled = true;
+            }
         }
 
         private void GetDataSP()
@@ -45,6 +58,19 @@ namespace LayDuLieuKhuyenMai
         private void DsSanPham_FormClosed(object sender, FormClosedEventArgs e)
         {
             gridControl1.RefreshDataSource();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            gridControl1.RefreshDataSource();
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void simpleButton2_Click(object sender, EventArgs e)
+        {
+            gridControl1.RefreshDataSource();
+            this.Close();
         }
     }
 }
