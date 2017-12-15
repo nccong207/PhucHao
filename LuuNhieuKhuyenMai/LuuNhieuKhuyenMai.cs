@@ -26,7 +26,7 @@ namespace LuuNhieuKhuyenMai
         {
             if (_data.CurMasterIndex < 0)
                 return;
-
+           
             var drCur = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
             if (drCur.RowState == DataRowState.Deleted)
                 return;
@@ -36,32 +36,44 @@ namespace LuuNhieuKhuyenMai
             string sql = "";
             if (listTable.Contains("mDTKMNhieuSP"))
             {
-                string mtid = drCur["MTID"].ToString();
-
-                //remove before add new
-                string remove = @"DELETE km FROM mDTKMNhieuSP km
-                        JOIN mDTKhuyenMaiSP sp ON km.DTSPID = sp.DTSPID
-                        JOIN mMTKhuyenMai mt ON sp.MTID = mt.MTID
-                        WHERE mt.MTID = '{0}'";
-
-                db.UpdateByNonQuery(string.Format(remove, mtid));
-
                 DataTable tb = listTable["mDTKMNhieuSP"];
+
                 string insertSql = "INSERT INTO mDTKMNhieuSP(DTSPID, MaSPTang, SLTang) VALUES({0},'{1}', {2}); ";
+                string updateSql = "UPDATE mDTKMNhieuSP SET MaSPTang = '{0}', SLTang = '{1}' WHERE DTKMNSPID = '{2}'; ";
+                string removeSql = "DELETE FROM mDTKMNhieuSP WHERE DTKMNSPID = '{0}'; ";
+
                 foreach (DataRow row in tb.Rows)
                 {
-                    string spid = row["DTSPID"].ToString();
-                    string masp = row["MaSPTang"].ToString();
-                    string sluong = row["SLTang"].ToString();
-                    sql += string.Format(insertSql, spid, masp, sluong);
+                    if (row.RowState == DataRowState.Added)
+                    {
+                        string spid = row["DTSPID"].ToString();
+                        string masp = row["MaSPTang"].ToString();
+                        string sluong = row["SLTang"].ToString();
+                        sql += string.Format(insertSql, spid, masp, sluong);
+                    }
+                    else if (row.RowState == DataRowState.Modified)
+                    {
+                        string rowid = row["DTKMNSPID", DataRowVersion.Original].ToString();
+                        string masp = row["MaSPTang"].ToString();
+                        string sluong = row["SLTang"].ToString();
+                        sql += string.Format(updateSql, masp, sluong, rowid);
+                    }
+                    else if (row.RowState == DataRowState.Deleted)
+                    {
+                        string rowid = row["DTKMNSPID", DataRowVersion.Original].ToString();
+                        sql += string.Format(removeSql, rowid);
+                    }
                 }
-                db.UpdateByNonQuery(sql);
+
+                if (!string.IsNullOrEmpty(sql))
+                db.UpdateByNonQueryNoTrans(sql);
+
+                 _data.DsData.Tables.Remove(tb);
             }
         }
 
         public void ExecuteBefore()
         {
-            var listTable = _data.DsData.Tables;
         }
     }
 }
