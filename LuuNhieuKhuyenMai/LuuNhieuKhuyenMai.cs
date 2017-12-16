@@ -105,7 +105,7 @@ namespace LuuNhieuKhuyenMai
                 {
                     string spid = row["DTSPID"].ToString();
                     string mess = "Phải nhập ít nhất một sản phẩm và số lượng khi chọn nhiều sản phẩm tặng.";
-                    if (!listTable.Contains(""))
+                    if (!listTable.Contains("mDTKMNhieuSP"))
                     {
                         XtraMessageBox.Show(mess, Config.GetValue("PackageName").ToString());
                         _info.Result = false;
