@@ -1,4 +1,6 @@
 ﻿using CDTDatabase;
+using CDTLib;
+using DevExpress.XtraEditors;
 using Plugins;
 using System;
 using System.Collections.Generic;
@@ -74,6 +76,51 @@ namespace LuuNhieuKhuyenMai
 
         public void ExecuteBefore()
         {
+            var drCur = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
+            if (drCur.RowState == DataRowState.Deleted)
+                return;
+
+            string mtid = drCur["MTID"].ToString();
+            var listTable = _data.DsData.Tables;
+            var sprows = listTable["mDTKhuyenMaiSP"].Select("MTID = '" + mtid + "'");
+            foreach (var row in sprows)
+            {
+                if ((row["MaSPTang"] != DBNull.Value || row["SLTang"] != DBNull.Value) && row["NhieuSP"] != DBNull.Value)
+                {
+                    XtraMessageBox.Show("Không được chọn nhiều sản phẩm khi đã nhập sản phẩm tặng hoặc số lượng tặng", Config.GetValue("PackageName").ToString());
+                    _info.Result = false;
+                    return;
+                } else if ((row["MaSPTang"] != DBNull.Value || row["SLTang"] != DBNull.Value) && row["NhieuSP"] == DBNull.Value)
+                {
+                    XtraMessageBox.Show("Phải nhập đủ sản phẩm tặng và số lượng tặng", Config.GetValue("PackageName").ToString());
+                    _info.Result = false;
+                    return;
+                } else if (row["MaSPTang"] == DBNull.Value && row["SLTang"] == DBNull.Value && row["NhieuSP"] == DBNull.Value)
+                {
+                    XtraMessageBox.Show("Phải nhập sản phẩm tặng hoặc nhiều sản phẩm tặng.", Config.GetValue("PackageName").ToString());
+                    _info.Result = false;
+                    return;
+
+                } else if (row["MaSPTang"] == DBNull.Value && row["SLTang"] == DBNull.Value && row["NhieuSP"] != DBNull.Value)
+                {
+                    string spid = row["DTSPID"].ToString();
+                    string mess = "Phải nhập ít nhất một sản phẩm và số lượng khi chọn nhiều sản phẩm tặng.";
+                    if (!listTable.Contains(""))
+                    {
+                        XtraMessageBox.Show(mess, Config.GetValue("PackageName").ToString());
+                        _info.Result = false;
+                        return;
+                    }
+
+                    var dataRows = listTable["mDTKMNhieuSP"].Select("DTSPID = " + spid);
+                    if (dataRows.Length == 0)
+                    {
+                        XtraMessageBox.Show(mess, Config.GetValue("PackageName").ToString());
+                        _info.Result = false;
+                        return;
+                    }
+                }
+            }
         }
     }
 }

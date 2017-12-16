@@ -17,14 +17,24 @@ namespace LayDuLieuKhuyenMai
     {
         Database db = Database.NewDataDatabase();
         public BindingSource source = new BindingSource();
-        public DsSanPham()
+        public bool IsView  = true;
+        public DsSanPham(bool IsViewMode = false)
         {
             InitializeComponent();
             GetDataSP();
+            IsView = IsViewMode;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            gridView1.OptionsView.NewItemRowPosition = NewItemRowPosition.Bottom;
-            gridControl1.ProcessGridKey += GridControl1_ProcessGridKey;
+            if (!IsViewMode)
+            {
+                gridView1.OptionsView.NewItemRowPosition = NewItemRowPosition.Bottom;
+                gridControl1.ProcessGridKey += GridControl1_ProcessGridKey;
+            } else
+            {
+                gridView1.OptionsBehavior.Editable = false;
+                btnSave.Visible = false;
+                simpleButton2.Visible = false;
+            }
         }
 
         private void GridControl1_ProcessGridKey(object sender, KeyEventArgs e)
@@ -52,7 +62,11 @@ namespace LayDuLieuKhuyenMai
         {
             gridControl1.DataSource = source;
             (gridControl1.MainView as GridView).BestFitColumns();
-            (gridControl1.MainView as GridView).AddNewRow();
+            if (!IsView)
+            {
+                (gridControl1.MainView as GridView).AddNewRow();
+            }
+               
         }
 
         private void DsSanPham_FormClosed(object sender, FormClosedEventArgs e)
