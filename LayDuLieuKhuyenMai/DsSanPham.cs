@@ -35,6 +35,9 @@ namespace LayDuLieuKhuyenMai
                 btnSave.Visible = false;
                 simpleButton2.Visible = false;
             }
+
+            (repositoryItemCalcEdit1 as RepositoryItemCalcEdit).EditMask = "###,###,##0";
+            (repositoryItemCalcEdit1 as RepositoryItemCalcEdit).Mask.UseMaskAsDisplayFormat = true;
         }
 
         private void GridControl1_ProcessGridKey(object sender, KeyEventArgs e)
@@ -50,21 +53,23 @@ namespace LayDuLieuKhuyenMai
 
         private void GetDataSP()
         {
-            string sql = string.Format(@"SELECT MaSP, TenSP FROM mDMSP");
+           
+            string sql = string.Format(@"SELECT MaSP, TenSP FROM mDMSP WHERE IsBanSP = 0");
             DataTable dt = db.GetDataTable(sql);
 
-            rItemLookUpEditMaSP.DataSource = dt;
-            rItemLookUpEditMaSP.DisplayMember = "TenSP";
-            rItemLookUpEditMaSP.ValueMember = "MaSP";
-        }
+            repositoryItemGridLookUpEdit1.DataSource = dt;
+            repositoryItemGridLookUpEdit1.DisplayMember = "TenSP";
+            repositoryItemGridLookUpEdit1.ValueMember = "MaSP";
+            repositoryItemGridLookUpEdit1.View.OptionsView.ShowAutoFilterRow = true;        }
 
         private void DsSanPham_Load(object sender, EventArgs e)
         {
             gridControl1.DataSource = source;
-            (gridControl1.MainView as GridView).BestFitColumns();
+            var mainview = gridControl1.MainView as GridView;
+            mainview.BestFitColumns();
             if (!IsView)
             {
-                (gridControl1.MainView as GridView).AddNewRow();
+                mainview.AddNewRow();
             }
                
         }
