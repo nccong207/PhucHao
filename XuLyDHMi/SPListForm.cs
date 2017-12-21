@@ -13,11 +13,47 @@ namespace XuLyDHMi
     public partial class SPListForm : XtraForm
     {
         public DataTable dsSp;
-        public SPListForm()
+        public SPListForm(DataTable dsSpData)
         {
             InitializeComponent();
-            //gridView1.OptionsBehavior.Editable = false;
+            dsSp = dsSpData;
+            gridView1.CellValueChanging += GridView1_CellValueChanged; ;
         }
+
+        private void GridView1_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
+        {
+            if (e.Column.FieldName == "Chon")
+            {
+                string id = gridView1.GetFocusedRowCellValue("DTKMNSPID").ToString();
+                foreach (DataRow row in dsSp.Rows)
+                {
+                    if (!id.Equals(row["DTKMNSPID"].ToString()))
+                    {
+                        row["Chon"] = false;
+                    }
+                }
+            }
+        }
+
+        //private void GridView1_ColumnChanged(object sender, EventArgs e)
+        //{
+        //    if (e.Column.FieldName == "NhieuSP" && e.Value != null)
+        //    {
+
+        //    }
+        //}
+
+        //private void DsSp_RowChanging(object sender, DataRowChangeEventArgs e)
+        //{
+        //    string id = e.Row["DTKMNSPID"].ToString();
+        //    foreach (DataRow row in dsSp.Rows)
+        //    {
+        //        if (!id.Equals(row["DTKMNSPID"].ToString()))
+        //        {
+        //            row["Chon"] = false;
+        //        }
+        //    }
+        //}
 
         private void btnCancel_Click(object sender, EventArgs e)
         {

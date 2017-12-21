@@ -80,6 +80,22 @@ namespace LuuNhieuKhuyenMai
             if (drCur.RowState == DataRowState.Deleted)
                 return;
 
+            // trường hợp duyệt
+            if (drCur.RowState == DataRowState.Modified
+                   && Boolean.Parse(drCur["Duyet", DataRowVersion.Current].ToString()) == true
+                   && Boolean.Parse(drCur["Duyet", DataRowVersion.Original].ToString()) == false)
+            {
+                return;
+            }
+
+            // trường hợp bỏ duyệt
+            if (drCur.RowState == DataRowState.Modified
+                  && Boolean.Parse(drCur["Duyet", DataRowVersion.Current].ToString()) == false
+                  && Boolean.Parse(drCur["Duyet", DataRowVersion.Original].ToString()) == true)
+            {
+                return;
+            }
+
             string mtid = drCur["MTID"].ToString();
             var listTable = _data.DsData.Tables;
             var sprows = listTable["mDTKhuyenMaiSP"].Select("MTID = '" + mtid + "'");
@@ -90,7 +106,7 @@ namespace LuuNhieuKhuyenMai
                     XtraMessageBox.Show("Không được chọn nhiều sản phẩm khi đã nhập sản phẩm tặng hoặc số lượng tặng", Config.GetValue("PackageName").ToString());
                     _info.Result = false;
                     return;
-                } else if ((row["MaSPTang"] != DBNull.Value || row["SLTang"] != DBNull.Value) && row["NhieuSP"] == DBNull.Value)
+                } else if ((row["MaSPTang"] == DBNull.Value || row["SLTang"] == DBNull.Value) && row["NhieuSP"] == DBNull.Value)
                 {
                     XtraMessageBox.Show("Phải nhập đủ sản phẩm tặng và số lượng tặng", Config.GetValue("PackageName").ToString());
                     _info.Result = false;
