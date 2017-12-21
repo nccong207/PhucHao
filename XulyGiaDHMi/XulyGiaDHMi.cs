@@ -67,6 +67,12 @@ namespace XulyGiaDHMi
                 return;
             }
 
+            object isKM = gvMain.GetFocusedRowCellValue("isKM");
+            if (Convert.ToBoolean(isKM))
+            {
+                return;
+            }
+
             String MaSP = e.Value.ToString();
             DataRowView drMaster = _data.BsMain.Current as DataRowView;
             

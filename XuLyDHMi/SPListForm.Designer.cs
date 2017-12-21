@@ -37,6 +37,7 @@
             this.repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
+            this.gcTenSP = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -71,6 +72,7 @@
             // 
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.sanpham,
+            this.gcTenSP,
             this.soluong,
             this.chonSp});
             this.gridView1.GridControl = this.gridControl1;
@@ -84,7 +86,7 @@
             this.sanpham.OptionsColumn.AllowEdit = false;
             this.sanpham.Visible = true;
             this.sanpham.VisibleIndex = 0;
-            this.sanpham.Width = 214;
+            this.sanpham.Width = 106;
             // 
             // soluong
             // 
@@ -95,8 +97,8 @@
             this.soluong.Name = "soluong";
             this.soluong.OptionsColumn.AllowEdit = false;
             this.soluong.Visible = true;
-            this.soluong.VisibleIndex = 1;
-            this.soluong.Width = 100;
+            this.soluong.VisibleIndex = 2;
+            this.soluong.Width = 89;
             // 
             // chonSp
             // 
@@ -105,8 +107,8 @@
             this.chonSp.FieldName = "Chon";
             this.chonSp.Name = "chonSp";
             this.chonSp.Visible = true;
-            this.chonSp.VisibleIndex = 2;
-            this.chonSp.Width = 65;
+            this.chonSp.VisibleIndex = 3;
+            this.chonSp.Width = 61;
             // 
             // repositoryItemCheckEdit1
             // 
@@ -130,6 +132,15 @@
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Lưu";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // gcTenSP
+            // 
+            this.gcTenSP.Caption = "Tên sản phẩm";
+            this.gcTenSP.FieldName = "TenSP";
+            this.gcTenSP.Name = "gcTenSP";
+            this.gcTenSP.Visible = true;
+            this.gcTenSP.VisibleIndex = 1;
+            this.gcTenSP.Width = 272;
             // 
             // SPListForm
             // 
@@ -161,5 +172,6 @@
         private DevExpress.XtraEditors.SimpleButton btnSave;
         private DevExpress.XtraGrid.Columns.GridColumn chonSp;
         private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
+        private DevExpress.XtraGrid.Columns.GridColumn gcTenSP;
     }
 }
