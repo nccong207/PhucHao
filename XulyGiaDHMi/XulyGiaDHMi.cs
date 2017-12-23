@@ -94,14 +94,33 @@ namespace XulyGiaDHMi
         }
 
         private double getGiaDH (string maKH, string maSP) {
-              DataTable dtBangGia = db.GetDataTable(string.Format(@"select gb.MaKH, gb.MaSP, GiaBan from wBangGia gb left join mDMKH kh on gb.KhuVuc = kh.KhuVuc
+              DataTable dtBangGia = db.GetDataTable(string.Format(@"select gb.MaKH, gb.MaSP,  gb.KhuVuc, GiaBan from wBangGia gb left join mDMKH kh on gb.KhuVuc = kh.KhuVuc
                 where gb.Duyet = 1 and (gb.MaKH = '{0}' or kh.MaKH = '{0}') and MaSP = '{1}'", maKH, maSP));
+            double dongia = 0;
             if (dtBangGia.Rows.Count == 0)
             {
                 return -1;
             }
+            // kiem tra xuat hien nhieu bao gia
+            else if (dtBangGia.Rows.Count > 1)
+            {
+                //gia ban theo khach hang
+                var giaBanTheoKH = dtBangGia.Select("MaKH is not null");
+                var giaBanTheoKhuVuc = dtBangGia.Select("KhuVuc is not null");
+                if (giaBanTheoKH.Length > 0)
+                {
+                    dongia = double.Parse(giaBanTheoKH[0]["GiaBan"].ToString());
+                } else if (giaBanTheoKhuVuc.Length > 0) // kiem tra gia ban theo khu vuc
+                {
+                    dongia = double.Parse(giaBanTheoKhuVuc[0]["GiaBan"].ToString());
+                }
+            } else
+            {
+                //lay theo gia ban dang hien co.
+                dongia = double.Parse(dtBangGia.Rows[0]["GiaBan"].ToString());
+            }
             // Cap nhat don gia.
-            double dongia = double.Parse(dtBangGia.Rows[0]["GiaBan"].ToString());
+            
             return dongia;
         }
         public DataCustomFormControl Data
