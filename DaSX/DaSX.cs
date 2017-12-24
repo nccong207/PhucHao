@@ -7,6 +7,10 @@ using System.Text.RegularExpressions;
 using CDTDatabase;
 using System.Windows.Forms;
 using CDTLib;
+using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraGrid;
+using FormFactory;
+using DevExpress.XtraEditors;
 
 namespace DaSX
 {
@@ -30,7 +34,14 @@ namespace DaSX
 
         public void ExecuteBefore()
         {
-            DataView dv = new DataView(_data.DsData.Tables[1]);
+            DataRow drMaster = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
+            if (drMaster.RowState != DataRowState.Deleted)
+            {
+                TinhGiay();
+            }
+
+
+                DataView dv = new DataView(_data.DsData.Tables[1]);
             dv.RowStateFilter = DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent;
             foreach (DataRowView drv in dv)
             {
@@ -131,6 +142,112 @@ namespace DaSX
             }
 
             TaoPhieuXuat();
+        }
+
+        private void TinhGiay()
+        {
+            DataTable tableTinhGiay = new DataTable("mDTTinhGiay");
+            tableTinhGiay.Columns.Add("Kho", typeof(decimal));
+            tableTinhGiay.Columns.Add("LoaiGiay", typeof(string));
+            tableTinhGiay.Columns.Add("SlChay", typeof(decimal));
+            tableTinhGiay.Columns.Add("SlTon", typeof(decimal));
+
+
+            DataSet ds = _data.DsData;
+            DataRow drMaster = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
+
+            DataRow[] drsDT = ds.Tables[1].Select("MTKHID = '" + drMaster["MTKHID"].ToString() + "'");
+            List<string> lstKho = new List<string>();
+            foreach (DataRow dr in drsDT)
+                if (!lstKho.Contains(dr["ChKho"].ToString()))
+                    lstKho.Add(dr["ChKho"].ToString());
+
+            string sql = "SELECT sum(Ton) as Ton from wDMNL2 WHERE KyHieu = '{0}' GROUP BY KyHieu";
+            foreach (string drKho in lstKho)
+            {
+                drsDT = ds.Tables[1].Select("MTKHID = '" + drMaster["MTKHID"].ToString() + "' and ChKho = " + drKho);
+                //khai bao danh sach nguyen lieu su dung cua kho nay
+                Dictionary<string, decimal> lstNL = GetDSNL(drsDT);
+                List<string> lstMaNLnew = new List<string>(lstNL.Keys);
+                lstMaNLnew.Sort();
+                foreach (var manl in lstMaNLnew)
+                {
+                    object slTon = db.GetValue(string.Format(sql, manl));
+                    decimal slTonNum = slTon != null ? Convert.ToDecimal(slTon) : 0;
+                    DataRow newRow = tableTinhGiay.NewRow();
+                    newRow["Kho"] = drKho;
+                    newRow["LoaiGiay"] = manl;
+                    newRow["SlChay"] = lstNL[manl].ToString("###,###,###");
+                    newRow["SlTon"] = slTonNum;
+                    // insert in the desired place
+                    tableTinhGiay.Rows.Add(newRow);
+                }
+            }
+
+            Form form = null;
+            foreach (Form frm in Application.OpenForms)
+                if (frm.GetType().BaseType == typeof(CDTForm)
+                    && (frm as CDTForm).FrmType == FormType.MasterDetail
+                    && frm.IsMdiChild == false)
+                {
+                    form = frm;
+                    break;
+                }
+
+            if (form == null || form.Controls.Find("gridTinhGiay", true).Length == 0)
+            {
+                XtraMessageBox.Show("Không tổng hợp số lượng giấy cần dùng do GridTinhGiay = null!",
+                    Config.GetValue("PackageName").ToString());
+                return;
+            }
+
+            GridControl gridControl1 = form.Controls.Find("gridTinhGiay", true)[0] as GridControl;
+            gridControl1.DataSource = tableTinhGiay;
+            gridControl1.RefreshDataSource();
+        }
+
+        private Dictionary<string, decimal> GetDSNL(DataRow[] drsDT)
+        {
+            //khai bao danh sach nguyen lieu su dung cua kho nay
+            Dictionary<string, decimal> lstNL = new Dictionary<string, decimal>();
+            foreach (DataRow dr in drsDT)
+            {
+                //lay danh sach nguyen lieu cua dong don hang nay
+                string[] lstMaNL = dr["KyHieu"].ToString().Split('.');
+                for (int i = 0; i < lstMaNL.Length; i++)
+                {
+                    string maNL = lstMaNL[i];
+                    //lay caption cua cot chua khoi luong (M1 S1 M2 S2 M3 S3 M)
+                    int t = i + 1;
+                    string cap = (t % 2 == 0) ? "S" : "M";
+                    if (t < lstMaNL.Length)
+                    {
+                        switch (t)
+                        {
+                            case 1:
+                            case 2:
+                                cap += "1";
+                                break;
+                            case 3:
+                            case 4:
+                                cap += "2";
+                                break;
+                            case 5:
+                            case 6:
+                                cap += "3";
+                                break;
+                        }
+                    }
+                    decimal kl = Convert.ToDecimal(dr[cap]);
+                    //tinh khoi luong dua vao danh sach
+                    if (lstNL.ContainsKey(maNL))
+                        lstNL[maNL] += kl;
+                    else
+                        lstNL.Add(maNL, kl);
+                }
+            }
+
+            return lstNL;
         }
 
         private void TaoPhieuXuat()
