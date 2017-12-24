@@ -11,6 +11,7 @@ using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid;
 using FormFactory;
 using DevExpress.XtraEditors;
+using DevExpress.XtraLayout;
 
 namespace DaSX
 {
@@ -201,9 +202,15 @@ namespace DaSX
                 return;
             }
 
+            LayoutControl lcMain = form.Controls.Find("lcMain", true)[0] as LayoutControl;
+            LayoutControlItem lci5 = (LayoutControlItem)lcMain.Items.FindByName("cusGridTinhGiay");
+            lci5.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+
             GridControl gridControl1 = form.Controls.Find("gridTinhGiay", true)[0] as GridControl;
             gridControl1.DataSource = tableTinhGiay;
             gridControl1.RefreshDataSource();
+
+
         }
 
         private Dictionary<string, decimal> GetDSNL(DataRow[] drsDT)
