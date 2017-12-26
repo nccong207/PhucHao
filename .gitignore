@@ -156,3 +156,5 @@ $RECYCLE.BIN/
 .DS_Store
 /CDT
 *.rar
+*.sln
+/.vs/PhucHaoMi/v15/Server/sqlite3
