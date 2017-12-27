@@ -12,6 +12,7 @@ using DevExpress.XtraGrid;
 using FormFactory;
 using DevExpress.XtraEditors;
 using DevExpress.XtraLayout;
+using System.Drawing;
 
 namespace DaSX
 {
@@ -21,6 +22,8 @@ namespace DaSX
         DataCustomData _data;
         InfoCustomData _info = new InfoCustomData(IDataType.MasterDetailDt);
         Database db = Database.NewDataDatabase();
+        GridView gridView1;
+        LayoutControlItem lci5;
         #region ICData Members
 
         public DataCustomData Data
@@ -175,16 +178,21 @@ namespace DaSX
                 {
                     object slTon = db.GetValue(string.Format(sql, manl));
                     decimal slTonNum = slTon != null ? Convert.ToDecimal(slTon) : 0;
-                    DataRow newRow = tableTinhGiay.NewRow();
-                    newRow["Kho"] = drKho;
-                    newRow["LoaiGiay"] = manl;
-                    newRow["SlChay"] = lstNL[manl].ToString("###,###,###");
-                    newRow["SlTon"] = slTonNum;
-                    // insert in the desired place
-                    tableTinhGiay.Rows.Add(newRow);
+                    decimal slChay = Convert.ToDecimal(lstNL[manl].ToString());
+                    if (slChay > 0)
+                    {
+                        DataRow newRow = tableTinhGiay.NewRow();
+                        newRow["Kho"] = drKho;
+                        newRow["LoaiGiay"] = manl;
+                        newRow["SlChay"] = slChay;
+                        newRow["SlTon"] = slTonNum;
+                        // insert in the desired place
+                        tableTinhGiay.Rows.Add(newRow);
+                    }
                 }
             }
 
+            //hien thi grid
             Form form = null;
             foreach (Form frm in Application.OpenForms)
                 if (frm.GetType().BaseType == typeof(CDTForm)
@@ -203,14 +211,43 @@ namespace DaSX
             }
 
             LayoutControl lcMain = form.Controls.Find("lcMain", true)[0] as LayoutControl;
-            LayoutControlItem lci5 = (LayoutControlItem)lcMain.Items.FindByName("cusGridTinhGiay");
-            lci5.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+            lci5 = (LayoutControlItem)lcMain.Items.FindByName("cusGridTinhGiay");
+
+            form.Load += Form_Shown;
 
             GridControl gridControl1 = form.Controls.Find("gridTinhGiay", true)[0] as GridControl;
+            gridView1 = (gridControl1.MainView as GridView);
+            gridView1.RowStyle += View_RowStyle;
+
             gridControl1.DataSource = tableTinhGiay;
             gridControl1.RefreshDataSource();
+            gridView1.ExpandAllGroups();
+        }
 
+        private void Form_Shown(object sender, EventArgs e)
+        {
+            if (lci5 != null)
+            {
+                lci5.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+            }
+        }
 
+        private void View_RowStyle(object sender, RowStyleEventArgs e)
+        {
+            if (e.RowHandle >= 0 && gridView1.IsDataRow(e.RowHandle))
+            {
+                object slChay = gridView1.GetRowCellValue(e.RowHandle, "SlChay");
+                object slTon = gridView1.GetRowCellValue(e.RowHandle, "SlTon");
+                if (slChay == DBNull.Value || slTon == DBNull.Value)
+                    e.Appearance.BackColor = Color.Transparent;
+                else
+                {
+                    if (decimal.Parse(slChay.ToString()) > decimal.Parse(slTon.ToString()))
+                        e.Appearance.BackColor = Color.OrangeRed;
+                    else
+                        e.Appearance.BackColor = Color.Transparent;
+                }
+            }
         }
 
         private Dictionary<string, decimal> GetDSNL(DataRow[] drsDT)
