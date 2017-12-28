@@ -211,9 +211,11 @@ namespace DaSX
             }
 
             LayoutControl lcMain = form.Controls.Find("lcMain", true)[0] as LayoutControl;
-            lci5 = (LayoutControlItem)lcMain.Items.FindByName("cusGridTinhGiay");
 
-            form.Load += Form_Shown;
+            lci5 = (LayoutControlItem)lcMain.Items.FindByName("cusGridTinhGiay");
+            lci5.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+
+            //form.Load += Form_Shown;
 
             GridControl gridControl1 = form.Controls.Find("gridTinhGiay", true)[0] as GridControl;
             gridView1 = (gridControl1.MainView as GridView);
@@ -224,13 +226,13 @@ namespace DaSX
             gridView1.ExpandAllGroups();
         }
 
-        private void Form_Shown(object sender, EventArgs e)
-        {
-            if (lci5 != null)
-            {
-                lci5.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
-            }
-        }
+        //private void Form_Shown(object sender, EventArgs e)
+        //{
+        //    if (lci5 != null)
+        //    {
+        //        lci5.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+        //    }
+        //}
 
         private void View_RowStyle(object sender, RowStyleEventArgs e)
         {
