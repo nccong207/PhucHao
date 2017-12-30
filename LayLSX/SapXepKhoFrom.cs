@@ -17,7 +17,7 @@ namespace LayLSX
         public DataTable data = new DataTable();
         public DateTime NgayBD = DateTime.Now, NgayKT = DateTime.Now;
         public string Kho = "";
-        public SapXepKhoFrom()
+        public SapXepKhoFrom(string currentValue)
         {
             InitializeComponent();
             this.MaximizeBox = false;
@@ -41,6 +41,25 @@ namespace LayLSX
             mainview.BestFitColumns();
             //mainview.AddNewRow();
             this.ControlBox = false;
+
+            if (!string.IsNullOrEmpty(currentValue))
+            {
+                string[] param = currentValue.Split(';');
+                NgayBD = DateTime.Parse(param[0]);
+                NgayKT = DateTime.Parse(param[1]);
+
+                dateEdit1.EditValue = NgayBD;
+                dateEdit2.EditValue = NgayKT;
+
+                NgayKT = (DateTime)dateEdit2.EditValue;
+
+                foreach (var kho in param[2].Split(','))
+                {
+                    DataRow row = data.NewRow();
+                    row["Kho"] = kho;
+                    data.Rows.Add(row);
+                }
+            }
         } 
 
         private void GridControl1_ProcessGridKey(object sender, KeyEventArgs e)

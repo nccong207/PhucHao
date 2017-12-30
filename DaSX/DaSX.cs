@@ -314,7 +314,7 @@ namespace DaSX
                 if (row["SoLuong"].ToString() == "" || Convert.ToDouble(row["SoLuong"]) == 0)
                     continue;
                 var soluong = double.Parse(row["SoLuong"].ToString());
-                var dao = double.Parse(row["Dao"].ToString());
+                var dao = double.Parse(row["Dao"] != DBNull.Value ? row["Dao"].ToString() : "0");
                 string dtlsxid = row["DTLSXID"].ToString();
                 var dtdh = db.GetDataTable(string.Format("SELECT dh.DTDHPSID FROM DTLSX lsx INNER JOIN DTDonHang dh on lsx.DTDHID = dh.DTDHID WHERE lsx.DTLSXID = '{0}' and DTDHPSID is not null", dtlsxid));
                 if (dtdh.Rows.Count > 0)
