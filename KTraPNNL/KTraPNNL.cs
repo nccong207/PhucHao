@@ -14,6 +14,7 @@ namespace KTraPNNL
         DataCustomData _data;
         InfoCustomData _info = new InfoCustomData(IDataType.MasterDetailDt);
         Database db = Database.NewDataDatabase();
+        string[] months = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L" };
         public DataCustomData Data { set { _data = value; } }
         public InfoCustomData Info { get { return _info; } }
 
@@ -23,8 +24,24 @@ namespace KTraPNNL
 
         public void ExecuteBefore()
         {
-            //kiem tra da tao phieu de nghi thanh toan
+
             var drCur = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
+            if (drCur.RowState == DataRowState.Added)
+            {
+                DateTime ngayCT = (DateTime)drCur["NgayCT"];
+                string mt42id = drCur["MT42ID"].ToString();
+                DataRow[] drsDeatail = _data.DsData.Tables[1].Select("MT42ID = '" + mt42id + "'");
+                string code = ngayCT.ToString("yy") + months[ngayCT.Month - 1];
+                int startNumber = GetStartCode(code + "%");
+                foreach (DataRow row in drsDeatail)
+                {
+                    startNumber++;
+                    row["MaCuon"] = code + startNumber.ToString("D5");
+                }
+            }
+
+            //kiem tra da tao phieu de nghi thanh toan
+          
             if (drCur.RowState == DataRowState.Deleted)
                 return;
 
@@ -94,6 +111,18 @@ namespace KTraPNNL
                 }
             }
             return null;
+        }
+
+        private int GetStartCode(string code)
+        {
+            string query = string.Format("Select Max(MaCuon) as Max from DT42 where MaCuon like '{0}'", code);
+            DataTable dt = db.GetDataTable(query);
+            if (dt.Rows[0]["Max"] != DBNull.Value)
+            {
+                string value = dt.Rows[0]["Max"].ToString().Substring(3);
+                return Convert.ToInt32(value);
+            }
+            return 1;
         }
     }
 
