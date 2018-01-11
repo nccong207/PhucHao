@@ -26,7 +26,7 @@ namespace KTraPNNL
         {
 
             var drCur = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
-            if (drCur.RowState == DataRowState.Added)
+            if (drCur.RowState == DataRowState.Added || drCur.RowState == DataRowState.Modified)
             {
                 DateTime ngayCT = (DateTime)drCur["NgayCT"];
                 string mt42id = drCur["MT42ID"].ToString();
@@ -35,8 +35,11 @@ namespace KTraPNNL
                 int startNumber = GetStartCode(code + "%");
                 foreach (DataRow row in drsDeatail)
                 {
-                    startNumber++;
-                    row["MaCuon"] = code + startNumber.ToString("D5");
+                    if (row.RowState == DataRowState.Added)
+                    {
+                        startNumber++;
+                        row["MaCuon"] = code + startNumber.ToString("D5");
+                    }
                 }
             }
 
