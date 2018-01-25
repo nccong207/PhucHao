@@ -48,6 +48,8 @@ namespace KTraSLPMH
                 return;
 
             string sophieuDn = drCur["SoPhieuDN"].ToString();
+            if (string.IsNullOrEmpty(sophieuDn)) return;
+
             string pk = _data.DrTableMaster["Pk"].ToString();
             string pkValue = drCur[pk].ToString();
             DataTable dt = _data.DsData.Tables[1];
