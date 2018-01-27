@@ -15,7 +15,7 @@ namespace KTraSLPMH
         DataCustomData _data;
         InfoCustomData _info = new InfoCustomData(IDataType.MasterDetailDt);
         Database db = Database.NewDataDatabase();
-
+        DataRow drCur;
         public void ExecuteAfter()
         {
         }
@@ -23,7 +23,7 @@ namespace KTraSLPMH
         public void ExecuteBefore()
         {
             //kiem tra da tao phieu de nghi thanh toan
-            var drCur = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
+            drCur = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
             if (drCur.RowState == DataRowState.Deleted || drCur.RowState == DataRowState.Modified)
             { 
                 string mtmhid = drCur["MTMHID", DataRowVersion.Original].ToString();
@@ -48,8 +48,24 @@ namespace KTraSLPMH
                 return;
 
             string sophieuDn = drCur["SoPhieuDN"].ToString();
-            if (string.IsNullOrEmpty(sophieuDn)) return;
+            if (string.IsNullOrEmpty(sophieuDn))
+            {
+                sophieuDn = drCur["SoPhieuDNList"].ToString();
+                string[] sophieuDnList = sophieuDn.Split(',');
+                if (sophieuDnList.Length == 0)  return;
 
+                foreach (var sophieu in sophieuDnList)
+                {
+                    KiemTraSL(sophieu);
+                }
+                return;
+            };
+
+            KiemTraSL(sophieuDn);
+        }
+
+        private void KiemTraSL(string SoPhieuDN)
+        {
             string pk = _data.DrTableMaster["Pk"].ToString();
             string pkValue = drCur[pk].ToString();
             DataTable dt = _data.DsData.Tables[1];
@@ -64,7 +80,7 @@ namespace KTraSLPMH
 
             // getso phieu mua hang cua phieu de nghi
             bool skip = false;
-            string sophieuMh = db.GetValue(string.Format(getPmhSql, sophieuDn)).ToString();
+            string sophieuMh = db.GetValue(string.Format(getPmhSql, SoPhieuDN)).ToString();
             string getVT = @"SELECT dt.MaVT, sum(dt.SoLuong) as TongSo FROM DTMuaHang dt 
                             JOIN MTMuaHang mt ON dt.MTMHID = mt.MTMHID
                             WHERE mt.SoPhieu in ({0}) and dt.MaVT = {1} and dt.MaPX = '{2}'
@@ -74,8 +90,9 @@ namespace KTraSLPMH
             if (!string.IsNullOrEmpty(sophieuMh))
             {
                 string[] mhList = sophieuMh.Split(',');
-                dataMh =  "'" + string.Join("','", mhList) + "'";
-            } else
+                dataMh = "'" + string.Join("','", mhList) + "'";
+            }
+            else
             {
                 skip = true;
             }
@@ -92,7 +109,8 @@ namespace KTraSLPMH
                 {
                     double soluongOld = Convert.ToDouble(row["SoLuong", DataRowVersion.Original].ToString());
                     delta = soluongNew - soluongOld;
-                } else
+                }
+                else
                 {
                     delta = soluongNew;
                 }
@@ -105,25 +123,25 @@ namespace KTraSLPMH
                         double soluong = Convert.ToDouble(vattuDt.Rows[0]["TongSo"].ToString());
                         total = soluong + delta;
                     }
-                } else
+                }
+                else
                 {
                     total = soluongNew;
                 }
-               
-                object vl = db.GetValue(string.Format(sql, sophieuDn, mavt, mapx));
+
+                object vl = db.GetValue(string.Format(sql, SoPhieuDN, mavt, mapx));
                 if (vl != null)
                 {
                     if (total > Convert.ToDouble(vl.ToString()))
                     {
                         object ten = db.GetValue(string.Format("SELECT TenVT FROM DMVatTu WHERE ID = '{0}'", mavt));
-                        string tenvt = ten != null ? ten.ToString(): null;
-                        
+                        string tenvt = ten != null ? ten.ToString() : null;
+
                         XtraMessageBox.Show($"số lượng của {tenvt} lớn hơn số lượng có trong phiếu đề nghị mua hàng.\n Kiểm tra lại số lượng của {tenvt}", Config.GetValue("PackageName").ToString());
                         _info.Result = false;
                         return;
                     }
                 }
-
             }
         }
 

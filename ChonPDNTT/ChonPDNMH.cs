@@ -11,9 +11,9 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 
-namespace ChonPDNTT
+namespace ChonPDNMH
 {
-    public class ChonPDNTT : ICControl
+    public class ChonPDNMH : ICControl
     {
         DataCustomFormControl _data;
         InfoCustomControl _info = new InfoCustomControl(IDataType.MasterDetailDt);
@@ -66,7 +66,7 @@ namespace ChonPDNTT
 
 
             string masterId = drCur[pk].ToString();
-            //string sophieudn = "";
+            string sophieudn = "";
             foreach (DataRow dr in drs)
             {
                 gvMain.AddNewRow();
@@ -83,9 +83,9 @@ namespace ChonPDNTT
                
                 gvMain.SetFocusedRowCellValue(gvMain.Columns["GhiChu"], dr["GhiChu"]);
                 gvMain.SetFocusedRowCellValue(gvMain.Columns["DTDNID"], dr["DTDNID"].ToString());
-                //sophieudn += "," + dr["SoPhieu"];
+                sophieudn += "," + dr["SoPhieu"];
             }
-            //drCur["SoPhieuDN"] = sophieudn;
+            drCur["SoPhieuDNList"] = sophieudn.Substring(1); ;
         }
 
         public DataCustomFormControl Data

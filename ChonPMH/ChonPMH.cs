@@ -104,6 +104,7 @@ namespace ChonPMH
                 gvMain.SetFocusedRowCellValue(gvMain.Columns["MaPX"], dr["MaPX"]);
                 gvMain.SetFocusedRowCellValue(gvMain.Columns["MaMay"], dr["MaMay"]);
                 gvMain.SetFocusedRowCellValue(gvMain.Columns["MaVT"], dr["MaVT"]);
+                gvMain.SetFocusedRowCellValue(gvMain.Columns["GhiChu"], dr["GhiChu"]);
                 gvMain.SetFocusedRowCellValue(gvMain.Columns["DTMHID"], dr["DTMHID"].ToString());
             }
         }

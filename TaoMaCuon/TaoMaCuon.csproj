@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6503D8C2-3593-4BF8-8B60-B294E480CB46}</ProjectGuid>
+    <ProjectGuid>{8614AB6E-3139-48EF-A622-94145B03D147}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ChonPDNTT</RootNamespace>
-    <AssemblyName>MTMuaHang_MdDt_ICC_ChonPDNTT</AssemblyName>
+    <RootNamespace>TaoMaCuon</RootNamespace>
+    <AssemblyName>MT42_MdDt_ICD_TaoMaCuon</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -16,10 +16,11 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\CDT\bin\Debug\Plugins\HTC\</OutputPath>
+    <OutputPath>..\..\..\Code\PhucHao\CDT\bin\Debug\Plugins\HTC\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,29 +31,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CDTLib">
-      <HintPath>..\CDT\bin\Debug\Plugins\HTC\CDTLib.dll</HintPath>
+    <Reference Include="CDTDatabase, Version=1.0.6244.30864, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\KTraDH\bin\Debug\CDTDatabase.dll</HintPath>
     </Reference>
-    <Reference Include="DataFactory">
-      <HintPath>..\..\..\CDTLibaries\DataFactory.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v7.2, Version=7.2.5.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1" />
-    <Reference Include="DevExpress.XtraEditors.v7.2, Version=7.2.5.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraGrid.v7.2, Version=7.2.5.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraLayout.v7.2, Version=7.2.5.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
-    <Reference Include="FormFactory">
-      <HintPath>..\LayPN\bin\Debug\FormFactory.DLL</HintPath>
-    </Reference>
-    <Reference Include="Plugins">
-      <HintPath>..\CDT\bin\Debug\Plugins\HTC\Plugins.dll</HintPath>
+    <Reference Include="Plugins, Version=1.0.6244.30864, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\KTraDH\bin\Debug\Plugins.DLL</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChonPDNTT.cs" />
+    <Compile Include="TaoMaCuon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
