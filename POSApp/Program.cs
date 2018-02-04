@@ -28,11 +28,14 @@ namespace POSApp
             InitApp();
             SetEnvironment(siteCode);
             Login frmLogin = new Login();
-            frmLogin.ShowDialog();
             frmLogin.StartPosition = FormStartPosition.CenterScreen;
+            frmLogin.ShowDialog();
+
+            var mainFrm = new Main(frmLogin.drUser);
+            mainFrm.StartPosition = FormStartPosition.CenterScreen;
             //dang nhap thanh cong, bat dau su dung chuong trinh
             if (frmLogin.DialogResult != DialogResult.Cancel)
-                Application.Run(new Main(frmLogin.drUser));
+                Application.Run(mainFrm);
 
         }
 

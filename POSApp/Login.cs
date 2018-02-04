@@ -32,5 +32,11 @@ namespace POSApp
                 MessageBox.Show("Thông tin đăng nhập không đúng. Vui lòng kiểm tra lại.");
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
     }
 }
