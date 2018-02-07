@@ -44,6 +44,8 @@
     <Reference Include="CDTLib">
       <HintPath>..\LayPN\bin\Debug\CDTLib.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Utils.v7.2, Version=7.2.5.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v7.2, Version=7.2.5.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
     <Reference Include="ErrorManager, Version=1.0.6244.30863, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\SHZ\Code\CDTDebug\bin\Debug\ErrorManager.dll</HintPath>
