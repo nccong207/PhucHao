@@ -29,125 +29,176 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.MaCuon = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.KyHieu = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Kho = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SoTon = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.btnTra = new DevExpress.XtraEditors.SimpleButton();
+            this.btnAdd = new DevExpress.XtraEditors.SimpleButton();
+            this.gridControl1 = new DevExpress.XtraGrid.GridControl();
+            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.ms1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.ms2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.ms3 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButton3 = new DevExpress.XtraEditors.SimpleButton();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(12, 33);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(296, 38);
-            this.textBox1.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 14);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Mã cuộn";
-            // 
-            // button1
-            // 
-            this.button1.BackgroundImage = global::POSApp.Properties.Resources._256_256_583f916fff606f7649d9859ca5097961;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.Location = new System.Drawing.Point(328, 33);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(53, 38);
-            this.button1.TabIndex = 2;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToOrderColumns = true;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.MaCuon,
-            this.KyHieu,
-            this.Kho,
-            this.SoTon});
-            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(631, 284);
-            this.dataGridView1.TabIndex = 3;
-            // 
-            // MaCuon
-            // 
-            this.MaCuon.HeaderText = "Mã cuộn";
-            this.MaCuon.Name = "MaCuon";
-            this.MaCuon.ReadOnly = true;
-            // 
-            // KyHieu
-            // 
-            this.KyHieu.HeaderText = "Ký hiệu";
-            this.KyHieu.Name = "KyHieu";
-            this.KyHieu.ReadOnly = true;
-            // 
-            // Kho
-            // 
-            this.Kho.HeaderText = "Khổ";
-            this.Kho.Name = "Kho";
-            this.Kho.ReadOnly = true;
-            // 
-            // SoTon
-            // 
-            this.SoTon.HeaderText = "Số tồn";
-            this.SoTon.Name = "SoTon";
-            this.SoTon.ReadOnly = true;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.dataGridView1);
+            this.panel1.Controls.Add(this.btnTra);
+            this.panel1.Controls.Add(this.btnAdd);
+            this.panel1.Controls.Add(this.gridControl1);
             this.panel1.Location = new System.Drawing.Point(12, 93);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(637, 290);
+            this.panel1.Size = new System.Drawing.Size(1094, 368);
             this.panel1.TabIndex = 4;
+            // 
+            // btnTra
+            // 
+            this.btnTra.Appearance.Font = new System.Drawing.Font("Tahoma", 20F);
+            this.btnTra.Appearance.Options.UseFont = true;
+            this.btnTra.Location = new System.Drawing.Point(526, 296);
+            this.btnTra.Name = "btnTra";
+            this.btnTra.Size = new System.Drawing.Size(75, 65);
+            this.btnTra.TabIndex = 6;
+            this.btnTra.Text = "Trả";
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Appearance.Font = new System.Drawing.Font("Tahoma", 20F);
+            this.btnAdd.Appearance.Options.UseFont = true;
+            this.btnAdd.Location = new System.Drawing.Point(431, 296);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 65);
+            this.btnAdd.TabIndex = 5;
+            this.btnAdd.Text = "Thêm";
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // gridControl1
+            // 
+            this.gridControl1.EmbeddedNavigator.Name = "";
+            this.gridControl1.Location = new System.Drawing.Point(3, 3);
+            this.gridControl1.MainView = this.gridView1;
+            this.gridControl1.Name = "gridControl1";
+            this.gridControl1.Size = new System.Drawing.Size(1088, 287);
+            this.gridControl1.TabIndex = 0;
+            this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView1});
+            // 
+            // gridView1
+            // 
+            this.gridView1.ColumnPanelRowHeight = 40;
+            this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.ms1,
+            this.ms2,
+            this.ms3});
+            this.gridView1.GridControl = this.gridControl1;
+            this.gridView1.Name = "gridView1";
+            this.gridView1.RowHeight = 30;
+            // 
+            // ms1
+            // 
+            this.ms1.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 20F);
+            this.ms1.AppearanceCell.Options.UseFont = true;
+            this.ms1.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 20F);
+            this.ms1.AppearanceHeader.Options.UseFont = true;
+            this.ms1.Caption = "MS 1";
+            this.ms1.FieldName = "MS1";
+            this.ms1.Name = "ms1";
+            this.ms1.Visible = true;
+            this.ms1.VisibleIndex = 0;
+            this.ms1.Width = 202;
+            // 
+            // ms2
+            // 
+            this.ms2.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 20F);
+            this.ms2.AppearanceCell.Options.UseFont = true;
+            this.ms2.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 20F);
+            this.ms2.AppearanceHeader.Options.UseFont = true;
+            this.ms2.Caption = "MS 2";
+            this.ms2.FieldName = "MS2";
+            this.ms2.Name = "ms2";
+            this.ms2.Visible = true;
+            this.ms2.VisibleIndex = 1;
+            this.ms2.Width = 202;
+            // 
+            // ms3
+            // 
+            this.ms3.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 20F);
+            this.ms3.AppearanceCell.Options.UseFont = true;
+            this.ms3.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 20F);
+            this.ms3.AppearanceHeader.Options.UseFont = true;
+            this.ms3.Caption = "MS 3";
+            this.ms3.FieldName = "MS3";
+            this.ms3.Name = "ms3";
+            this.ms3.Visible = true;
+            this.ms3.VisibleIndex = 2;
+            this.ms3.Width = 205;
+            // 
+            // simpleButton1
+            // 
+            this.simpleButton1.Appearance.Font = new System.Drawing.Font("Tahoma", 20F);
+            this.simpleButton1.Appearance.Options.UseFont = true;
+            this.simpleButton1.Location = new System.Drawing.Point(15, 12);
+            this.simpleButton1.Name = "simpleButton1";
+            this.simpleButton1.Size = new System.Drawing.Size(134, 65);
+            this.simpleButton1.TabIndex = 7;
+            this.simpleButton1.Text = "Trang chủ";
+            // 
+            // simpleButton2
+            // 
+            this.simpleButton2.Appearance.Font = new System.Drawing.Font("Tahoma", 20F);
+            this.simpleButton2.Appearance.Options.UseFont = true;
+            this.simpleButton2.Location = new System.Drawing.Point(165, 12);
+            this.simpleButton2.Name = "simpleButton2";
+            this.simpleButton2.Size = new System.Drawing.Size(128, 65);
+            this.simpleButton2.TabIndex = 8;
+            this.simpleButton2.Text = "Báo cáo";
+            // 
+            // simpleButton3
+            // 
+            this.simpleButton3.Appearance.Font = new System.Drawing.Font("Tahoma", 20F);
+            this.simpleButton3.Appearance.Options.UseFont = true;
+            this.simpleButton3.Location = new System.Drawing.Point(310, 12);
+            this.simpleButton3.Name = "simpleButton3";
+            this.simpleButton3.Size = new System.Drawing.Size(122, 65);
+            this.simpleButton3.TabIndex = 9;
+            this.simpleButton3.Text = "Cài đặt";
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(661, 395);
+            this.ClientSize = new System.Drawing.Size(1118, 473);
+            this.Controls.Add(this.simpleButton3);
+            this.Controls.Add(this.simpleButton2);
+            this.Controls.Add(this.simpleButton1);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Main";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Phần mềm quản lý giấy cuộn tại xưởng";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MaCuon;
-        private System.Windows.Forms.DataGridViewTextBoxColumn KyHieu;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Kho;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SoTon;
         private System.Windows.Forms.Panel panel1;
+        private DevExpress.XtraGrid.GridControl gridControl1;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private DevExpress.XtraGrid.Columns.GridColumn ms1;
+        private DevExpress.XtraGrid.Columns.GridColumn ms2;
+        private DevExpress.XtraGrid.Columns.GridColumn ms3;
+        private DevExpress.XtraEditors.SimpleButton btnTra;
+        private DevExpress.XtraEditors.SimpleButton btnAdd;
+        private DevExpress.XtraEditors.SimpleButton simpleButton1;
+        private DevExpress.XtraEditors.SimpleButton simpleButton2;
+        private DevExpress.XtraEditors.SimpleButton simpleButton3;
     }
 }

@@ -39,10 +39,10 @@
             // 
             // textBox1
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 26F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(183, 6);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(422, 32);
+            this.textBox1.Size = new System.Drawing.Size(284, 47);
             this.textBox1.TabIndex = 0;
             // 
             // label1
@@ -59,7 +59,8 @@
             // 
             this.button1.BackgroundImage = global::POSApp.Properties.Resources.Delete;
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.Location = new System.Drawing.Point(122, 111);
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.button1.Location = new System.Drawing.Point(28, 123);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(85, 83);
             this.button1.TabIndex = 2;
@@ -78,17 +79,17 @@
             // 
             // textBox2
             // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(183, 53);
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 26F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(183, 59);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(422, 32);
-            this.textBox2.TabIndex = 5;
+            this.textBox2.Size = new System.Drawing.Size(284, 47);
+            this.textBox2.TabIndex = 1;
             // 
             // button2
             // 
             this.button2.BackgroundImage = global::POSApp.Properties.Resources._256_256_583f916fff606f7649d9859ca5097961;
             this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button2.Location = new System.Drawing.Point(463, 111);
+            this.button2.Location = new System.Drawing.Point(382, 123);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(85, 83);
             this.button2.TabIndex = 3;
@@ -97,9 +98,12 @@
             // 
             // Login
             // 
+            this.AcceptButton = this.button2;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(617, 218);
+            this.CancelButton = this.button1;
+            this.ClientSize = new System.Drawing.Size(487, 218);
+            this.ControlBox = false;
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button2);
@@ -108,6 +112,7 @@
             this.Controls.Add(this.textBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Login";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Đăng nhập";
             this.ResumeLayout(false);
             this.PerformLayout();
