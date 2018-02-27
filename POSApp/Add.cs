@@ -15,10 +15,19 @@ namespace POSApp
     {
         AppCon ac = new AppCon();
         Main mainFrm;
-        public Add(Main main)
+        public Add(Main main, bool isReturn = false)
         {
             InitializeComponent();
             mainFrm = main;
+            if (isReturn)
+            {
+                simpleButton1.Visible = false;
+                simpleButton2.Visible = false;
+                simpleButton3.Visible = false;
+            } else
+            {
+                simpleButton4.Visible = false;
+            }
         }
 
         private void simpleButton1_Click(object sender, EventArgs e)
@@ -80,6 +89,59 @@ namespace POSApp
             }
 
             return result;
+        }
+
+        private void simpleButton4_Click(object sender, EventArgs e)
+        {
+            string Macuon = textBox1.Text;
+            if (mainFrm.IsExisted(Macuon) == null)
+            {
+                if (!mainFrm.IsQuanLy())
+                {
+                    Login frmLogin = new Login();
+                    frmLogin.StartPosition = FormStartPosition.CenterScreen;
+                    frmLogin.ShowDialog();
+
+                    //dang nhap lai quyen quan ly
+                    if (frmLogin.DialogResult != DialogResult.Cancel)
+                    {
+                        mainFrm.UpdateLoginUser(frmLogin.drUser);
+                        if (!mainFrm.IsQuanLy())
+                        {
+                            this.Close();
+                        }else
+                        {
+                            //next
+                            AddXuatKho();
+                        }
+                    }
+                    else
+                    {
+                        this.Close();
+                    }
+                } else
+                {
+                    //next
+                    AddXuatKho();
+                }
+            } else
+            {
+                //next
+                AddXuatKho();
+            }
+        }
+
+        private void AddXuatKho() {
+            Input frm = new Input();
+            frm.StartPosition = FormStartPosition.CenterScreen;
+            frm.ShowDialog();
+
+            if (frm.DialogResult != DialogResult.Cancel)
+            {
+                mainFrm.AddToReturnGrid(textBox1.Text, frm.duongkinh);
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
         }
     }
 

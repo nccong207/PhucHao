@@ -31,10 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Add));
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton3 = new DevExpress.XtraEditors.SimpleButton();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.simpleButton3 = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButton4 = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             this.SuspendLayout();
@@ -52,6 +53,7 @@
             // 
             // panelControl1
             // 
+            this.panelControl1.Controls.Add(this.simpleButton4);
             this.panelControl1.Controls.Add(this.textBox1);
             this.panelControl1.Controls.Add(this.labelControl1);
             this.panelControl1.Controls.Add(this.simpleButton3);
@@ -62,16 +64,23 @@
             this.panelControl1.Size = new System.Drawing.Size(434, 245);
             this.panelControl1.TabIndex = 1;
             // 
-            // simpleButton2
+            // textBox1
             // 
-            this.simpleButton2.Appearance.Font = new System.Drawing.Font("Tahoma", 16F);
-            this.simpleButton2.Appearance.Options.UseFont = true;
-            this.simpleButton2.Location = new System.Drawing.Point(172, 176);
-            this.simpleButton2.Name = "simpleButton2";
-            this.simpleButton2.Size = new System.Drawing.Size(94, 50);
-            this.simpleButton2.TabIndex = 1;
-            this.simpleButton2.Text = "MÁY 2";
-            this.simpleButton2.Click += new System.EventHandler(this.simpleButton2_Click);
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(21, 80);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(382, 53);
+            this.textBox1.TabIndex = 4;
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 30F);
+            this.labelControl1.Appearance.Options.UseFont = true;
+            this.labelControl1.Location = new System.Drawing.Point(66, 10);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(285, 48);
+            this.labelControl1.TabIndex = 3;
+            this.labelControl1.Text = "QUÉT MÃ CUỘN";
             // 
             // simpleButton3
             // 
@@ -84,23 +93,27 @@
             this.simpleButton3.Text = "MÁY 3";
             this.simpleButton3.Click += new System.EventHandler(this.simpleButton3_Click);
             // 
-            // labelControl1
+            // simpleButton2
             // 
-            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 30F);
-            this.labelControl1.Appearance.Options.UseFont = true;
-            this.labelControl1.Location = new System.Drawing.Point(66, 10);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(285, 48);
-            this.labelControl1.TabIndex = 3;
-            this.labelControl1.Text = "QUÉT MÃ CUỘN";
+            this.simpleButton2.Appearance.Font = new System.Drawing.Font("Tahoma", 16F);
+            this.simpleButton2.Appearance.Options.UseFont = true;
+            this.simpleButton2.Location = new System.Drawing.Point(172, 176);
+            this.simpleButton2.Name = "simpleButton2";
+            this.simpleButton2.Size = new System.Drawing.Size(94, 50);
+            this.simpleButton2.TabIndex = 1;
+            this.simpleButton2.Text = "MÁY 2";
+            this.simpleButton2.Click += new System.EventHandler(this.simpleButton2_Click);
             // 
-            // textBox1
+            // simpleButton4
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(21, 80);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(382, 53);
-            this.textBox1.TabIndex = 4;
+            this.simpleButton4.Appearance.Font = new System.Drawing.Font("Tahoma", 16F);
+            this.simpleButton4.Appearance.Options.UseFont = true;
+            this.simpleButton4.Location = new System.Drawing.Point(172, 162);
+            this.simpleButton4.Name = "simpleButton4";
+            this.simpleButton4.Size = new System.Drawing.Size(94, 50);
+            this.simpleButton4.TabIndex = 5;
+            this.simpleButton4.Text = "Trả";
+            this.simpleButton4.Click += new System.EventHandler(this.simpleButton4_Click);
             // 
             // Add
             // 
@@ -127,5 +140,6 @@
         private DevExpress.XtraEditors.SimpleButton simpleButton3;
         private DevExpress.XtraEditors.SimpleButton simpleButton2;
         private System.Windows.Forms.TextBox textBox1;
+        private DevExpress.XtraEditors.SimpleButton simpleButton4;
     }
 }

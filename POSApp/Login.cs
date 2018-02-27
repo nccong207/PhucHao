@@ -13,6 +13,7 @@ namespace POSApp
     {
         public DataRow drUser;
         Database db = Database.NewStructDatabase();
+
         public Login()
         {
             InitializeComponent();
@@ -25,6 +26,7 @@ namespace POSApp
             DataTable dt = db.GetDataTable(string.Format(sql, textBox1.Text, textBox2.Text));
             if (dt.Rows.Count > 0)
             {
+                drUser = dt.Rows[0];
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             } else
