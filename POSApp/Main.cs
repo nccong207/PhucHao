@@ -54,27 +54,60 @@ namespace POSApp
             Add frm = new Add(this);
             frm.ShowDialog();
         }
-        public void AddToReturnGrid(string macuon, decimal duongkinh)
+        public void AddToReturnGrid(MaCuon macuon, decimal duongkinh)
         {
             string ngay = DateTime.Now.ToString();
-            string soluongbd = IsExisted(macuon);
-           
-            if (soluongbd == null)
-            {
-                MessageBox.Show("Mã cuộn không tồn tại trong danh sách sử dụng");
-            } else
-            {
-                decimal soluongbdNum =Convert.ToDecimal(soluongbd.Split('-')[2].Replace(",", "").Replace("KG", ""));
-                decimal soluongCL = soluongbdNum - duongkinh;
-                string nguoiduyet = loginUser["HoTen"].ToString();
+            decimal soluongBD = Convert.ToDecimal(macuon.SoKg);
+            decimal soluongCL = duongkinh * Convert.ToDecimal(macuon.Kho) * Convert.ToDecimal("3.14") * macuon.TileK;
+            decimal soluongSD = soluongBD - soluongCL;
 
-                string sql = @"INSERT INTO YeuCauXuatKho (Ngay, MaCuon, SoLuongBD, SoLuongSD, SoLuongCL, NguoiDuyet, Duyet)
-                                VALUES ('{0}','{1}',{2},{3},{4},'{5}',0)";
-                db.UpdateByNonQuery(string.Format(sql, ngay, macuon, soluongbdNum, duongkinh, soluongCL, nguoiduyet));
-                ReloadReturnGrid();
+            string list = "";
+            // tính số lượng đơn hàng sử dụng
+            var may1 = GetOrder(macuon, SoMay.May1);
+            if (may1 != null)
+            {
+                list += GetListOder(soluongSD, may1);
             }
 
+            var may2 = GetOrder(macuon, SoMay.May2);
+            if (may2 != null)
+            {
+                list += GetListOder(soluongSD, may2);
+            }
+
+            var may3 = GetOrder(macuon, SoMay.May3);
+            if (may3 != null)
+            {
+                list += GetListOder(soluongSD, may3);
+            }
+
+            string nguoiduyet = loginUser["HoTen"].ToString();
+            string sql = @"INSERT INTO YeuCauXuatKho (Ngay, MaCuon, SoLuongBD, SoLuongSD, SoLuongCL, NguoiDuyet, LSX, Duyet)
+                            VALUES ('{0}','{1}',{2},{3},{4},'{5}', '{6}',1)";
+            db.UpdateByNonQuery(string.Format(sql, ngay, macuon, soluongBD, soluongSD, soluongCL, nguoiduyet, list));
+            ReloadReturnGrid();
+
         }
+
+        private string GetListOder (decimal soluongSD, DataTable orderSelected)
+        {
+            string listOrderNo =  "";
+            DataView dv = orderSelected.DefaultView;
+            dv.Sort = "CutNum asc";
+            DataTable sortedDT = dv.ToTable();
+            decimal total = 0;
+            foreach (DataRow row in sortedDT.Rows)
+            {
+                total += Convert.ToDecimal(row["CutNum"]);
+                listOrderNo += row["OrderNo"] + ",";
+                if (total >=     soluongSD)
+                {
+                    return listOrderNo;
+                }
+            }
+            return listOrderNo;
+        }
+
         public void ReloadReturnGrid()
         {
             string sql = "SELECT * FROM YeuCauXuatKho";
@@ -94,8 +127,7 @@ namespace POSApp
                 AddNewRow(row, data, may);
             }
             else
-            {
-                string field = "";
+            {                string field = "";
                 switch (may)
                 {
                     case SoMay.May1: field = "MS1"; break;
@@ -118,37 +150,27 @@ namespace POSApp
             }
         }
 
-        public string IsExisted(string macuon)
+        public DataTable GetOrder(MaCuon macuon, SoMay may)
         {
-            if (gridView1.RowCount == 0)
+            // kiểm tra cuộn giấy đó có trong đơn hàng sản xuất 
+            string connection = @"Server = LINH-PC\HOATIEU; database = cpms; user = sa; pwd = ht";
+            Database db = Database.NewCustomDatabase(connection);
+            int startNum = 0, endNum = 0;
+
+            switch (may)
             {
-                return null;
+                case SoMay.May1:startNum = 3; endNum = 5; break;
+                case SoMay.May2:startNum = 7; endNum = 9; break;
+                case SoMay.May3:startNum = 11; endNum = 13; break;
+                default:
+                    break;
             }
-            else
-            {
-                for (int i = 0; i < gridView1.DataRowCount; i++)
-                {
-                    string value1 = gridView1.GetRowCellValue(i, "MS1").ToString();
-                    if (!string.IsNullOrEmpty(value1) && value1.Split('-')[0].Contains(macuon))
-                    {
-                        return value1;
-                    }
 
-                    string value2 = gridView1.GetRowCellValue(i, "MS2").ToString();
-                    if (!string.IsNullOrEmpty(value2) && value2.Split('-')[0].Contains(macuon))
-                    {
-                        return value2;
-                    }
+            string query = @"SELECT PaperUse, ProduceWid, CutNum, SumSquare, OrderNo FROM LW_Order
+            WHERE SUBSTRING(PaperUse, {0}, 2) = '{1}' OR SUBSTRING(PaperUse, {2}, 2) = '{3}'";
 
-                    string value3 = gridView1.GetRowCellValue(i, "MS3").ToString();
-                    if (!string.IsNullOrEmpty(value3) && value3.Split('-')[0].Contains(macuon))
-                    {
-                        return value3;
-                    }
-                }
-
-                return null;
-            }
+            DataTable order = db.GetDataTable(string.Format(query, startNum, macuon.KyHieu, endNum, macuon.KyHieu));
+            return order;
         }
 
         private void AddNewRow(DataRow row, string data, SoMay may)
