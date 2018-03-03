@@ -38,7 +38,13 @@ namespace KTraPNNL
                     if (row.RowState == DataRowState.Added)
                     {
                         startNumber++;
-                        row["MaCuon"] = code + startNumber.ToString("D5");
+                        string macuon = code + startNumber.ToString("D5");
+                        if (!isNotExist(macuon))
+                        {
+                            startNumber++;
+                            macuon = code + startNumber.ToString("D5");
+                        }
+                        row["MaCuon"] = macuon;
                     }
                 }
             }
@@ -102,6 +108,18 @@ namespace KTraPNNL
                     return;
                 }
             }
+        }
+
+        private bool isNotExist(string macuon)
+        {
+            string sql = "SELECT MaCuon FROM dt42 WHERE MaCuon = '{0}'";
+            var check = db.GetValue(string.Format(sql, macuon));
+            if (check == null)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private NguyenLieu GetExisted(string dt41id, List<NguyenLieu> nl)
