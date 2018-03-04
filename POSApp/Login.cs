@@ -1,10 +1,6 @@
 ﻿using CDTDatabase;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace POSApp
@@ -12,12 +8,11 @@ namespace POSApp
     public partial class Login : Form
     {
         public DataRow drUser;
-        Database db = Database.NewStructDatabase();
+        Database db = Database.NewDataDatabase();
 
         public Login()
         {
             InitializeComponent();
-            Database db = Database.NewStructDatabase();
         }
 
         private void button2_Click(object sender, EventArgs e)

@@ -45,27 +45,23 @@ namespace POSApp
 
         private static void SetEnvironment(string siteCode)
         {
-            System.Globalization.CultureInfo CultureInfo = System.Windows.Forms.Application.CurrentCulture.Clone() as System.Globalization.CultureInfo;
+            CultureInfo CultureInfo = Application.CurrentCulture.Clone() as CultureInfo;
             CultureInfo = new CultureInfo("en-US");
             DateTimeFormatInfo dtInfo = new DateTimeFormatInfo();
             dtInfo.LongDatePattern = "MM/dd/yyyy h:mm:ss tt";
             dtInfo.ShortDatePattern = "MM/dd/yyyy";
             CultureInfo.DateTimeFormat = dtInfo;
-            System.Windows.Forms.Application.CurrentCulture = CultureInfo;
-
+            Application.CurrentCulture = CultureInfo;
+            Config.NewKeyValue("PackageName", "Phần mềm Quản lý Giấy cuộn tại xưởng");
             //lay chuoi ket noi
             AppCon ac = new AppCon();
-            string StructConnection = ac.GetValue("StructDb");
-            if (StructConnection == "" && File.Exists("InstallerMng.exe"))
-            {
-                ProcessStartInfo psi = new ProcessStartInfo("InstallerMng.exe", siteCode);
-                Process.Start(psi);
-                Environment.Exit(0);
-            }
-            StructConnection = Security.DeCode(StructConnection);
-            string structDb = "CDT" + ac.GetValue("ShortName");
-            Config.NewKeyValue("StructDb", structDb);
-            Config.NewKeyValue("StructConnection", StructConnection);
+            string posDb = ac.GetValue("POSDb");
+            posDb = Security.DeCode(posDb);
+            Config.NewKeyValue("DataConnection", posDb);
+
+            string longwayDb = ac.GetValue("LongwayDb");
+            longwayDb = Security.DeCode(longwayDb);
+            Config.NewKeyValue("StructConnection", longwayDb);
         }
     }
 }

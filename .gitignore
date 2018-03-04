@@ -159,3 +159,4 @@ $RECYCLE.BIN/
 *.sln
 /.vs/PhucHaoMi/v15/Server/sqlite3
 /.vs/PhucHao/v15/Server/sqlite3
+/POSApp/.vs/POSApp/v15/Server/sqlite3
