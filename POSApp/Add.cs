@@ -56,8 +56,7 @@ namespace POSApp
             }
             else
             {
-                XtraMessageBox.Show("Không được phép thêm mã cuộn không có trong danh sách đơn hàng sản xuất.", "POS Warning");
-                this.Close();
+                showResult(mc, may);
             }
         }
 
