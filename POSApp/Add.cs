@@ -96,8 +96,7 @@ namespace POSApp
 
         private void showResult(MaCuon mc, SoMay may)
         {
-            //TODO
-            Result frmRs = new Result(mc, SoMay.May1, mainFrm);
+            Result frmRs = new Result(mc, may, mainFrm);
             this.Close();
             frmRs.ShowDialog();
         }
