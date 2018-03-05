@@ -101,6 +101,8 @@
             this.gridColumn1.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 20F);
             this.gridColumn1.AppearanceHeader.Options.UseFont = true;
             this.gridColumn1.Caption = "Ngày giờ";
+            this.gridColumn1.DisplayFormat.FormatString = "dd/MM/yyy hh:MM";
+            this.gridColumn1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.gridColumn1.FieldName = "Ngay";
             this.gridColumn1.GroupFormat.FormatString = "dd/MM/yyy hh:MM";
             this.gridColumn1.GroupFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
@@ -129,8 +131,10 @@
             this.gridColumn3.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 20F);
             this.gridColumn3.AppearanceHeader.Options.UseFont = true;
             this.gridColumn3.Caption = "Số ký ban đầu";
+            this.gridColumn3.DisplayFormat.FormatString = "###,###,###";
+            this.gridColumn3.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.gridColumn3.FieldName = "SoLuongBD";
-            this.gridColumn3.GroupFormat.FormatString = "###,###";
+            this.gridColumn3.GroupFormat.FormatString = "###,###,###";
             this.gridColumn3.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.gridColumn3.Name = "gridColumn3";
             this.gridColumn3.Visible = true;
@@ -144,8 +148,10 @@
             this.gridColumn4.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 20F);
             this.gridColumn4.AppearanceHeader.Options.UseFont = true;
             this.gridColumn4.Caption = "Số ký sử dụng";
+            this.gridColumn4.DisplayFormat.FormatString = "###,###,###";
+            this.gridColumn4.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.gridColumn4.FieldName = "SoLuongSD";
-            this.gridColumn4.GroupFormat.FormatString = "###,###";
+            this.gridColumn4.GroupFormat.FormatString = "###,###,###";
             this.gridColumn4.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.gridColumn4.Name = "gridColumn4";
             this.gridColumn4.Visible = true;
@@ -159,8 +165,10 @@
             this.gridColumn5.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 20F);
             this.gridColumn5.AppearanceHeader.Options.UseFont = true;
             this.gridColumn5.Caption = "Số ký còn lại";
+            this.gridColumn5.DisplayFormat.FormatString = "###,###,###";
+            this.gridColumn5.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.gridColumn5.FieldName = "SoLuongCL";
-            this.gridColumn5.GroupFormat.FormatString = "###,###";
+            this.gridColumn5.GroupFormat.FormatString = "###,###,###";
             this.gridColumn5.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.gridColumn5.Name = "gridColumn5";
             this.gridColumn5.Visible = true;

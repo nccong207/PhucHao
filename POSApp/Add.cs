@@ -56,8 +56,7 @@ namespace POSApp
             }
             else
             {
-                XtraMessageBox.Show("Không được phép thêm mã cuộn không có trong danh sách đơn hàng sản xuất.", "POS Warning");
-                this.Close();
+                showResult(mc, may);
             }
         }
 
@@ -96,8 +95,7 @@ namespace POSApp
 
         private void showResult(MaCuon mc, SoMay may)
         {
-            //TODO
-            Result frmRs = new Result(mc, SoMay.May1, mainFrm);
+            Result frmRs = new Result(mc, may, mainFrm);
             this.Close();
             frmRs.ShowDialog();
         }
