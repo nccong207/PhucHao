@@ -171,7 +171,6 @@ namespace POSApp
 
         private void simpleButton4_Click(object sender, EventArgs e)
         {
-            string Macuon = textBox1.Text;
             AddXuatKho();
         }
 
