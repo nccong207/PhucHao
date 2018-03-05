@@ -108,7 +108,7 @@ namespace POSApp
             {
                 XtraMessageBox.Show("Không tìm thấy chuỗi kết nối database", Config.GetValue("PackageName").ToString());
                 this.Close();
-            }
+            } 
             dataCnn = dataCnn.Replace("POS", "HTCPH");
 
             Database hoaTieuDb = Database.NewCustomDatabase(dataCnn);
