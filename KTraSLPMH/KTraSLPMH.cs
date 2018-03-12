@@ -3,9 +3,7 @@ using CDTLib;
 using DevExpress.XtraEditors;
 using Plugins;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace KTraSLPMH
 {
@@ -28,9 +26,9 @@ namespace KTraSLPMH
             { 
                 string mtmhid = drCur["MTMHID", DataRowVersion.Original].ToString();
 
-                string sqlPdntt = @"SELECT* from DTDNTT dt
-                    LEFT JOIN DTMuaHang dtmh ON dt.DTMHID = dtmh.DTMHID
-                    LEFT JOIN MTMuaHang mtmh ON dtmh.MTMHID = mtmh.MTMHID
+                string sqlPdntt = @"SELECT * from DTDNTT dt
+                    JOIN DTMuaHang dtmh ON dt.DTMHID = dtmh.DTMHID
+                    JOIN MTMuaHang mtmh ON dtmh.MTMHID = mtmh.MTMHID
                     WHERE mtmh.MTMHID = '{0}'";
 
                 DataTable dtdntt = db.GetDataTable(string.Format(sqlPdntt, mtmhid));
@@ -47,61 +45,25 @@ namespace KTraSLPMH
             if (drCur.RowState == DataRowState.Deleted)
                 return;
 
-            string sophieuDn = drCur["SoPhieuDN"].ToString();
-            if (string.IsNullOrEmpty(sophieuDn))
-            {
-                sophieuDn = drCur["SoPhieuDNList"].ToString();
-                string[] sophieuDnList = sophieuDn.Split(',');
-                if (sophieuDnList.Length == 0)  return;
-
-                foreach (var sophieu in sophieuDnList)
-                {
-                    KiemTraSL(sophieu);
-                }
-                return;
-            };
-
-            KiemTraSL(sophieuDn);
+            KiemTraSL();
         }
 
-        private void KiemTraSL(string SoPhieuDN)
+        private void KiemTraSL()
         {
             string pk = _data.DrTableMaster["Pk"].ToString();
             string pkValue = drCur[pk].ToString();
             DataTable dt = _data.DsData.Tables[1];
-            DataRow[] drs = dt.Select(pk + " = '" + pkValue + "'");
-
-            string sql = @"SELECT dt.SoLuong
-                        FROM DTDeNghi dt JOIN MTDeNghi mt ON
-                        dt.MTDNID = mt.MTDNID
-                        WHERE mt.SoPhieu = '{0}'
-                        and dt.MaVT = '{1}' and dt.MaPX = '{2}'";
-            string getPmhSql = "SELECT SoPhieuMH FROM MTDeNghi WHERE SoPhieu = '{0}'";
+            DataRow[] drs = dt.Select(pk + " = '" + pkValue + "'", "", DataViewRowState.Added | DataViewRowState.ModifiedCurrent);
 
             // getso phieu mua hang cua phieu de nghi
-            bool skip = false;
-            string sophieuMh = db.GetValue(string.Format(getPmhSql, SoPhieuDN)).ToString();
-            string getVT = @"SELECT dt.MaVT, sum(dt.SoLuong) as TongSo FROM DTMuaHang dt 
-                            JOIN MTMuaHang mt ON dt.MTMHID = mt.MTMHID
-                            WHERE mt.SoPhieu in ({0}) and dt.MaVT = {1} and dt.MaPX = '{2}'
-                            GROUP BY dt.MaVT";
-
-            string dataMh = "";
-            if (!string.IsNullOrEmpty(sophieuMh))
-            {
-                string[] mhList = sophieuMh.Split(',');
-                dataMh = "'" + string.Join("','", mhList) + "'";
-            }
-            else
-            {
-                skip = true;
-            }
+            string sqlDaMua = @"SELECT sum(dt.SoLuong) FROM DTMuaHang dt 
+                            WHERE dt.DTDNID = '{0}'";
+            string sqlDeNghi = @"SELECT dt.SoLuong FROM DTDeNghi dt 
+                            WHERE dt.DTDNID = '{0}'";
 
             foreach (var row in drs)
             {
-                string mavt = row["MaVT"].ToString();
-                string mapx = row["MaPX"].ToString();
-                double soluongNew = 0d, total = 0d, delta = 0d;
+                double soluongNew = 0d, tSLDaMua = 0d, delta = 0d;
 
                 soluongNew = Convert.ToDouble(row["SoLuong"].ToString());
 
@@ -114,33 +76,22 @@ namespace KTraSLPMH
                 {
                     delta = soluongNew;
                 }
+                
+                object sl = db.GetValue(string.Format(sqlDaMua, row["DTDNID"]));
+                double soluong = (sl == null || sl.ToString() == "") ? 0 : Convert.ToDouble(sl);
+                tSLDaMua = soluong + delta;
 
-                if (!skip)
-                {
-                    DataTable vattuDt = db.GetDataTable(string.Format(getVT, dataMh, mavt, mapx));
-                    if (vattuDt.Rows.Count > 0)
-                    {
-                        double soluong = Convert.ToDouble(vattuDt.Rows[0]["TongSo"].ToString());
-                        total = soluong + delta;
-                    }
-                }
-                else
-                {
-                    total = soluongNew;
-                }
+                object vl = db.GetValue(string.Format(sqlDeNghi, row["DTDNID"]));
+                double tSLDeNghi = (vl == null || vl.ToString() == "") ? 0 : Convert.ToDouble(vl);
 
-                object vl = db.GetValue(string.Format(sql, SoPhieuDN, mavt, mapx));
-                if (vl != null)
+                if (tSLDaMua > tSLDeNghi)
                 {
-                    if (total > Convert.ToDouble(vl.ToString()))
-                    {
-                        object ten = db.GetValue(string.Format("SELECT TenVT FROM DMVatTu WHERE ID = '{0}'", mavt));
-                        string tenvt = ten != null ? ten.ToString() : null;
+                    object ten = db.GetValue(string.Format("SELECT TenVT FROM DMVatTu WHERE ID = '{0}'", row["MaVT"]));
+                    string tenvt = ten?.ToString();
 
-                        XtraMessageBox.Show($"số lượng của {tenvt} lớn hơn số lượng có trong phiếu đề nghị mua hàng.\n Kiểm tra lại số lượng của {tenvt}", Config.GetValue("PackageName").ToString());
-                        _info.Result = false;
-                        return;
-                    }
+                    XtraMessageBox.Show($"số lượng của {tenvt} lớn hơn số lượng có trong phiếu đề nghị mua hàng.\n Kiểm tra lại số lượng của {tenvt}", Config.GetValue("PackageName").ToString());
+                    _info.Result = false;
+                    return;
                 }
             }
         }

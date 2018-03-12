@@ -48,31 +48,33 @@
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton3 = new DevExpress.XtraEditors.SimpleButton();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.gridControl2);
-            this.panel1.Controls.Add(this.btnTra);
-            this.panel1.Controls.Add(this.btnAdd);
             this.panel1.Controls.Add(this.gridControl1);
-            this.panel1.Location = new System.Drawing.Point(12, 93);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 78);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1094, 677);
+            this.panel1.Size = new System.Drawing.Size(1118, 671);
             this.panel1.TabIndex = 4;
             // 
             // gridControl2
             // 
+            this.gridControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridControl2.EmbeddedNavigator.Name = "";
-            this.gridControl2.Location = new System.Drawing.Point(3, 377);
+            this.gridControl2.Location = new System.Drawing.Point(0, 371);
             this.gridControl2.MainView = this.gridView2;
             this.gridControl2.Name = "gridControl2";
-            this.gridControl2.Size = new System.Drawing.Size(1088, 287);
+            this.gridControl2.Size = new System.Drawing.Size(1118, 300);
             this.gridControl2.TabIndex = 7;
             this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView2});
@@ -89,6 +91,7 @@
             this.gridColumn6});
             this.gridView2.GridControl = this.gridControl2;
             this.gridView2.Name = "gridView2";
+            this.gridView2.OptionsView.ShowGroupPanel = false;
             this.gridView2.RowHeight = 30;
             // 
             // gridColumn1
@@ -187,33 +190,36 @@
             // 
             // btnTra
             // 
+            this.btnTra.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnTra.Appearance.Font = new System.Drawing.Font("Tahoma", 20F);
             this.btnTra.Appearance.Options.UseFont = true;
-            this.btnTra.Location = new System.Drawing.Point(526, 296);
+            this.btnTra.Location = new System.Drawing.Point(1024, 7);
             this.btnTra.Name = "btnTra";
-            this.btnTra.Size = new System.Drawing.Size(75, 65);
+            this.btnTra.Size = new System.Drawing.Size(88, 65);
             this.btnTra.TabIndex = 6;
             this.btnTra.Text = "Trả";
             this.btnTra.Click += new System.EventHandler(this.btnTra_Click);
             // 
             // btnAdd
             // 
+            this.btnAdd.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnAdd.Appearance.Font = new System.Drawing.Font("Tahoma", 20F);
             this.btnAdd.Appearance.Options.UseFont = true;
-            this.btnAdd.Location = new System.Drawing.Point(431, 296);
+            this.btnAdd.Location = new System.Drawing.Point(929, 7);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 65);
+            this.btnAdd.Size = new System.Drawing.Size(89, 65);
             this.btnAdd.TabIndex = 5;
             this.btnAdd.Text = "Thêm";
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // gridControl1
             // 
+            this.gridControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.gridControl1.EmbeddedNavigator.Name = "";
-            this.gridControl1.Location = new System.Drawing.Point(3, 3);
+            this.gridControl1.Location = new System.Drawing.Point(0, 0);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1088, 287);
+            this.gridControl1.Size = new System.Drawing.Size(1118, 371);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -227,6 +233,7 @@
             this.ms3});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.RowHeight = 30;
             // 
             // ms1
@@ -272,7 +279,7 @@
             // 
             this.simpleButton1.Appearance.Font = new System.Drawing.Font("Tahoma", 20F);
             this.simpleButton1.Appearance.Options.UseFont = true;
-            this.simpleButton1.Location = new System.Drawing.Point(15, 12);
+            this.simpleButton1.Location = new System.Drawing.Point(3, 7);
             this.simpleButton1.Name = "simpleButton1";
             this.simpleButton1.Size = new System.Drawing.Size(134, 65);
             this.simpleButton1.TabIndex = 7;
@@ -282,7 +289,7 @@
             // 
             this.simpleButton2.Appearance.Font = new System.Drawing.Font("Tahoma", 20F);
             this.simpleButton2.Appearance.Options.UseFont = true;
-            this.simpleButton2.Location = new System.Drawing.Point(165, 12);
+            this.simpleButton2.Location = new System.Drawing.Point(156, 7);
             this.simpleButton2.Name = "simpleButton2";
             this.simpleButton2.Size = new System.Drawing.Size(128, 65);
             this.simpleButton2.TabIndex = 8;
@@ -292,31 +299,44 @@
             // 
             this.simpleButton3.Appearance.Font = new System.Drawing.Font("Tahoma", 20F);
             this.simpleButton3.Appearance.Options.UseFont = true;
-            this.simpleButton3.Location = new System.Drawing.Point(310, 12);
+            this.simpleButton3.Location = new System.Drawing.Point(301, 7);
             this.simpleButton3.Name = "simpleButton3";
             this.simpleButton3.Size = new System.Drawing.Size(122, 65);
             this.simpleButton3.TabIndex = 9;
             this.simpleButton3.Text = "Cài đặt";
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.simpleButton1);
+            this.panel2.Controls.Add(this.btnTra);
+            this.panel2.Controls.Add(this.simpleButton3);
+            this.panel2.Controls.Add(this.btnAdd);
+            this.panel2.Controls.Add(this.simpleButton2);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1118, 78);
+            this.panel2.TabIndex = 10;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1118, 787);
-            this.Controls.Add(this.simpleButton3);
-            this.Controls.Add(this.simpleButton2);
-            this.Controls.Add(this.simpleButton1);
+            this.ClientSize = new System.Drawing.Size(1118, 749);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panel2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Phần mềm quản lý giấy cuộn tại xưởng";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -341,5 +361,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn6;
+        private System.Windows.Forms.Panel panel2;
     }
 }

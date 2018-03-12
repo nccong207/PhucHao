@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XuLyDMSP", "XuLyDMSP\XuLyDMSP.csproj", "{B9482B53-B3DA-4682-8DCE-34678D7DAC80}"
 EndProject
@@ -28,6 +28,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XulyGiaPBHMi", "XulyGiaPBHMi\XulyGiaPBHMi.csproj", "{84295839-7A24-4DF9-97A8-85A7EAF430C5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XulyGiaDHMi", "XulyGiaDHMi\XulyGiaDHMi.csproj", "{7E09E6C2-B80C-4675-804A-C28C0EED6E1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuuNhieuKhuyenMai", "LuuNhieuKhuyenMai\LuuNhieuKhuyenMai.csproj", "{20CC12B2-9755-4162-9DB4-7EE8227B30FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,10 @@ Global
 		{7E09E6C2-B80C-4675-804A-C28C0EED6E1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E09E6C2-B80C-4675-804A-C28C0EED6E1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E09E6C2-B80C-4675-804A-C28C0EED6E1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20CC12B2-9755-4162-9DB4-7EE8227B30FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20CC12B2-9755-4162-9DB4-7EE8227B30FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20CC12B2-9755-4162-9DB4-7EE8227B30FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20CC12B2-9755-4162-9DB4-7EE8227B30FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

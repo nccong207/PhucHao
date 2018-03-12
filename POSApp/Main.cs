@@ -1,14 +1,7 @@
 ﻿using CDTDatabase;
-using CDTLib;
-using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Text;
 using System.Windows.Forms;
 
 namespace POSApp
@@ -17,7 +10,7 @@ namespace POSApp
     {
         DataTable source;
         DataRow loginUser;
-        Database db = Database.NewStructDatabase();
+        Database db = Database.NewDataDatabase();
         public Main(DataRow drUser)
         {
             InitializeComponent();
@@ -153,8 +146,7 @@ namespace POSApp
         public DataTable GetOrder(MaCuon macuon, SoMay may)
         {
             // kiểm tra cuộn giấy đó có trong đơn hàng sản xuất 
-            string connection = @"Server = LINH-PC\HOATIEU; database = cpms; user = sa; pwd = ht";
-            Database db = Database.NewCustomDatabase(connection);
+            Database longwayDb = Database.NewStructDatabase();
             int startNum = 0, endNum = 0;
 
             switch (may)
@@ -169,7 +161,7 @@ namespace POSApp
             string query = @"SELECT PaperUse, ProduceWid, CutNum, SumSquare, OrderNo FROM LW_Order
             WHERE SUBSTRING(PaperUse, {0}, 2) = '{1}' OR SUBSTRING(PaperUse, {2}, 2) = '{3}'";
 
-            DataTable order = db.GetDataTable(string.Format(query, startNum, macuon.KyHieu, endNum, macuon.KyHieu));
+            DataTable order = longwayDb.GetDataTable(string.Format(query, startNum, macuon.KyHieu, endNum, macuon.KyHieu));
             return order;
         }
 

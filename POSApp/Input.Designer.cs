@@ -71,7 +71,9 @@
             this.Controls.Add(this.simpleButton4);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.labelControl1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Input";
+            this.ShowInTaskbar = false;
             this.Text = "Input";
             this.ResumeLayout(false);
             this.PerformLayout();

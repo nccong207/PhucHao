@@ -103,39 +103,38 @@ namespace POSApp
         private MaCuon GetMaCuon()
         {
             MaCuon result = new MaCuon();
-            string StructConnection = ac.GetValue("StructDb");
-            if (string.IsNullOrEmpty(StructConnection))
+            string dataCnn = Config.GetValue("DataConnection").ToString();
+            if (string.IsNullOrEmpty(dataCnn))
             {
                 XtraMessageBox.Show("Không tìm thấy chuỗi kết nối database", Config.GetValue("PackageName").ToString());
                 this.Close();
-            }
-            StructConnection = Security.DeCode(StructConnection);
-            StructConnection = StructConnection.Replace("POS", "HTCPH");
+            } 
+            dataCnn = dataCnn.Replace("POS", "HTCPH");
 
-            Database db = Database.NewCustomDatabase(StructConnection);
+            Database hoaTieuDb = Database.NewCustomDatabase(dataCnn);
 
             result.Macuon = textBox1.Text;
             string macuon = textBox1.Text;
-            var soTon = db.GetValue(string.Format("SELECT SoLuong FROM TonKhoNL WHERE MaCuon = '{0}'", macuon.Trim()));
+            var soTon = hoaTieuDb.GetValue(string.Format("SELECT SoLuong FROM TonKhoNL WHERE MaCuon = '{0}'", macuon.Trim()));
             decimal soluongTon = 0;
             if (soTon != null)
             {
                 soluongTon = Convert.ToDecimal(soTon.ToString());
             }
             result.SoKg = soluongTon;
-            var manl = db.GetValue(string.Format("SELECT MaNL FROM DT42 WHERE MaCuon = '{0}'", macuon.Trim()));
+            var manl = hoaTieuDb.GetValue(string.Format("SELECT MaNL FROM DT42 WHERE MaCuon = '{0}'", macuon.Trim()));
 
             if (manl != null)
             {
                 result.MaNL = manl.ToString();
-                DataTable dmNL = db.GetDataTable(string.Format("SELECT KyHieu, Kho FROM wDMNL2 WHERE Ma = '{0}'", manl.ToString()));
+                DataTable dmNL = hoaTieuDb.GetDataTable(string.Format("SELECT KyHieu, Kho FROM wDMNL2 WHERE Ma = '{0}'", manl.ToString()));
                 if (dmNL.Rows.Count > 0)
                 {
                     result.KyHieu = dmNL.Rows[0]["KyHieu"].ToString();
                     result.Kho = dmNL.Rows[0]["Kho"].ToString();
                 }
 
-                var tileK = db.GetValue(string.Format("SELECT TiLeK from DMNL WHERE Ma = '{0}'", manl.ToString()));
+                var tileK = hoaTieuDb.GetValue(string.Format("SELECT TiLeK from DMNL WHERE Ma = '{0}'", manl.ToString()));
                 if (tileK != null)
                 {
                     result.TileK = Convert.ToDecimal( string.IsNullOrEmpty(tileK.ToString()) ? "0" : tileK.ToString());
