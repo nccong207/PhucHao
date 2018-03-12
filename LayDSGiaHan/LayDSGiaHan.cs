@@ -83,6 +83,7 @@ namespace LayDSGiaHan
                 gvMain.SetFocusedRowCellValue(gvMain.Columns["Dai"], dr["Dai"]);
                 gvMain.SetFocusedRowCellValue(gvMain.Columns["Rong"], dr["Rong"]);
                 gvMain.SetFocusedRowCellValue(gvMain.Columns["Cao"], dr["Cao"]);
+                gvMain.SetFocusedRowCellValue(gvMain.Columns["NgayGH"], dr["NgayGH"]);
             }
 
             gvMain.RefreshData();
