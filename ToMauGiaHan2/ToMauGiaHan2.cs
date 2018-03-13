@@ -14,12 +14,14 @@ namespace ToMauGiaHan2
         private DataCustomReport _data;
         private InfoCustomReport _info = new InfoCustomReport(IDataType.Report);
         GridView gvMain;
-        DataTable dtNCC;
 
         public void Execute()
         {
             gvMain = (_data.FrmMain.Controls.Find("gridControlReport", true)[0] as GridControl).MainView as GridView;
-            gvMain.RowStyle += new RowStyleEventHandler(gridView1_RowStyle);
+            gvMain.OptionsView.EnableAppearanceEvenRow = false;
+            gvMain.OptionsView.EnableAppearanceOddRow = false;
+            gvMain.Appearance.FocusedRow.BackColor = Color.Transparent;
+            gvMain.RowStyle += gridView1_RowStyle;
         }
 
 
@@ -29,26 +31,18 @@ namespace ToMauGiaHan2
             if (e.RowHandle >= 0 && View.IsDataRow(e.RowHandle))
             {
                 object duyet = View.GetRowCellValue(e.RowHandle, "duyet");
+                object ngaygiahan = View.GetRowCellValue(e.RowHandle, "NgayGHT");
+                if (duyet == DBNull.Value || Convert.ToBoolean(duyet) == false || ngaygiahan == DBNull.Value)
+                    return;
 
-                if (duyet != DBNull.Value)
+                var ngaygh = (DateTime)ngaygiahan;
+                if (ngaygh < DateTime.Today)
                 {
-                    var isDuyet = (bool)duyet;
-                    if (isDuyet)
-                    {
-                        e.Appearance.BackColor = Color.Green;
-                        e.Appearance.BackColor2 = Color.Green;
-
-                        object ngaygiahan = View.GetRowCellValue(e.RowHandle, "NgayGHT");
-                        if (ngaygiahan != DBNull.Value)
-                        {
-                            var ngaygh = (DateTime)ngaygiahan;
-                            if (ngaygh <= DateTime.Today)
-                            {
-                                e.Appearance.BackColor = Color.OrangeRed;
-                                e.Appearance.BackColor2 = Color.OrangeRed;
-                            }
-                        }
-                    }
+                    e.Appearance.BackColor = Color.Red;
+                }
+                else
+                {
+                    e.Appearance.BackColor = Color.Green;
                 }
             }
         }
