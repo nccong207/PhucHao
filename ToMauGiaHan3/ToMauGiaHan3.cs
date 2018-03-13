@@ -25,23 +25,28 @@ namespace ToMauGiaHan3
 
         private void gridView1_RowStyle(object sender, RowStyleEventArgs e)
         {
-            if (e.RowHandle >= 0 && gvMain.IsDataRow(e.RowHandle))
+            GridView View = sender as GridView;
+            if (e.RowHandle >= 0 && View.IsDataRow(e.RowHandle))
             {
-                object duyet = gvMain.GetRowCellValue(e.RowHandle, "duyet");
+                object duyet = View.GetRowCellValue(e.RowHandle, "duyet");
 
                 if (duyet != DBNull.Value)
                 {
                     var isDuyet = (bool)duyet;
                     if (isDuyet)
                     {
-                        object ngaygiahan = gvMain.GetRowCellValue(e.RowHandle, "NgayGHT");
+                        e.Appearance.BackColor = Color.Green;
+                        e.Appearance.BackColor2 = Color.Green;
+
+                        object ngaygiahan = View.GetRowCellValue(e.RowHandle, "NgayGHT");
                         if (ngaygiahan != DBNull.Value)
                         {
                             var ngaygh = (DateTime)ngaygiahan;
                             if (ngaygh <= DateTime.Today)
+                            {
                                 e.Appearance.BackColor = Color.OrangeRed;
-                            else
-                                e.Appearance.BackColor = Color.Green;
+                                e.Appearance.BackColor2 = Color.OrangeRed;
+                            }
                         }
                     }
                 }
