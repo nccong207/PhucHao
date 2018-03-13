@@ -61,7 +61,7 @@
             this.panelControl1.Controls.Add(this.simpleButton1);
             this.panelControl1.Location = new System.Drawing.Point(4, 5);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(434, 245);
+            this.panelControl1.Size = new System.Drawing.Size(422, 240);
             this.panelControl1.TabIndex = 1;
             // 
             // simpleButton4
@@ -82,6 +82,8 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(382, 53);
             this.textBox1.TabIndex = 4;
+            this.textBox1.Enter += new System.EventHandler(this.textBox1_Enter);
+            this.textBox1.Leave += new System.EventHandler(this.textBox1_Leave);
             // 
             // labelControl1
             // 
@@ -119,7 +121,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(443, 262);
+            this.ClientSize = new System.Drawing.Size(438, 254);
             this.Controls.Add(this.panelControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

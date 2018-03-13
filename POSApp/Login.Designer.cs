@@ -35,6 +35,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.numberpad1 = new paypi.numberpad();
             this.SuspendLayout();
             // 
             // textBox1
@@ -84,6 +85,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(284, 47);
             this.textBox2.TabIndex = 1;
+            this.textBox2.Enter += new System.EventHandler(this.textBox2_Enter);
             // 
             // button2
             // 
@@ -96,6 +98,16 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // numberpad1
+            // 
+            this.numberpad1.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numberpad1.Location = new System.Drawing.Point(183, 115);
+            this.numberpad1.Margin = new System.Windows.Forms.Padding(6);
+            this.numberpad1.Name = "numberpad1";
+            this.numberpad1.Size = new System.Drawing.Size(284, 251);
+            this.numberpad1.TabIndex = 5;
+            this.numberpad1.TextBox = null;
+            // 
             // Login
             // 
             this.AcceptButton = this.button2;
@@ -104,6 +116,7 @@
             this.CancelButton = this.button1;
             this.ClientSize = new System.Drawing.Size(487, 218);
             this.ControlBox = false;
+            this.Controls.Add(this.numberpad1);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button2);
@@ -127,6 +140,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox2;
+        private paypi.numberpad numberpad1;
     }
 }
 

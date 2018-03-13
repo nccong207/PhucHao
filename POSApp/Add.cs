@@ -16,10 +16,14 @@ namespace POSApp
         AppCon ac = new AppCon();
         Main mainFrm;
         MaCuon data;
+        bool returnFrm;
         public Add(Main main, bool isReturn = false)
         {
             InitializeComponent();
             mainFrm = main;
+           
+            returnFrm = isReturn;
+
             if (isReturn)
             {
                 simpleButton1.Visible = false;
@@ -30,6 +34,7 @@ namespace POSApp
             {
                 simpleButton4.Visible = false;
             }
+          
         }
 
         private void simpleButton1_Click(object sender, EventArgs e)
@@ -187,6 +192,17 @@ namespace POSApp
                 this.Close();
             }
         }
+
+        private void textBox1_Enter(object sender, EventArgs e)
+        {
+        }
+
+        private void textBox1_Leave(object sender, EventArgs e)
+        {
+           
+        }
+
+
     }
 
     public class MaCuon

@@ -14,6 +14,26 @@ namespace POSApp
         public Input()
         {
             InitializeComponent();
+
+            numberpad1.Visible = false;
+            numberpad1.TextBox = textBox1;
+            numberpad1.VisibleChanged += Numberpad1_VisibleChanged;
+        }
+
+        private void Numberpad1_VisibleChanged(object sender, EventArgs e)
+        {
+            if (numberpad1.Visible)
+            {
+                //panelControl1.Height += 300;
+                this.Height += 300;
+            }
+            else
+            {
+                //.Height -= 300;
+                this.Height -= 300;
+                simpleButton4.Focus();
+            }
+           
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -42,6 +62,11 @@ namespace POSApp
             {
                 MessageBox.Show("Chỉ được phép nhập số.");
             }
+        }
+
+        private void textBox1_Enter(object sender, EventArgs e)
+        {
+            numberpad1.Visible = true;
         }
     }
 }

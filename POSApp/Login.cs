@@ -13,6 +13,21 @@ namespace POSApp
         public Login()
         {
             InitializeComponent();
+            numberpad1.TextBox = textBox2;
+            numberpad1.Visible = false;
+            numberpad1.VisibleChanged += Numberpad1_VisibleChanged;
+        }
+
+        private void Numberpad1_VisibleChanged(object sender, EventArgs e)
+        {
+            if (numberpad1.Visible)
+            {
+                this.Height += 250;
+            } else
+            {
+                this.Height -= 250;
+                button2.Focus();
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -34,6 +49,11 @@ namespace POSApp
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void textBox2_Enter(object sender, EventArgs e)
+        {
+            numberpad1.Visible = true;
         }
     }
 }
