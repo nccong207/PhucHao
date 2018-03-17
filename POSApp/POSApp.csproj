@@ -78,6 +78,12 @@
     <Compile Include="Input.Designer.cs">
       <DependentUpon>Input.cs</DependentUpon>
     </Compile>
+    <Compile Include="keyboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="keyboard.Designer.cs">
+      <DependentUpon>keyboard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +115,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Input.resx">
       <DependentUpon>Input.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="keyboard.resx">
+      <DependentUpon>keyboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -157,6 +166,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="HoaTieu.ico" />
+    <None Include="Resources\img_363996.png" />
+    <None Include="Resources\keyboard.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

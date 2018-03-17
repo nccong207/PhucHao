@@ -1,6 +1,7 @@
 ﻿using CDTDatabase;
 using System;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace POSApp
@@ -9,26 +10,14 @@ namespace POSApp
     {
         public DataRow drUser;
         Database db = Database.NewDataDatabase();
+        keyboard keyb;
 
         public Login()
         {
             InitializeComponent();
-            numberpad1.TextBox = textBox2;
-            numberpad1.Visible = false;
-            numberpad1.VisibleChanged += Numberpad1_VisibleChanged;
         }
 
-        private void Numberpad1_VisibleChanged(object sender, EventArgs e)
-        {
-            if (numberpad1.Visible)
-            {
-                this.Height += 250;
-            } else
-            {
-                this.Height -= 250;
-                button2.Focus();
-            }
-        }
+    
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -53,7 +42,11 @@ namespace POSApp
 
         private void textBox2_Enter(object sender, EventArgs e)
         {
-            numberpad1.Visible = true;
+            keyb = new keyboard(textBox2);
+            keyb.StartPosition = FormStartPosition.Manual;
+            keyb.Location = new Point( this.Location.X + 100, this.Location.Y +170);
+            keyb.ShowDialog();
+            textBox2.Focus();
         }
     }
 }

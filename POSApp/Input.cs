@@ -11,29 +11,10 @@ namespace POSApp
     public partial class Input : Form
     {
         public decimal duongkinh;
+        keyboard keyb;
         public Input()
         {
             InitializeComponent();
-
-            numberpad1.Visible = false;
-            numberpad1.TextBox = textBox1;
-            numberpad1.VisibleChanged += Numberpad1_VisibleChanged;
-        }
-
-        private void Numberpad1_VisibleChanged(object sender, EventArgs e)
-        {
-            if (numberpad1.Visible)
-            {
-                //panelControl1.Height += 300;
-                this.Height += 300;
-            }
-            else
-            {
-                //.Height -= 300;
-                this.Height -= 300;
-                simpleButton4.Focus();
-            }
-           
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -66,7 +47,20 @@ namespace POSApp
 
         private void textBox1_Enter(object sender, EventArgs e)
         {
-            numberpad1.Visible = true;
+            keyb = new keyboard(textBox1);
+            keyb.StartPosition = FormStartPosition.Manual;
+            keyb.Location = new Point(this.Location.X + 70, this.Location.Y + 170);
+            keyb.ShowDialog();
+            textBox1.Focus();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            keyb = new keyboard(textBox1);
+            keyb.StartPosition = FormStartPosition.Manual;
+            keyb.Location = new Point(this.Location.X + 70, this.Location.Y + 170);
+            keyb.ShowDialog();
+            textBox1.Focus();
         }
     }
 }

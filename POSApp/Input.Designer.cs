@@ -31,7 +31,7 @@
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.simpleButton4 = new DevExpress.XtraEditors.SimpleButton();
-            this.numberpad1 = new paypi.numberpad();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelControl1
@@ -47,7 +47,7 @@
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(62, 84);
+            this.textBox1.Location = new System.Drawing.Point(50, 84);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(382, 53);
             this.textBox1.TabIndex = 5;
@@ -65,22 +65,23 @@
             this.simpleButton4.Text = "Lưu";
             this.simpleButton4.Click += new System.EventHandler(this.simpleButton4_Click);
             // 
-            // numberpad1
+            // button1
             // 
-            this.numberpad1.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numberpad1.Location = new System.Drawing.Point(62, 144);
-            this.numberpad1.Margin = new System.Windows.Forms.Padding(6);
-            this.numberpad1.Name = "numberpad1";
-            this.numberpad1.Size = new System.Drawing.Size(382, 341);
-            this.numberpad1.TabIndex = 7;
-            this.numberpad1.TextBox = null;
+            this.button1.BackgroundImage = global::POSApp.Properties.Resources.img_363996;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.Location = new System.Drawing.Point(438, 84);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(56, 53);
+            this.button1.TabIndex = 7;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Input
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(505, 268);
-            this.Controls.Add(this.numberpad1);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.simpleButton4);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.labelControl1);
@@ -98,6 +99,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private System.Windows.Forms.TextBox textBox1;
         private DevExpress.XtraEditors.SimpleButton simpleButton4;
-        private paypi.numberpad numberpad1;
+        private System.Windows.Forms.Button button1;
     }
 }
