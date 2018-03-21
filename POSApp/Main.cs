@@ -1,5 +1,7 @@
 ﻿using CDTDatabase;
+using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using System;
 using System.Data;
 using System.Windows.Forms;
@@ -27,6 +29,40 @@ namespace POSApp
 
             var grid2 = gridControl2.MainView as GridView;
             grid2.OptionsBehavior.Editable = false;
+
+            gridView1.DoubleClick += GridView1_DoubleClick;
+            LoadToMainGrid();
+        }
+
+        private void GridView1_DoubleClick(object sender, EventArgs e)
+        {
+            DXMouseEventArgs ea = e as DXMouseEventArgs;
+            GridView view = sender as GridView;
+            GridHitInfo info = view.CalcHitInfo(ea.Location);
+            if (info.InRow || info.InRowCell)
+            {
+                string colCaption = info.Column == null ? "N/A" : info.Column.Name;
+                //MessageBox.Show(string.Format("DoubleClick on row: {0}, column: {1}.", info.RowHandle, colCaption));
+
+                var data = gridView1.GetRowCellValue(info.RowHandle, colCaption.ToUpper()).ToString();
+                if (!string.IsNullOrEmpty(data))
+                {
+                    var macuon = data.Split('-')[0].Trim();
+                    Input frm = new Input();
+                    frm.StartPosition = FormStartPosition.CenterScreen;
+                    frm.ShowDialog();
+
+                    Add addfrm = new Add(this, true);
+                    var mc = addfrm.GetMaCuon(macuon);
+
+                    if (frm.DialogResult != DialogResult.Cancel)
+                    {
+                        RemoveMainGrid(mc.Macuon);
+                        AddToReturnGrid(mc, frm.duongkinh);
+                        SyncMainGrid();
+                    }
+                }
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -47,6 +83,39 @@ namespace POSApp
             Add frm = new Add(this);
             frm.ShowDialog();
         }
+
+        public void RemoveMainGrid(string macuon)
+        {
+
+            for (int i = 0; i < gridView1.DataRowCount; i++)
+            {
+                if (!string.IsNullOrEmpty(gridView1.GetRowCellValue(i, "MS1").ToString()))
+                {
+                    var data = gridView1.GetRowCellValue(i, "MS1").ToString();
+                    if (data.Contains(macuon))
+                    {
+                        gridView1.SetRowCellValue(i, "MS1", "");
+                        return;
+                    }
+
+                    var data2 = gridView1.GetRowCellValue(i, "MS2").ToString();
+                    if (data2.Contains(macuon))
+                    {
+                        gridView1.SetRowCellValue(i, "MS2", "");
+                        return;
+                    }
+
+                    var data3 = gridView1.GetRowCellValue(i, "MS3").ToString();
+                    if (data3.Contains(macuon))
+                    {
+                        gridView1.SetRowCellValue(i, "MS3", "");
+                        return;
+                    }
+
+                }
+            }
+        }
+
         public void AddToReturnGrid(MaCuon macuon, decimal duongkinh)
         {
             string ngay = DateTime.Now.ToString();
@@ -82,9 +151,9 @@ namespace POSApp
 
         }
 
-        private string GetListOder (decimal soluongSD, DataTable orderSelected)
+        private string GetListOder(decimal soluongSD, DataTable orderSelected)
         {
-            string listOrderNo =  "";
+            string listOrderNo = "";
             DataView dv = orderSelected.DefaultView;
             dv.Sort = "CutNum asc";
             DataTable sortedDT = dv.ToTable();
@@ -93,7 +162,7 @@ namespace POSApp
             {
                 total += Convert.ToDecimal(row["CutNum"]);
                 listOrderNo += row["OrderNo"] + ",";
-                if (total >=     soluongSD)
+                if (total >= soluongSD)
                 {
                     return listOrderNo;
                 }
@@ -111,6 +180,35 @@ namespace POSApp
             }
         }
 
+        public void SyncMainGrid()
+        {
+            string sql = "DELETE FROM QLMacuon";
+            db.UpdateByNonQuery(sql);
+          
+            string format = "INSERT INTO QLMacuon (MS1, MS2, MS3)  VALUES ('{0}','{1}','{2}');";
+
+            for (int i = 0; i < gridView1.DataRowCount; i++)
+            {
+                if (!string.IsNullOrEmpty(gridView1.GetRowCellValue(i, "MS1").ToString()))
+                {
+                    var info1 = gridView1.GetRowCellValue(i, "MS1").ToString();
+                    var info2 = gridView1.GetRowCellValue(i, "MS2").ToString();
+                    var info3 = gridView1.GetRowCellValue(i, "MS3").ToString();
+                    db.UpdateByNonQuery(string.Format(format, info1, info2, info3));
+                }
+            }
+        }
+
+        public void LoadToMainGrid()
+        {
+            string sql = "SELECT * FROM QLMacuon";
+            DataTable dt = db.GetDataTable(sql);
+            if (dt.Rows.Count > 0)
+            {
+                gridControl1.DataSource = dt;
+            }
+        }
+
         public void LoadToGrid(MaCuon macuon, SoMay may)
         {
             string data = macuon.Macuon + " - " + macuon.KyHieu + " - " + macuon.SoKg.ToString("###,###") + "KG";
@@ -120,7 +218,8 @@ namespace POSApp
                 AddNewRow(row, data, may);
             }
             else
-            {                string field = "";
+            {
+                string field = "";
                 switch (may)
                 {
                     case SoMay.May1: field = "MS1"; break;
@@ -133,27 +232,33 @@ namespace POSApp
                     if (string.IsNullOrEmpty(gridView1.GetRowCellValue(i, field).ToString()))
                     {
                         gridView1.SetRowCellValue(i, field, data);
+                        SyncMainGrid();
                         return;
                     }
                 }
 
                 DataRow row = source.NewRow();
                 AddNewRow(row, data, may);
-
             }
+
+            SyncMainGrid();
         }
 
         public DataTable GetOrder(MaCuon macuon, SoMay may)
         {
             // kiểm tra cuộn giấy đó có trong đơn hàng sản xuất 
             Database longwayDb = Database.NewStructDatabase();
+
+            //string connect = "Server =LINH-PC\\HOATIEU; database = CPMS; user = sa; pwd = ht";
+            //Database longwayDb = Database.NewCustomDatabase(connect);
+
             int startNum = 0, endNum = 0;
 
             switch (may)
             {
-                case SoMay.May1:startNum = 3; endNum = 5; break;
-                case SoMay.May2:startNum = 7; endNum = 9; break;
-                case SoMay.May3:startNum = 11; endNum = 13; break;
+                case SoMay.May1: startNum = 3; endNum = 5; break;
+                case SoMay.May2: startNum = 7; endNum = 9; break;
+                case SoMay.May3: startNum = 11; endNum = 13; break;
                 default:
                     break;
             }

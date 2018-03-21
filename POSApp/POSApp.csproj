@@ -166,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="HoaTieu.ico" />
+    <None Include="Resources\phuchao.png" />
     <None Include="Resources\img_363996.png" />
     <None Include="Resources\keyboard.png" />
   </ItemGroup>

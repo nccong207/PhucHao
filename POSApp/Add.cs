@@ -34,7 +34,7 @@ namespace POSApp
             {
                 simpleButton4.Visible = false;
             }
-          
+            textBox1.Focus();
         }
 
         private void simpleButton1_Click(object sender, EventArgs e)
@@ -53,10 +53,17 @@ namespace POSApp
         }
         private void GetData(SoMay may)
         {
-            var mc = GetMaCuon();
+            var mc = GetMaCuon(null);
+            if (mc.SoKg == 0)
+            {
+                XtraMessageBox.Show("Mã cuộn này đã sử dụng hết", "POS Warning");
+                return;
+            }
+
             var order = mainFrm.GetOrder(mc, may);
             if (order == null || order.Rows.Count == 0)
             {
+                XtraMessageBox.Show("Cuộn này không có trong kế hoạch sản xuất - Yêu cầu quản lý xác nhận", "POS Warning");
                 CheckData(mc, may);
             }
             else
@@ -105,7 +112,7 @@ namespace POSApp
             frmRs.ShowDialog();
         }
 
-        private MaCuon GetMaCuon()
+        public MaCuon GetMaCuon(string code)
         {
             MaCuon result = new MaCuon();
             string dataCnn = Config.GetValue("DataConnection").ToString();
@@ -118,8 +125,15 @@ namespace POSApp
 
             Database hoaTieuDb = Database.NewCustomDatabase(dataCnn);
 
-            result.Macuon = textBox1.Text;
             string macuon = textBox1.Text;
+            result.Macuon = textBox1.Text;
+
+            if (!string.IsNullOrEmpty(code))
+            {
+                macuon = code;
+                result.Macuon = code;
+            }
+
             var soTon = hoaTieuDb.GetValue(string.Format("SELECT SoLuong FROM TonKhoNL WHERE MaCuon = '{0}'", macuon.Trim()));
             decimal soluongTon = 0;
             if (soTon != null)
@@ -152,6 +166,7 @@ namespace POSApp
         /// <summary>
         /// Code này để xử lý khi bị duplicate mã cuộn trong database
         /// normal_table là bảng tạo ra chứa những dt42id bị duplicate
+        /// hiện tại không dùng
         /// </summary>
         /// <param name="db"></param>
         private void updatedup (Database db)
@@ -183,11 +198,13 @@ namespace POSApp
             Input frm = new Input();
             frm.StartPosition = FormStartPosition.CenterScreen;
             frm.ShowDialog();
-            var mc =   GetMaCuon();
+            var mc =   GetMaCuon(null);
 
             if (frm.DialogResult != DialogResult.Cancel)
             {
+                mainFrm.RemoveMainGrid(mc.Macuon);
                 mainFrm.AddToReturnGrid(mc, frm.duongkinh);
+                mainFrm.SyncMainGrid();
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

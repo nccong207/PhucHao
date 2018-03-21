@@ -47,7 +47,7 @@
             this.simpleButton1.Location = new System.Drawing.Point(21, 176);
             this.simpleButton1.Name = "simpleButton1";
             this.simpleButton1.Size = new System.Drawing.Size(94, 50);
-            this.simpleButton1.TabIndex = 0;
+            this.simpleButton1.TabIndex = 1;
             this.simpleButton1.Text = "MÁY 1";
             this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
             // 
@@ -81,7 +81,7 @@
             this.textBox1.Location = new System.Drawing.Point(21, 80);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(382, 53);
-            this.textBox1.TabIndex = 4;
+            this.textBox1.TabIndex = 0;
             this.textBox1.Enter += new System.EventHandler(this.textBox1_Enter);
             this.textBox1.Leave += new System.EventHandler(this.textBox1_Leave);
             // 
@@ -102,7 +102,7 @@
             this.simpleButton3.Location = new System.Drawing.Point(309, 176);
             this.simpleButton3.Name = "simpleButton3";
             this.simpleButton3.Size = new System.Drawing.Size(94, 50);
-            this.simpleButton3.TabIndex = 2;
+            this.simpleButton3.TabIndex = 3;
             this.simpleButton3.Text = "MÁY 3";
             this.simpleButton3.Click += new System.EventHandler(this.simpleButton3_Click);
             // 
@@ -113,7 +113,7 @@
             this.simpleButton2.Location = new System.Drawing.Point(172, 176);
             this.simpleButton2.Name = "simpleButton2";
             this.simpleButton2.Size = new System.Drawing.Size(94, 50);
-            this.simpleButton2.TabIndex = 1;
+            this.simpleButton2.TabIndex = 2;
             this.simpleButton2.Text = "MÁY 2";
             this.simpleButton2.Click += new System.EventHandler(this.simpleButton2_Click);
             // 

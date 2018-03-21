@@ -38,17 +38,18 @@
             this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.btnTra = new DevExpress.XtraEditors.SimpleButton();
-            this.btnAdd = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.ms1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ms2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ms3 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.btnTra = new DevExpress.XtraEditors.SimpleButton();
+            this.btnAdd = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton3 = new DevExpress.XtraEditors.SimpleButton();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
@@ -188,30 +189,6 @@
             this.gridColumn6.VisibleIndex = 5;
             this.gridColumn6.Width = 161;
             // 
-            // btnTra
-            // 
-            this.btnTra.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnTra.Appearance.Font = new System.Drawing.Font("Tahoma", 20F);
-            this.btnTra.Appearance.Options.UseFont = true;
-            this.btnTra.Location = new System.Drawing.Point(1024, 7);
-            this.btnTra.Name = "btnTra";
-            this.btnTra.Size = new System.Drawing.Size(88, 65);
-            this.btnTra.TabIndex = 6;
-            this.btnTra.Text = "Trả";
-            this.btnTra.Click += new System.EventHandler(this.btnTra_Click);
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnAdd.Appearance.Font = new System.Drawing.Font("Tahoma", 20F);
-            this.btnAdd.Appearance.Options.UseFont = true;
-            this.btnAdd.Location = new System.Drawing.Point(929, 7);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(89, 65);
-            this.btnAdd.TabIndex = 5;
-            this.btnAdd.Text = "Thêm";
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
             // gridControl1
             // 
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -275,11 +252,35 @@
             this.ms3.VisibleIndex = 2;
             this.ms3.Width = 205;
             // 
+            // btnTra
+            // 
+            this.btnTra.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnTra.Appearance.Font = new System.Drawing.Font("Tahoma", 20F);
+            this.btnTra.Appearance.Options.UseFont = true;
+            this.btnTra.Location = new System.Drawing.Point(1024, 7);
+            this.btnTra.Name = "btnTra";
+            this.btnTra.Size = new System.Drawing.Size(88, 65);
+            this.btnTra.TabIndex = 6;
+            this.btnTra.Text = "Trả";
+            this.btnTra.Click += new System.EventHandler(this.btnTra_Click);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnAdd.Appearance.Font = new System.Drawing.Font("Tahoma", 20F);
+            this.btnAdd.Appearance.Options.UseFont = true;
+            this.btnAdd.Location = new System.Drawing.Point(929, 7);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(89, 65);
+            this.btnAdd.TabIndex = 5;
+            this.btnAdd.Text = "Thêm";
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
             // simpleButton1
             // 
             this.simpleButton1.Appearance.Font = new System.Drawing.Font("Tahoma", 20F);
             this.simpleButton1.Appearance.Options.UseFont = true;
-            this.simpleButton1.Location = new System.Drawing.Point(3, 7);
+            this.simpleButton1.Location = new System.Drawing.Point(125, 7);
             this.simpleButton1.Name = "simpleButton1";
             this.simpleButton1.Size = new System.Drawing.Size(134, 65);
             this.simpleButton1.TabIndex = 7;
@@ -289,7 +290,7 @@
             // 
             this.simpleButton2.Appearance.Font = new System.Drawing.Font("Tahoma", 20F);
             this.simpleButton2.Appearance.Options.UseFont = true;
-            this.simpleButton2.Location = new System.Drawing.Point(156, 7);
+            this.simpleButton2.Location = new System.Drawing.Point(265, 7);
             this.simpleButton2.Name = "simpleButton2";
             this.simpleButton2.Size = new System.Drawing.Size(128, 65);
             this.simpleButton2.TabIndex = 8;
@@ -299,7 +300,7 @@
             // 
             this.simpleButton3.Appearance.Font = new System.Drawing.Font("Tahoma", 20F);
             this.simpleButton3.Appearance.Options.UseFont = true;
-            this.simpleButton3.Location = new System.Drawing.Point(301, 7);
+            this.simpleButton3.Location = new System.Drawing.Point(399, 7);
             this.simpleButton3.Name = "simpleButton3";
             this.simpleButton3.Size = new System.Drawing.Size(122, 65);
             this.simpleButton3.TabIndex = 9;
@@ -307,6 +308,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.simpleButton1);
             this.panel2.Controls.Add(this.btnTra);
             this.panel2.Controls.Add(this.simpleButton3);
@@ -318,11 +320,21 @@
             this.panel2.Size = new System.Drawing.Size(1118, 78);
             this.panel2.TabIndex = 10;
             // 
+            // panel3
+            // 
+            this.panel3.BackgroundImage = global::POSApp.Properties.Resources.phuchao;
+            this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel3.Location = new System.Drawing.Point(4, 4);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(115, 68);
+            this.panel3.TabIndex = 10;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1118, 749);
+            this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -362,5 +374,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn6;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel3;
     }
 }
