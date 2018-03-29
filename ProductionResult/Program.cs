@@ -88,32 +88,44 @@ namespace ProductionResult
         static void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             DateTime dtNow = DateTime.Now;
-            for (int i = 1; i <= 2; i++)
+
+            //read file 1:
+            string path = ac.GetValue("DataPath");
+            string format = @"{0}\{1}.Y\{2}.Mon\1.{1}{2}{3}.txt";
+            ExcuteData(dtNow, format, path);
+
+            //read file 2: 
+
+            string path2 = ac.GetValue("DataPath2");
+            string format2 = @"{0}\{1}.Y\{2}.Mon\2.{1}{2}{3}.txt";
+            ExcuteData(dtNow, format2, path2);
+        }
+
+        public static void ExcuteData(DateTime dtNow, string format, string path)
+        {
+            string fileName = CopyDataFile(dtNow, format, path);
+            if (fileName == string.Empty)
+                return;
+            int fromLineNo = GetUpdatedRecords(dtNow);
+            //int fromLineNo = 0;
+            using (DataTable dtResultLog = GetDataFromFile(fileName, fromLineNo))
             {
-                string fileName = CopyDataFile(dtNow, @"{0}\{1}.Y\{2}.Mon\" + i +".{1}{2}{3}.txt");
-                if (fileName == string.Empty)
-                    continue;
-                int fromLineNo = GetUpdatedRecords(dtNow);
-                //int fromLineNo = 0;
-                using (DataTable dtResultLog = GetDataFromFile(fileName, fromLineNo))
+                if (dtResultLog == null)
+                    return;
+                if (UpdateResultLog(dtResultLog))
                 {
-                    if (dtResultLog == null)
-                        continue;
-                    if (UpdateResultLog(dtResultLog))
-                    {
-                        WriteLog(LogType.Info, string.Format("{0}: Write result log successfully", DateTime.Now));
-                        if (db.UpdateByNonQuery("exec PostPOResult"))
-                            WriteLog(LogType.Info, string.Format("{0}: Posting into inventory book successfully", DateTime.Now));
-                    }
+                    WriteLog(LogType.Info, string.Format("{0}: Write result log successfully", DateTime.Now));
+                    if (db.UpdateByNonQuery("exec PostPOResult"))
+                        WriteLog(LogType.Info, string.Format("{0}: Posting into inventory book successfully", DateTime.Now));
                 }
             }
         }
 
-        static string CopyDataFile(DateTime dtToDay, string format)
+        static string CopyDataFile(DateTime dtToDay, string format, string path)
         {
             //DateTime dtToDay = DateTime.Today;
             //Sample file: D:\2016.Y\03.Mon\1.20160306.txt
-            string sourceFileName = string.Format(format, ac.GetValue("DataPath"), dtToDay.Year, dtToDay.Month.ToString("D2"), dtToDay.Day.ToString("D2"));
+            string sourceFileName = string.Format(format, path, dtToDay.Year, dtToDay.Month.ToString("D2"), dtToDay.Day.ToString("D2"));
 
             if (!File.Exists(sourceFileName))
             {
@@ -220,13 +232,13 @@ namespace ProductionResult
                         //if (lstOrders.Contains(soLSX))
                         //    WriteLog(LogType.Warning, "There is duplicated Order number: " + soLSX);
                         //else
-                            if (!Int32.TryParse(strSLSX, out slSX))
-                                WriteLog(LogType.Error, "Wrong format of Finish Job Quantity: " + strSLSX);
-                            else
-                            {
-                                lstOrders.Add(soLSX);
-                                WriteLog(LogType.Info, string.Format("Finish Job Quantity of Order number {0} is {1}", soLSX, slSX));
-                            }
+                        if (!Int32.TryParse(strSLSX, out slSX))
+                            WriteLog(LogType.Error, "Wrong format of Finish Job Quantity: " + strSLSX);
+                        else
+                        {
+                            lstOrders.Add(soLSX);
+                            WriteLog(LogType.Info, string.Format("Finish Job Quantity of Order number {0} is {1}", soLSX, slSX));
+                        }
                     }
                     AddResultLog(dtResultLog, allDataItems);
                 }
