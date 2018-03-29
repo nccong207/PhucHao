@@ -88,30 +88,33 @@ namespace ProductionResult
         static void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             DateTime dtNow = DateTime.Now;
-            string fileName = CopyDataFile(dtNow);
-            if (fileName == string.Empty)
-                return;
-            int fromLineNo = GetUpdatedRecords(dtNow);
-            //int fromLineNo = 0;
-            using (DataTable dtResultLog = GetDataFromFile(fileName, fromLineNo))
+            for (int i = 1; i <= 2; i++)
             {
-                if (dtResultLog == null)
-                    return;
-                if (UpdateResultLog(dtResultLog))
+                string fileName = CopyDataFile(dtNow, @"{0}\{1}.Y\{2}.Mon\" + i +".{1}{2}{3}.txt");
+                if (fileName == string.Empty)
+                    continue;
+                int fromLineNo = GetUpdatedRecords(dtNow);
+                //int fromLineNo = 0;
+                using (DataTable dtResultLog = GetDataFromFile(fileName, fromLineNo))
                 {
-                    WriteLog(LogType.Info, string.Format("{0}: Write result log successfully", DateTime.Now));
-                    if (db.UpdateByNonQuery("exec PostPOResult"))
-                        WriteLog(LogType.Info, string.Format("{0}: Posting into inventory book successfully", DateTime.Now));
+                    if (dtResultLog == null)
+                        continue;
+                    if (UpdateResultLog(dtResultLog))
+                    {
+                        WriteLog(LogType.Info, string.Format("{0}: Write result log successfully", DateTime.Now));
+                        if (db.UpdateByNonQuery("exec PostPOResult"))
+                            WriteLog(LogType.Info, string.Format("{0}: Posting into inventory book successfully", DateTime.Now));
+                    }
                 }
             }
         }
 
-        static string CopyDataFile(DateTime dtToDay)
+        static string CopyDataFile(DateTime dtToDay, string format)
         {
             //DateTime dtToDay = DateTime.Today;
             //Sample file: D:\2016.Y\03.Mon\1.20160306.txt
-            string sourceFileName = string.Format(@"{0}\{1}.Y\{2}.Mon\1.{1}{2}{3}.txt", ac.GetValue("DataPath"),
-                dtToDay.Year, dtToDay.Month.ToString("D2"), dtToDay.Day.ToString("D2"));
+            string sourceFileName = string.Format(format, ac.GetValue("DataPath"), dtToDay.Year, dtToDay.Month.ToString("D2"), dtToDay.Day.ToString("D2"));
+
             if (!File.Exists(sourceFileName))
             {
                 WriteLog(LogType.Warning, string.Format("{0}: No data file exists today", DateTime.Now));
