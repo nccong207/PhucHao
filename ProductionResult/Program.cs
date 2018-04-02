@@ -91,22 +91,21 @@ namespace ProductionResult
 
             //read file 1:
             string path = ac.GetValue("DataPath");
-            string format = @"{0}\{1}.Y\{2}.Mon\1.{1}{2}{3}.txt";
-            ExcuteData(dtNow, format, path);
+            ExcuteData(dtNow, "1", path);
 
             //read file 2: 
 
             string path2 = ac.GetValue("DataPath2");
-            string format2 = @"{0}\{1}.Y\{2}.Mon\2.{1}{2}{3}.txt";
-            ExcuteData(dtNow, format2, path2);
+            ExcuteData(dtNow, "2", path2);
         }
 
-        public static void ExcuteData(DateTime dtNow, string format, string path)
+        public static void ExcuteData(DateTime dtNow, string productionLine, string path)
         {
+            string format = @"{0}\{1}.Y\{2}.Mon\" + productionLine + @".{1}{2}{3}.txt";
             string fileName = CopyDataFile(dtNow, format, path);
             if (fileName == string.Empty)
                 return;
-            int fromLineNo = GetUpdatedRecords(dtNow);
+            int fromLineNo = GetUpdatedRecords(dtNow, productionLine);
             //int fromLineNo = 0;
             using (DataTable dtResultLog = GetDataFromFile(fileName, fromLineNo))
             {
@@ -162,9 +161,9 @@ namespace ProductionResult
             return db.UpdateDataTable("select * from POResultLog where 1 = 0", dtResultLog);
         }
 
-        static int GetUpdatedRecords(DateTime dtNow)
+        static int GetUpdatedRecords(DateTime dtNow, string productionLine)
         {
-            object o = db.GetValue(string.Format("select COUNT(*) from POResultLog where DATEDIFF(dd, UpdatedDate, '{0}') = 0", dtNow));
+            object o = db.GetValue(string.Format("select COUNT(*) from POResultLog where ProductionLineCode = {1} AND DATEDIFF(dd, UpdatedDate, '{0}') = 0", dtNow, productionLine));
             return (o == null || o.ToString() == string.Empty) ? 0 : Convert.ToInt32(o);
         }
 
