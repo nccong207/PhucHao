@@ -144,9 +144,9 @@ namespace POSApp
             }
 
             string nguoiduyet = loginUser["HoTen"].ToString();
-            string sql = @"INSERT INTO YeuCauXuatKho (Ngay, MaCuon, SoLuongBD, SoLuongSD, SoLuongCL, NguoiDuyet, LSX, Duyet)
-                            VALUES ('{0}','{1}',{2},{3},{4},'{5}', '{6}',1)";
-            db.UpdateByNonQuery(string.Format(sql, ngay, macuon.Macuon, soluongBD, soluongSD, soluongCL, nguoiduyet, list));
+            string sql = @"INSERT INTO YeuCauXuatKho (Ngay, MaCuon, SoLuongBD, SoLuongSD, SoLuongCL, NguoiDuyet, LSX, Duyet, NguoiLap)
+                            VALUES ('{0}','{1}',{2},{3},{4},'{5}', '{6}',1, '{7}')";
+            db.UpdateByNonQuery(string.Format(sql, ngay, macuon.Macuon, soluongBD, soluongSD, soluongCL, nguoiduyet, list, loginUser["Ma"].ToString()));
             ReloadReturnGrid();
 
         }
