@@ -62,7 +62,7 @@ namespace LayDSGiaHan
                 ////xu li so tien phat
                 var ngayht = DateTime.Today; //B
                 var ngaygiaohang = (DateTime)e.Row["NgayGH"]; //A
-                var ngaygiahan = (DateTime)e.Row["NgayGHT"]; //C
+                //var ngaygiahan = (DateTime)e.Row["NgayGHT"]; //C
                 var dtdhid = e.Row["DTDHID"].ToString(); 
                 string sql = "select Loai from dtdonhang where dtdhid = '{0}'";
                 object type = db.GetValue(string.Format(sql, dtdhid));
@@ -70,7 +70,7 @@ namespace LayDSGiaHan
                 string typedh = type.ToString();
                 int days = typedh.Equals("Thùng") ? 10 : 4;
 
-                var num = (ngayht - ngaygiahan).Days - days;
+                var num = (ngayht - ngaygiaohang).Days - days;
 
                 if (num <= 0) return;
                  
