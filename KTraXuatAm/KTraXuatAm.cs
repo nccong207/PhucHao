@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Plugins;
@@ -37,7 +37,7 @@ namespace KTraXuatAm
 
             // kiem tra ngay giao hang
             string isAdmin = Config.GetValue("Admin").ToString();
-            if (!Boolean.Parse(isAdmin)) 
+            if (!Boolean.Parse(isAdmin))
             {
                 DataRow[] drs = _data.DsData.Tables[1].Select("MT32ID = '" + drCur["MT32ID"].ToString() + "'");
                 foreach (DataRow row in drs)
@@ -45,7 +45,7 @@ namespace KTraXuatAm
                     string dtdhid = row["DTDHID"].ToString();
                     if (!string.IsNullOrEmpty(dtdhid))
                     {
-                     //ngay gia han
+                            //ngay gia han
                             string sql3 = "SELECT top 1 NgayGHT FROM DTGiaHan dt left join MTGiaHan mt on mt.MTGHID  = dt.MTGHID where mt.Duyet = 1 and dt.DTDHID = '{0}' order by NgayGHT desc";
                             object ngaygiahan = db.GetValue(string.Format(sql3, dtdhid));
                             // ngay xuat gan nhat
@@ -80,33 +80,50 @@ namespace KTraXuatAm
                             }
                           
                             // kiem tra cac ngay
-                           
 
-                                    if (ng3 >= 1)
-                                    {
-                                        if (ng2 >= 1)
-                                        {
-                                            if (ng1 >= 1)
-                                            {
-                                                XtraMessageBox.Show("Er.1: Ngày hiện tại vượt quá ngày gia hạn đã duyệt, không thể tạo được phiếu bán hàng.", Config.GetValue("PackageName").ToString());
-                                                _info.Result = false;
-                                                return;
-                                            }
-                                            else
-                                            {
-                                                XtraMessageBox.Show("Er.2: Ngày hiện tại vượt quá ngày giao hàng quy định, không thể tạo được phiếu bán hàng.", Config.GetValue("PackageName").ToString());
-                                                _info.Result = false;
-                                                return;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            XtraMessageBox.Show("Er.3: Ngày hiện tại vượt quá ngày giao hàng quy định, không thể tạo được phiếu bán hàng.", Config.GetValue("PackageName").ToString());
-                                            _info.Result = false;
-                                            return;
-                                        }
+                            XtraMessageBox.Show(ng1.ToString());
+                            XtraMessageBox.Show(ng2.ToString());
+                            XtraMessageBox.Show(ng3.ToString());
 
-                                    }           
+                            if (ng3>0 && ng2>0 && ng1>0)
+                            {
+                                XtraMessageBox.Show("Er.1: Ngày hiện tại vượt quá ngày gia hạn đã duyệt, không thể tạo được phiếu bán hàng.", Config.GetValue("PackageName").ToString());
+                                _info.Result = false;
+                                return;
+                            }
+                            else if (ng3 > 0 && ng2 > 0 && ng1 == 0)
+                            {
+                                XtraMessageBox.Show("Er.2: Ngày hiện tại vượt quá ngày gia hạn đã duyệt, không thể tạo được phiếu bán hàng.", Config.GetValue("PackageName").ToString());
+                                _info.Result = false;
+                                return;
+                            }
+                            else if (ng3 > 0 && ng2 == 0 && ng1 == 0)
+                            {
+                                XtraMessageBox.Show("Er.3: Ngày hiện tại vượt quá ngày gia hạn đã duyệt, không thể tạo được phiếu bán hàng.", Config.GetValue("PackageName").ToString());
+                                _info.Result = false;
+                                return;
+                            }
+                            else if (ng3 == 0 && ng2 == 0 && ng1 == 0)
+                            {
+                                _info.Result = true;
+                                return;
+                            }
+                            else if (ng3 > 0 && ng2 < 0 && ng1 < 0)
+                            {
+                                _info.Result = true;
+                                return;
+                            }
+                            else if (ng3 > 0 && ng2 < 0 && ng1 == 0)
+                            {
+                                _info.Result = true;
+                                return;
+                            }
+                            else if (ng3 > 0 && ng2 == 0 && ng1 == 0)
+                            {
+                                _info.Result = true;
+                                return;
+                            }
+                                 
                     }
                 }
             }
@@ -188,7 +205,11 @@ namespace KTraXuatAm
 
             _info.Result = true;
         }
-
+        public void showerr() {
+            XtraMessageBox.Show("Ngày hiện tại vượt quá ngày đã duyệt, không thể tạo được phiếu bán hàng.", Config.GetValue("PackageName").ToString());
+            _info.Result = false;
+            return;
+        }
         public InfoCustomData Info
         {
             get { return _info; }
