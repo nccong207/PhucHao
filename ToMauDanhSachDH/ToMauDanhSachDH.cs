@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraGrid;
+using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
 using Plugins;
 using System;
@@ -61,31 +61,36 @@ namespace ToMauDanhSachDH
                 }
 
                 // kiem tra cac ngay
-
-
-                if (ng3 >= 1)
+                if (ng3 > 0 && ng2 > 0 && ng1 > 0)
                 {
-                    if (ng2 >= 1)
-                    {
-                        if (ng1 >= 1)
-                        {
-                            e.Appearance.BackColor = Color.Red;
-                        }
-                        else
-                        {
-                            e.Appearance.BackColor = Color.Red;
-                        }
-                    }
-                    else
-                    {
-                        e.Appearance.BackColor = Color.Red;
-                    }
-
+                    e.Appearance.BackColor = Color.Red;
                 }
-                else
+                else if (ng3 > 0 && ng2 > 0 && ng1 == 0)
+                {
+                    e.Appearance.BackColor = Color.Red;
+                }
+                else if (ng3 > 0 && ng2 == 0 && ng1 == 0)
+                {
+                    e.Appearance.BackColor = Color.Red;
+                }
+                else if (ng3 == 0 && ng2 == 0 && ng1 == 0)
                 {
                     e.Appearance.BackColor = Color.Green;
-                } 
+                }
+                else if (ng3 > 0 && ng2 < 0 && ng1 < 0)
+                {
+                    e.Appearance.BackColor = Color.Green;
+                }
+                else if (ng3 > 0 && ng2 < 0 && ng1 == 0)
+                {
+                    e.Appearance.BackColor = Color.Green;
+                }
+                else if (ng3 > 0 && ng2 == 0 && ng1 == 0)
+                {
+                    e.Appearance.BackColor = Color.Green;
+                }
+
+               
             }
         }
 
