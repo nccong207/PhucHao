@@ -7,9 +7,9 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 
-namespace ToMauGiaHan2
+namespace ToMauDanhSachDH
 {
-    public class ToMauGiaHan2 : ICReport
+    public class ToMauDanhSachDH : ICReport
     {
         private DataCustomReport _data;
         private InfoCustomReport _info = new InfoCustomReport(IDataType.Report);
