@@ -80,11 +80,6 @@ namespace KTraXuatAm
                             }
                           
                             // kiem tra cac ngay
-
-                            XtraMessageBox.Show(ng1.ToString());
-                            XtraMessageBox.Show(ng2.ToString());
-                            XtraMessageBox.Show(ng3.ToString());
-
                             if (ng3>0 && ng2>0 && ng1>0)
                             {
                                 XtraMessageBox.Show("Er.1: Ngày hiện tại vượt quá ngày gia hạn đã duyệt, không thể tạo được phiếu bán hàng.", Config.GetValue("PackageName").ToString());
