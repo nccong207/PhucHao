@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraGrid;
+using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
 using Plugins;
 using System;
@@ -18,7 +18,7 @@ namespace ToMauBT
         public void AddEvent()
         {
             var tb = _data.DrTableMaster["TableName"].ToString();
-            if (tb != "MTDeNghi" && tb != "MTDNTT" )
+            if (tb != "MTDeNghi" && tb != "MTDNTT" && tb != "MTMuaHang" && tb != "MT41" && tb != "MT42")
                 return;
 
             gvMain = (_data.FrmMain.Controls.Find("gcMain", true)[0] as GridControl).MainView as GridView;
