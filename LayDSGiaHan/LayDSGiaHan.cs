@@ -1,4 +1,4 @@
-﻿using CDTDatabase;
+using CDTDatabase;
 using CDTLib;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid;
@@ -61,19 +61,16 @@ namespace LayDSGiaHan
             {
                 ////xu li so tien phat
                 var ngayht = DateTime.Today; //B
-                var ngaygiaohang = (DateTime)e.Row["NgayGH"]; //A
-                //var ngaygiahan = (DateTime)e.Row["NgayGHT"]; //C
+                var ngaynhapkho = (DateTime)e.Row["NgayNhapKho"]; //A
+                var ngaygiahan = (DateTime)e.Row["NgayGHT"]; //C
                 var dtdhid = e.Row["DTDHID"].ToString(); 
                 string sql = "select Loai from dtdonhang where dtdhid = '{0}'";
                 object type = db.GetValue(string.Format(sql, dtdhid));
                 if (type == DBNull.Value) return;
                 string typedh = type.ToString();
                 int days = typedh.Equals("Thùng") ? 10 : 4;
-
-                var num = (ngayht - ngaygiaohang).Days - days;
-
+                var num = (ngaygiahan - ngaynhapkho).Days - days;
                 if (num <= 0) return;
-                 
                 e.Row["SoNgayTre"] = num; //D
                 var tienphat = Config.GetValue("TienPhatTreHan") == null ? 20000 : Convert.ToInt32(Config.GetValue("TienPhatTreHan"));
                 e.Row["TienPhat"] = num * tienphat;
@@ -128,9 +125,7 @@ namespace LayDSGiaHan
                 gvMain.SetFocusedRowCellValue(gvMain.Columns["Dai"], dr["Dai"]);
                 gvMain.SetFocusedRowCellValue(gvMain.Columns["Rong"], dr["Rong"]);
                 gvMain.SetFocusedRowCellValue(gvMain.Columns["Cao"], dr["Cao"]);
-                gvMain.SetFocusedRowCellValue(gvMain.Columns["NgayGH"], dr["NgayGH"]);
-
-
+                gvMain.SetFocusedRowCellValue(gvMain.Columns["NgayNhapKho"], dr["NgayNhapKho"]);
 
             }
 
