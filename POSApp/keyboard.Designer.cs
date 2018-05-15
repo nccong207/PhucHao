@@ -50,6 +50,7 @@
             this.Controls.Add(this.numberpad1);
             this.Name = "keyboard";
             this.Text = "keyborad";
+            this.TopMost = true;
             this.ResumeLayout(false);
 
         }

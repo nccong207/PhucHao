@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace paypi
 {
@@ -103,7 +104,11 @@ namespace paypi
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            this.Visible = false;
+        }
+
+        private void num1_MouseHover(object sender, EventArgs e)
+        {
+            this.BackColor = Color.FromArgb(0, 192, 0);
         }
     }
 }

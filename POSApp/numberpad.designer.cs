@@ -77,7 +77,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(79)))), ((int)(((byte)(129)))));
+            this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.btnClose.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnClose.FlatAppearance.BorderSize = 0;
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -88,17 +88,16 @@
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(132, 86);
             this.btnClose.TabIndex = 14;
-            this.btnClose.Text = "ENTER";
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // num0
             // 
-            this.num0.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(79)))), ((int)(((byte)(129)))));
+            this.num0.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.num0.Dock = System.Windows.Forms.DockStyle.Fill;
             this.num0.FlatAppearance.BorderSize = 0;
             this.num0.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.num0.Font = new System.Drawing.Font("Arial Rounded MT Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num0.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.num0.ForeColor = System.Drawing.Color.White;
             this.num0.Location = new System.Drawing.Point(130, 255);
             this.num0.Margin = new System.Windows.Forms.Padding(0);
@@ -111,7 +110,7 @@
             // 
             // btnReset
             // 
-            this.btnReset.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(79)))), ((int)(((byte)(129)))));
+            this.btnReset.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.btnReset.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnReset.FlatAppearance.BorderSize = 0;
             this.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -128,11 +127,11 @@
             // 
             // num9
             // 
-            this.num9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(79)))), ((int)(((byte)(129)))));
+            this.num9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.num9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.num9.FlatAppearance.BorderSize = 0;
             this.num9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.num9.Font = new System.Drawing.Font("Arial Rounded MT Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num9.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.num9.ForeColor = System.Drawing.Color.White;
             this.num9.Location = new System.Drawing.Point(260, 170);
             this.num9.Margin = new System.Windows.Forms.Padding(0);
@@ -145,11 +144,11 @@
             // 
             // num8
             // 
-            this.num8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(79)))), ((int)(((byte)(129)))));
+            this.num8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.num8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.num8.FlatAppearance.BorderSize = 0;
             this.num8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.num8.Font = new System.Drawing.Font("Arial Rounded MT Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num8.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.num8.ForeColor = System.Drawing.Color.White;
             this.num8.Location = new System.Drawing.Point(130, 170);
             this.num8.Margin = new System.Windows.Forms.Padding(0);
@@ -162,11 +161,11 @@
             // 
             // num7
             // 
-            this.num7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(79)))), ((int)(((byte)(129)))));
+            this.num7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.num7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.num7.FlatAppearance.BorderSize = 0;
             this.num7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.num7.Font = new System.Drawing.Font("Arial Rounded MT Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num7.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.num7.ForeColor = System.Drawing.Color.White;
             this.num7.Location = new System.Drawing.Point(0, 170);
             this.num7.Margin = new System.Windows.Forms.Padding(0);
@@ -179,11 +178,11 @@
             // 
             // num6
             // 
-            this.num6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(79)))), ((int)(((byte)(129)))));
+            this.num6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.num6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.num6.FlatAppearance.BorderSize = 0;
             this.num6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.num6.Font = new System.Drawing.Font("Arial Rounded MT Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.num6.ForeColor = System.Drawing.Color.White;
             this.num6.Location = new System.Drawing.Point(260, 85);
             this.num6.Margin = new System.Windows.Forms.Padding(0);
@@ -196,11 +195,11 @@
             // 
             // num5
             // 
-            this.num5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(79)))), ((int)(((byte)(129)))));
+            this.num5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.num5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.num5.FlatAppearance.BorderSize = 0;
             this.num5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.num5.Font = new System.Drawing.Font("Arial Rounded MT Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.num5.ForeColor = System.Drawing.Color.White;
             this.num5.Location = new System.Drawing.Point(130, 85);
             this.num5.Margin = new System.Windows.Forms.Padding(0);
@@ -213,11 +212,11 @@
             // 
             // num4
             // 
-            this.num4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(79)))), ((int)(((byte)(129)))));
+            this.num4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.num4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.num4.FlatAppearance.BorderSize = 0;
             this.num4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.num4.Font = new System.Drawing.Font("Arial Rounded MT Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.num4.ForeColor = System.Drawing.Color.White;
             this.num4.Location = new System.Drawing.Point(0, 85);
             this.num4.Margin = new System.Windows.Forms.Padding(0);
@@ -230,11 +229,11 @@
             // 
             // num3
             // 
-            this.num3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(79)))), ((int)(((byte)(129)))));
+            this.num3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.num3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.num3.FlatAppearance.BorderSize = 0;
             this.num3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.num3.Font = new System.Drawing.Font("Arial Rounded MT Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.num3.ForeColor = System.Drawing.Color.White;
             this.num3.Location = new System.Drawing.Point(260, 0);
             this.num3.Margin = new System.Windows.Forms.Padding(0);
@@ -247,11 +246,11 @@
             // 
             // num2
             // 
-            this.num2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(79)))), ((int)(((byte)(129)))));
+            this.num2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.num2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.num2.FlatAppearance.BorderSize = 0;
             this.num2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.num2.Font = new System.Drawing.Font("Arial Rounded MT Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.num2.ForeColor = System.Drawing.Color.White;
             this.num2.Location = new System.Drawing.Point(130, 0);
             this.num2.Margin = new System.Windows.Forms.Padding(0);
@@ -264,11 +263,11 @@
             // 
             // num1
             // 
-            this.num1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(79)))), ((int)(((byte)(129)))));
+            this.num1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.num1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.num1.FlatAppearance.BorderSize = 0;
             this.num1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.num1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.num1.ForeColor = System.Drawing.Color.White;
             this.num1.Location = new System.Drawing.Point(0, 0);
             this.num1.Margin = new System.Windows.Forms.Padding(0);
@@ -278,6 +277,7 @@
             this.num1.Text = "1";
             this.num1.UseVisualStyleBackColor = false;
             this.num1.Click += new System.EventHandler(this.num1_Click);
+            this.num1.MouseHover += new System.EventHandler(this.num1_MouseHover);
             // 
             // numberpad
             // 

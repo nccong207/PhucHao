@@ -36,31 +36,25 @@ namespace POSApp
             try
             {
                 duongkinh = Convert.ToDecimal(textBox1.Text);
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                if (duongkinh < 2200)
+                {
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                else { MessageBox.Show("Đường kính không đúng."); }
             }
             catch (Exception)
             {
                 MessageBox.Show("Chỉ được phép nhập số.");
             }
+            
         }
 
         private void textBox1_Enter(object sender, EventArgs e)
         {
-            keyb = new keyboard(textBox1);
-            keyb.StartPosition = FormStartPosition.Manual;
-            keyb.Location = new Point(this.Location.X + 70, this.Location.Y + 170);
-            keyb.ShowDialog();
-            textBox1.Focus();
+            numberpad1.TextBox = textBox1;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            keyb = new keyboard(textBox1);
-            keyb.StartPosition = FormStartPosition.Manual;
-            keyb.Location = new Point(this.Location.X + 70, this.Location.Y + 170);
-            keyb.ShowDialog();
-            textBox1.Focus();
-        }
+       
     }
 }
