@@ -49,6 +49,10 @@ namespace POSApp
         }
         public void singleView()
         {
+            body.Location = new Point(0, header.Height);
+            body.Width = ClientSize.Width;
+            body.Height = (ClientSize.Height * 80) / 100;
+
             body_0.Location = new Point(0, 0);
             body_0.Width = body.Width;
             body_0.Height = (body.Height * 10) / 100;
@@ -81,12 +85,22 @@ namespace POSApp
             m3.Visible = false;
             m4.Visible = false;
 
+            th.Width = body_2.Width;
+            th.Height = body_2.Height;
+            th.Location = new Point(0, 0);
 
             header.Visible = true;
             body.Visible = true;
             body_0.Visible = true;
             body_1.Visible = true;
             body_2.Visible = true;
+
+            footer.Location = new Point(0, header.Height + body.Height);
+            footer.Width = ClientSize.Width;
+            footer.Height = (ClientSize.Height * 10) / 100;
+            thoatBtn.Height = ((footer.Height * 80) / 100);
+            thoatBtn.Location = new Point(footer.Width - thoatBtn.Width + 10, (footer.Height / 2) - (thoatBtn.Height / 2));
+
             footer.Visible = true;
             SyncMainGrid();
 
@@ -94,6 +108,10 @@ namespace POSApp
 
         public void multiView()
         {
+            body.Location = new Point(0, header.Height);
+            body.Width = ClientSize.Width;
+            body.Height = (ClientSize.Height * 80) / 100;
+
             body_0.Location = new Point(0, 0);
             body_0.Width = body.Width;
             body_0.Height = (body.Height * 10) / 100;
@@ -138,6 +156,10 @@ namespace POSApp
             lw_4.Width = body_0.Width / 4;
             lw_4.Height = body_0.Height;
 
+            th.Width = body_2.Width;
+            th.Height = body_2.Height;
+            th.Location = new Point(0, 0);
+
             m1.Visible = true;
             m2.Visible = true;
             m3.Visible = true;
@@ -151,6 +173,13 @@ namespace POSApp
             body_0.Visible = true;
             body_1.Visible = true;
             body_2.Visible = true;
+
+            footer.Location = new Point(0, header.Height + body.Height);
+            footer.Width = ClientSize.Width;
+            footer.Height = (ClientSize.Height * 10) / 100;
+            thoatBtn.Height = ((footer.Height * 80) / 100);
+            thoatBtn.Location = new Point(footer.Width - thoatBtn.Width + 10, (footer.Height / 2) - (thoatBtn.Height / 2));
+
             footer.Visible = true;
             SyncMainGrid();
 
@@ -167,20 +196,11 @@ namespace POSApp
             themBtn.Height = ((header.Height * 90) / 100);
             themBtn.Location = new Point(header.Width - themBtn.Width - traBtn.Width - 20, (header.Height / 2) - (themBtn.Height / 2));
 
-            body.Location = new Point(0, header.Height);
-            body.Width = ClientSize.Width;
-            body.Height = (ClientSize.Height * 80) / 100;
+           
 
-            footer.Location = new Point(0, header.Height + body.Height);
-            footer.Width = ClientSize.Width;
-            footer.Height = (ClientSize.Height * 10) / 100;
-            thoatBtn.Height = ((footer.Height * 80) / 100);
-            thoatBtn.Location = new Point(footer.Width - thoatBtn.Width + 10, (footer.Height / 2) - (thoatBtn.Height / 2));
+           
 
 
-            th.Width = body_2.Width;
-            th.Height = body_2.Height;
-            th.Location = new Point(0, 0);
 
             switch (softwareType)
             {
@@ -223,6 +243,13 @@ namespace POSApp
                     {
                         m0_2.DataSource = dt2;
                     }
+                    string _mstable = machineTable.Substring(0, 5).ToString();
+                    string sql3 = string.Format("SELECT[Ngay],[MaCuon],[SoLuongBD],[SoLuongSD],[SoLuongCL],[NguoiDuyet],[ViTri] FROM [POS].[dbo].[YeuCauXuatKho] WHERE SUBSTRING([ViTri],1,5) = '{0}'", _mstable);
+                    DataTable dt3 = db.GetDataTable(sql3);
+                    if (dt3.Rows.Count > 0)
+                    {
+                        th.DataSource = dt3;
+                    }
                     break;
                 case "MV":
                     //load May 1
@@ -253,6 +280,14 @@ namespace POSApp
                     {
                         m4.DataSource = dtb4;
                     }
+                    string _mstable2 = machineTable.Substring(0, 3).ToString();
+                    string sql5 = string.Format("SELECT[Ngay],[MaCuon],[SoLuongBD],[SoLuongSD],[SoLuongCL],[NguoiDuyet],[ViTri] FROM [POS].[dbo].[YeuCauXuatKho] WHERE SUBSTRING([ViTri],1,3) = '{0}'", _mstable2);
+                    DataTable dt5= db.GetDataTable(sql5);
+                    if (dt5.Rows.Count > 0)
+                    {
+                        th.DataSource = dt5;
+                    }
+                    
                     break;
 
             }

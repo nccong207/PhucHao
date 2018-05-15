@@ -74,6 +74,8 @@ namespace POSApp
             mc.Macuon = macuon;
             //lay manvl + kho + ky hieu + ty le khoi
             var manl = hoaTieuDb.GetValue(string.Format("SELECT MaNL FROM DT42 WHERE MaCuon = '{0}'", macuon.Trim()));
+            string cVitri = "";
+            string msch = machineTable.Substring(0, 3).ToString();
             if (manl != null)
             {
                 mc.MaNL = manl.ToString();
@@ -89,12 +91,13 @@ namespace POSApp
                 {
                     mc.TileK = Convert.ToDecimal(string.IsNullOrEmpty(tileK.ToString()) ? "0" : tileK.ToString());
                 }
-                string msch = machineTable.Substring(0, 3).ToString();
-                DataTable dbo = db.GetDataTable(string.Format("SELECT Duyet,SoKg from {0}_{1} WHERE MaCuon = '{2}'", msch,may,mc.Macuon));
+                
+                DataTable dbo = db.GetDataTable(string.Format("SELECT Duyet,SoKg,ViTri from {0}_{1} WHERE MaCuon = '{2}'", msch,may,mc.Macuon));
                 if (dbo.Rows.Count > 0)
                 {
                     mc.Duyet = dbo.Rows[0]["Duyet"].ToString();
                     mc.SoKg =Convert.ToDecimal(dbo.Rows[0]["SoKg"].ToString());
+                    cVitri = dbo.Rows[0]["ViTri"].ToString();
                 }
         
             }
@@ -109,9 +112,9 @@ namespace POSApp
             decimal soluongCL = (duongkinh / 1000) * Convert.ToDecimal(mc.Kho) * Convert.ToDecimal("3.14") * mc.TileK;
             decimal soluongSD = mc.SoKg - soluongCL;
             
-            string sql = @"INSERT INTO YeuCauXuatKho (Ngay, MaCuon, SoLuongBD, SoLuongSD, SoLuongCL, NguoiDuyet, LSX, Duyet, NguoiLap)
-                            VALUES ('{0}','{1}',{2},{3},{4},'{5}', '{6}',1, '{7}')";
-            db.UpdateByNonQuery(string.Format(sql, ngay, mc.Macuon, mc.SoKg, soluongSD, soluongCL,mc.Duyet, "LSX", mainFrm.loginUser["Ma"].ToString()));
+            string sql = @"INSERT INTO YeuCauXuatKho (Ngay, MaCuon, SoLuongBD, SoLuongSD, SoLuongCL, NguoiDuyet, LSX, Duyet, NguoiLap,ViTri)
+                            VALUES ('{0}','{1}',{2},{3},{4},'{5}', '{6}',1, '{7}', '{8}_{9}_{10}')";
+            db.UpdateByNonQuery(string.Format(sql, ngay, mc.Macuon, mc.SoKg, soluongSD, soluongCL,mc.Duyet, "LSX", mainFrm.loginUser["Ma"].ToString(),msch,may,cVitri));
 
             string sql2 = @"DELETE FROM {0}_{1} WHERE MaCuon = '{2}'";
             db.UpdateByNonQuery(string.Format(sql2, _machine,may, mc.Macuon));            

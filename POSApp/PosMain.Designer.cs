@@ -40,6 +40,26 @@
             this.day = new System.Windows.Forms.Label();
             this.body = new System.Windows.Forms.Panel();
             this.body_0 = new System.Windows.Forms.Panel();
+            this.lw_4 = new DevExpress.XtraGrid.GridControl();
+            this.gridView6 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn10 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.lw_3 = new DevExpress.XtraGrid.GridControl();
+            this.gridView5 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.lw_2 = new DevExpress.XtraGrid.GridControl();
+            this.gridView4 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.lw_1 = new DevExpress.XtraGrid.GridControl();
+            this.gridView3 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.lw_0_2 = new DevExpress.XtraGrid.GridControl();
+            this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.lw_0_1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.thisOrder = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -99,31 +119,21 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timer3 = new System.Windows.Forms.Timer(this.components);
-            this.lw_0_2 = new DevExpress.XtraGrid.GridControl();
-            this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.lw_1 = new DevExpress.XtraGrid.GridControl();
-            this.gridView3 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.lw_2 = new DevExpress.XtraGrid.GridControl();
-            this.gridView4 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.lw_3 = new DevExpress.XtraGrid.GridControl();
-            this.gridView5 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.lw_4 = new DevExpress.XtraGrid.GridControl();
-            this.gridView6 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn10 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.header.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.body.SuspendLayout();
             this.body_0.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lw_4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lw_3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lw_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lw_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lw_0_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lw_0_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.body_2.SuspendLayout();
@@ -145,16 +155,6 @@
             this.footer.SuspendLayout();
             this.hoatieu.SuspendLayout();
             this.longway.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lw_0_2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lw_1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lw_2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lw_3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lw_4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView6)).BeginInit();
             this.SuspendLayout();
             // 
             // header
@@ -284,6 +284,215 @@
             this.body_0.TabIndex = 5;
             this.body_0.Visible = false;
             // 
+            // lw_4
+            // 
+            this.lw_4.Location = new System.Drawing.Point(404, 6);
+            this.lw_4.MainView = this.gridView6;
+            this.lw_4.Name = "lw_4";
+            this.lw_4.Size = new System.Drawing.Size(153, 104);
+            this.lw_4.TabIndex = 5;
+            this.lw_4.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView6});
+            this.lw_4.Visible = false;
+            // 
+            // gridView6
+            // 
+            this.gridView6.Appearance.FocusedRow.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridView6.Appearance.FocusedRow.Options.UseFont = true;
+            this.gridView6.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn9,
+            this.gridColumn10});
+            this.gridView6.GridControl = this.lw_4;
+            this.gridView6.Name = "gridView6";
+            this.gridView6.OptionsCustomization.AllowFilter = false;
+            this.gridView6.OptionsCustomization.AllowGroup = false;
+            this.gridView6.OptionsView.ShowColumnHeaders = false;
+            this.gridView6.OptionsView.ShowGroupPanel = false;
+            this.gridView6.OptionsView.ShowIndicator = false;
+            // 
+            // gridColumn9
+            // 
+            this.gridColumn9.Caption = "Lô này:";
+            this.gridColumn9.Name = "gridColumn9";
+            this.gridColumn9.OptionsColumn.ReadOnly = true;
+            this.gridColumn9.Visible = true;
+            this.gridColumn9.VisibleIndex = 0;
+            // 
+            // gridColumn10
+            // 
+            this.gridColumn10.Caption = "Lô kế tiếp: ";
+            this.gridColumn10.Name = "gridColumn10";
+            this.gridColumn10.OptionsColumn.ReadOnly = true;
+            this.gridColumn10.Visible = true;
+            this.gridColumn10.VisibleIndex = 1;
+            // 
+            // lw_3
+            // 
+            this.lw_3.Location = new System.Drawing.Point(357, 9);
+            this.lw_3.MainView = this.gridView5;
+            this.lw_3.Name = "lw_3";
+            this.lw_3.Size = new System.Drawing.Size(153, 104);
+            this.lw_3.TabIndex = 4;
+            this.lw_3.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView5});
+            this.lw_3.Visible = false;
+            // 
+            // gridView5
+            // 
+            this.gridView5.Appearance.FocusedRow.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridView5.Appearance.FocusedRow.Options.UseFont = true;
+            this.gridView5.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn7,
+            this.gridColumn8});
+            this.gridView5.GridControl = this.lw_3;
+            this.gridView5.Name = "gridView5";
+            this.gridView5.OptionsCustomization.AllowFilter = false;
+            this.gridView5.OptionsCustomization.AllowGroup = false;
+            this.gridView5.OptionsView.ShowColumnHeaders = false;
+            this.gridView5.OptionsView.ShowGroupPanel = false;
+            this.gridView5.OptionsView.ShowIndicator = false;
+            // 
+            // gridColumn7
+            // 
+            this.gridColumn7.Caption = "Lô này:";
+            this.gridColumn7.Name = "gridColumn7";
+            this.gridColumn7.OptionsColumn.ReadOnly = true;
+            this.gridColumn7.Visible = true;
+            this.gridColumn7.VisibleIndex = 0;
+            // 
+            // gridColumn8
+            // 
+            this.gridColumn8.Caption = "Lô kế tiếp: ";
+            this.gridColumn8.Name = "gridColumn8";
+            this.gridColumn8.OptionsColumn.ReadOnly = true;
+            this.gridColumn8.Visible = true;
+            this.gridColumn8.VisibleIndex = 1;
+            // 
+            // lw_2
+            // 
+            this.lw_2.Location = new System.Drawing.Point(322, 9);
+            this.lw_2.MainView = this.gridView4;
+            this.lw_2.Name = "lw_2";
+            this.lw_2.Size = new System.Drawing.Size(153, 104);
+            this.lw_2.TabIndex = 3;
+            this.lw_2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView4});
+            this.lw_2.Visible = false;
+            // 
+            // gridView4
+            // 
+            this.gridView4.Appearance.FocusedRow.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridView4.Appearance.FocusedRow.Options.UseFont = true;
+            this.gridView4.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn5,
+            this.gridColumn6});
+            this.gridView4.GridControl = this.lw_2;
+            this.gridView4.Name = "gridView4";
+            this.gridView4.OptionsCustomization.AllowFilter = false;
+            this.gridView4.OptionsCustomization.AllowGroup = false;
+            this.gridView4.OptionsView.ShowColumnHeaders = false;
+            this.gridView4.OptionsView.ShowGroupPanel = false;
+            this.gridView4.OptionsView.ShowIndicator = false;
+            // 
+            // gridColumn5
+            // 
+            this.gridColumn5.Caption = "Lô này:";
+            this.gridColumn5.Name = "gridColumn5";
+            this.gridColumn5.OptionsColumn.ReadOnly = true;
+            this.gridColumn5.Visible = true;
+            this.gridColumn5.VisibleIndex = 0;
+            // 
+            // gridColumn6
+            // 
+            this.gridColumn6.Caption = "Lô kế tiếp: ";
+            this.gridColumn6.Name = "gridColumn6";
+            this.gridColumn6.OptionsColumn.ReadOnly = true;
+            this.gridColumn6.Visible = true;
+            this.gridColumn6.VisibleIndex = 1;
+            // 
+            // lw_1
+            // 
+            this.lw_1.Location = new System.Drawing.Point(279, 9);
+            this.lw_1.MainView = this.gridView3;
+            this.lw_1.Name = "lw_1";
+            this.lw_1.Size = new System.Drawing.Size(153, 104);
+            this.lw_1.TabIndex = 2;
+            this.lw_1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView3});
+            this.lw_1.Visible = false;
+            // 
+            // gridView3
+            // 
+            this.gridView3.Appearance.FocusedRow.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridView3.Appearance.FocusedRow.Options.UseFont = true;
+            this.gridView3.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn3,
+            this.gridColumn4});
+            this.gridView3.GridControl = this.lw_1;
+            this.gridView3.Name = "gridView3";
+            this.gridView3.OptionsCustomization.AllowFilter = false;
+            this.gridView3.OptionsCustomization.AllowGroup = false;
+            this.gridView3.OptionsView.ShowColumnHeaders = false;
+            this.gridView3.OptionsView.ShowGroupPanel = false;
+            this.gridView3.OptionsView.ShowIndicator = false;
+            // 
+            // gridColumn3
+            // 
+            this.gridColumn3.Caption = "Lô này:";
+            this.gridColumn3.Name = "gridColumn3";
+            this.gridColumn3.OptionsColumn.ReadOnly = true;
+            this.gridColumn3.Visible = true;
+            this.gridColumn3.VisibleIndex = 0;
+            // 
+            // gridColumn4
+            // 
+            this.gridColumn4.Caption = "Lô kế tiếp: ";
+            this.gridColumn4.Name = "gridColumn4";
+            this.gridColumn4.OptionsColumn.ReadOnly = true;
+            this.gridColumn4.Visible = true;
+            this.gridColumn4.VisibleIndex = 1;
+            // 
+            // lw_0_2
+            // 
+            this.lw_0_2.Location = new System.Drawing.Point(117, 9);
+            this.lw_0_2.MainView = this.gridView2;
+            this.lw_0_2.Name = "lw_0_2";
+            this.lw_0_2.Size = new System.Drawing.Size(153, 104);
+            this.lw_0_2.TabIndex = 1;
+            this.lw_0_2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView2});
+            // 
+            // gridView2
+            // 
+            this.gridView2.Appearance.FocusedRow.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridView2.Appearance.FocusedRow.Options.UseFont = true;
+            this.gridView2.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn1,
+            this.gridColumn2});
+            this.gridView2.GridControl = this.lw_0_2;
+            this.gridView2.Name = "gridView2";
+            this.gridView2.OptionsCustomization.AllowFilter = false;
+            this.gridView2.OptionsCustomization.AllowGroup = false;
+            this.gridView2.OptionsView.ShowColumnHeaders = false;
+            this.gridView2.OptionsView.ShowGroupPanel = false;
+            this.gridView2.OptionsView.ShowIndicator = false;
+            // 
+            // gridColumn1
+            // 
+            this.gridColumn1.Caption = "Lô này:";
+            this.gridColumn1.Name = "gridColumn1";
+            this.gridColumn1.OptionsColumn.ReadOnly = true;
+            this.gridColumn1.Visible = true;
+            this.gridColumn1.VisibleIndex = 0;
+            // 
+            // gridColumn2
+            // 
+            this.gridColumn2.Caption = "Lô kế tiếp: ";
+            this.gridColumn2.Name = "gridColumn2";
+            this.gridColumn2.OptionsColumn.ReadOnly = true;
+            this.gridColumn2.Visible = true;
+            this.gridColumn2.VisibleIndex = 1;
+            // 
             // lw_0_1
             // 
             this.lw_0_1.Location = new System.Drawing.Point(20, 9);
@@ -372,6 +581,7 @@
             // th_NgayGio
             // 
             this.th_NgayGio.Caption = "Ngày giờ";
+            this.th_NgayGio.FieldName = "Ngay";
             this.th_NgayGio.Name = "th_NgayGio";
             this.th_NgayGio.Visible = true;
             this.th_NgayGio.VisibleIndex = 0;
@@ -379,6 +589,7 @@
             // th_MaCuon
             // 
             this.th_MaCuon.Caption = "Mã Cuộn";
+            this.th_MaCuon.FieldName = "MaCuon";
             this.th_MaCuon.Name = "th_MaCuon";
             this.th_MaCuon.Visible = true;
             this.th_MaCuon.VisibleIndex = 1;
@@ -386,6 +597,7 @@
             // th_SoKgBD
             // 
             this.th_SoKgBD.Caption = "Số KG BĐ";
+            this.th_SoKgBD.FieldName = "SoLuongBD";
             this.th_SoKgBD.Name = "th_SoKgBD";
             this.th_SoKgBD.Visible = true;
             this.th_SoKgBD.VisibleIndex = 2;
@@ -393,15 +605,17 @@
             // th_SoKgSD
             // 
             this.th_SoKgSD.Caption = "Số Kg SD";
+            this.th_SoKgSD.FieldName = "SoLuongSD";
             this.th_SoKgSD.Name = "th_SoKgSD";
             this.th_SoKgSD.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
-            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "", "SUM={0:0.##}")});
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "SoLuongSD", "SUM={0:0.##}")});
             this.th_SoKgSD.Visible = true;
             this.th_SoKgSD.VisibleIndex = 3;
             // 
             // th_SoKgCL
             // 
             this.th_SoKgCL.Caption = "Số Kg CL";
+            this.th_SoKgCL.FieldName = "SoLuongCL";
             this.th_SoKgCL.Name = "th_SoKgCL";
             this.th_SoKgCL.Visible = true;
             this.th_SoKgCL.VisibleIndex = 4;
@@ -409,6 +623,7 @@
             // th_May
             // 
             this.th_May.Caption = "Vị Trí SD";
+            this.th_May.FieldName = "ViTri";
             this.th_May.Name = "th_May";
             this.th_May.Visible = true;
             this.th_May.VisibleIndex = 6;
@@ -416,6 +631,7 @@
             // th_NguoiXuat
             // 
             this.th_NguoiXuat.Caption = "Người Xuất";
+            this.th_NguoiXuat.FieldName = "NguoiDuyet";
             this.th_NguoiXuat.Name = "th_NguoiXuat";
             this.th_NguoiXuat.Visible = true;
             this.th_NguoiXuat.VisibleIndex = 5;
@@ -1081,215 +1297,6 @@
             // 
             this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
             // 
-            // lw_0_2
-            // 
-            this.lw_0_2.Location = new System.Drawing.Point(117, 9);
-            this.lw_0_2.MainView = this.gridView2;
-            this.lw_0_2.Name = "lw_0_2";
-            this.lw_0_2.Size = new System.Drawing.Size(153, 104);
-            this.lw_0_2.TabIndex = 1;
-            this.lw_0_2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView2});
-            // 
-            // gridView2
-            // 
-            this.gridView2.Appearance.FocusedRow.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gridView2.Appearance.FocusedRow.Options.UseFont = true;
-            this.gridView2.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.gridColumn1,
-            this.gridColumn2});
-            this.gridView2.GridControl = this.lw_0_2;
-            this.gridView2.Name = "gridView2";
-            this.gridView2.OptionsCustomization.AllowFilter = false;
-            this.gridView2.OptionsCustomization.AllowGroup = false;
-            this.gridView2.OptionsView.ShowColumnHeaders = false;
-            this.gridView2.OptionsView.ShowGroupPanel = false;
-            this.gridView2.OptionsView.ShowIndicator = false;
-            // 
-            // gridColumn1
-            // 
-            this.gridColumn1.Caption = "Lô này:";
-            this.gridColumn1.Name = "gridColumn1";
-            this.gridColumn1.OptionsColumn.ReadOnly = true;
-            this.gridColumn1.Visible = true;
-            this.gridColumn1.VisibleIndex = 0;
-            // 
-            // gridColumn2
-            // 
-            this.gridColumn2.Caption = "Lô kế tiếp: ";
-            this.gridColumn2.Name = "gridColumn2";
-            this.gridColumn2.OptionsColumn.ReadOnly = true;
-            this.gridColumn2.Visible = true;
-            this.gridColumn2.VisibleIndex = 1;
-            // 
-            // lw_1
-            // 
-            this.lw_1.Location = new System.Drawing.Point(279, 9);
-            this.lw_1.MainView = this.gridView3;
-            this.lw_1.Name = "lw_1";
-            this.lw_1.Size = new System.Drawing.Size(153, 104);
-            this.lw_1.TabIndex = 2;
-            this.lw_1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView3});
-            this.lw_1.Visible = false;
-            // 
-            // gridView3
-            // 
-            this.gridView3.Appearance.FocusedRow.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gridView3.Appearance.FocusedRow.Options.UseFont = true;
-            this.gridView3.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.gridColumn3,
-            this.gridColumn4});
-            this.gridView3.GridControl = this.lw_1;
-            this.gridView3.Name = "gridView3";
-            this.gridView3.OptionsCustomization.AllowFilter = false;
-            this.gridView3.OptionsCustomization.AllowGroup = false;
-            this.gridView3.OptionsView.ShowColumnHeaders = false;
-            this.gridView3.OptionsView.ShowGroupPanel = false;
-            this.gridView3.OptionsView.ShowIndicator = false;
-            // 
-            // gridColumn3
-            // 
-            this.gridColumn3.Caption = "Lô này:";
-            this.gridColumn3.Name = "gridColumn3";
-            this.gridColumn3.OptionsColumn.ReadOnly = true;
-            this.gridColumn3.Visible = true;
-            this.gridColumn3.VisibleIndex = 0;
-            // 
-            // gridColumn4
-            // 
-            this.gridColumn4.Caption = "Lô kế tiếp: ";
-            this.gridColumn4.Name = "gridColumn4";
-            this.gridColumn4.OptionsColumn.ReadOnly = true;
-            this.gridColumn4.Visible = true;
-            this.gridColumn4.VisibleIndex = 1;
-            // 
-            // lw_2
-            // 
-            this.lw_2.Location = new System.Drawing.Point(322, 9);
-            this.lw_2.MainView = this.gridView4;
-            this.lw_2.Name = "lw_2";
-            this.lw_2.Size = new System.Drawing.Size(153, 104);
-            this.lw_2.TabIndex = 3;
-            this.lw_2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView4});
-            this.lw_2.Visible = false;
-            // 
-            // gridView4
-            // 
-            this.gridView4.Appearance.FocusedRow.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gridView4.Appearance.FocusedRow.Options.UseFont = true;
-            this.gridView4.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.gridColumn5,
-            this.gridColumn6});
-            this.gridView4.GridControl = this.lw_2;
-            this.gridView4.Name = "gridView4";
-            this.gridView4.OptionsCustomization.AllowFilter = false;
-            this.gridView4.OptionsCustomization.AllowGroup = false;
-            this.gridView4.OptionsView.ShowColumnHeaders = false;
-            this.gridView4.OptionsView.ShowGroupPanel = false;
-            this.gridView4.OptionsView.ShowIndicator = false;
-            // 
-            // gridColumn5
-            // 
-            this.gridColumn5.Caption = "Lô này:";
-            this.gridColumn5.Name = "gridColumn5";
-            this.gridColumn5.OptionsColumn.ReadOnly = true;
-            this.gridColumn5.Visible = true;
-            this.gridColumn5.VisibleIndex = 0;
-            // 
-            // gridColumn6
-            // 
-            this.gridColumn6.Caption = "Lô kế tiếp: ";
-            this.gridColumn6.Name = "gridColumn6";
-            this.gridColumn6.OptionsColumn.ReadOnly = true;
-            this.gridColumn6.Visible = true;
-            this.gridColumn6.VisibleIndex = 1;
-            // 
-            // lw_3
-            // 
-            this.lw_3.Location = new System.Drawing.Point(357, 9);
-            this.lw_3.MainView = this.gridView5;
-            this.lw_3.Name = "lw_3";
-            this.lw_3.Size = new System.Drawing.Size(153, 104);
-            this.lw_3.TabIndex = 4;
-            this.lw_3.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView5});
-            this.lw_3.Visible = false;
-            // 
-            // gridView5
-            // 
-            this.gridView5.Appearance.FocusedRow.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gridView5.Appearance.FocusedRow.Options.UseFont = true;
-            this.gridView5.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.gridColumn7,
-            this.gridColumn8});
-            this.gridView5.GridControl = this.lw_3;
-            this.gridView5.Name = "gridView5";
-            this.gridView5.OptionsCustomization.AllowFilter = false;
-            this.gridView5.OptionsCustomization.AllowGroup = false;
-            this.gridView5.OptionsView.ShowColumnHeaders = false;
-            this.gridView5.OptionsView.ShowGroupPanel = false;
-            this.gridView5.OptionsView.ShowIndicator = false;
-            // 
-            // gridColumn7
-            // 
-            this.gridColumn7.Caption = "Lô này:";
-            this.gridColumn7.Name = "gridColumn7";
-            this.gridColumn7.OptionsColumn.ReadOnly = true;
-            this.gridColumn7.Visible = true;
-            this.gridColumn7.VisibleIndex = 0;
-            // 
-            // gridColumn8
-            // 
-            this.gridColumn8.Caption = "Lô kế tiếp: ";
-            this.gridColumn8.Name = "gridColumn8";
-            this.gridColumn8.OptionsColumn.ReadOnly = true;
-            this.gridColumn8.Visible = true;
-            this.gridColumn8.VisibleIndex = 1;
-            // 
-            // lw_4
-            // 
-            this.lw_4.Location = new System.Drawing.Point(404, 6);
-            this.lw_4.MainView = this.gridView6;
-            this.lw_4.Name = "lw_4";
-            this.lw_4.Size = new System.Drawing.Size(153, 104);
-            this.lw_4.TabIndex = 5;
-            this.lw_4.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView6});
-            this.lw_4.Visible = false;
-            // 
-            // gridView6
-            // 
-            this.gridView6.Appearance.FocusedRow.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gridView6.Appearance.FocusedRow.Options.UseFont = true;
-            this.gridView6.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.gridColumn9,
-            this.gridColumn10});
-            this.gridView6.GridControl = this.lw_4;
-            this.gridView6.Name = "gridView6";
-            this.gridView6.OptionsCustomization.AllowFilter = false;
-            this.gridView6.OptionsCustomization.AllowGroup = false;
-            this.gridView6.OptionsView.ShowColumnHeaders = false;
-            this.gridView6.OptionsView.ShowGroupPanel = false;
-            this.gridView6.OptionsView.ShowIndicator = false;
-            // 
-            // gridColumn9
-            // 
-            this.gridColumn9.Caption = "Lô này:";
-            this.gridColumn9.Name = "gridColumn9";
-            this.gridColumn9.OptionsColumn.ReadOnly = true;
-            this.gridColumn9.Visible = true;
-            this.gridColumn9.VisibleIndex = 0;
-            // 
-            // gridColumn10
-            // 
-            this.gridColumn10.Caption = "Lô kế tiếp: ";
-            this.gridColumn10.Name = "gridColumn10";
-            this.gridColumn10.OptionsColumn.ReadOnly = true;
-            this.gridColumn10.Visible = true;
-            this.gridColumn10.VisibleIndex = 1;
-            // 
             // PosMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1311,6 +1318,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.body.ResumeLayout(false);
             this.body_0.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.lw_4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lw_3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lw_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lw_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lw_0_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lw_0_1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.body_2.ResumeLayout(false);
@@ -1334,16 +1351,6 @@
             this.hoatieu.PerformLayout();
             this.longway.ResumeLayout(false);
             this.longway.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lw_0_2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lw_1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lw_2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lw_3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lw_4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView6)).EndInit();
             this.ResumeLayout(false);
 
         }
