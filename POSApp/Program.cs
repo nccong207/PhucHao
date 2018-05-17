@@ -43,7 +43,7 @@ namespace POSApp
             Login frmLogin = new Login();
             frmLogin.StartPosition = FormStartPosition.CenterScreen;
             frmLogin.ShowDialog();
-
+            frmLogin.Activate();
             Menufrm frmMenu = new Menufrm();
             frmMenu.StartPosition = FormStartPosition.CenterScreen;
 

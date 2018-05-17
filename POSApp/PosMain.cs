@@ -45,6 +45,8 @@ namespace POSApp
             timer2.Interval = 10000;
             timer3.Enabled = true;
             timer3.Interval = 10000;
+            machine.Text = machineTable;
+            type.Text = softwareType;
 
         }
         public void singleView()
@@ -218,7 +220,7 @@ namespace POSApp
         public void SyncMainGrid()
         {
             DataTable d0 = new DataTable(null) ;
-            //m0_1.DataSource = d0;
+            m0_1.DataSource = d0;
             m0_2.DataSource = d0;
             m1.DataSource = d0;
             m2.DataSource = d0;
@@ -244,12 +246,28 @@ namespace POSApp
                         m0_2.DataSource = dt2;
                     }
                     string _mstable = machineTable.Substring(0, 5).ToString();
-                    string sql3 = string.Format("SELECT[Ngay],[MaCuon],[SoLuongBD],[SoLuongSD],[SoLuongCL],[NguoiDuyet],[ViTri] FROM [POS].[dbo].[YeuCauXuatKho] WHERE SUBSTRING([ViTri],1,5) = '{0}'", _mstable);
+                    string sql3 = string.Format("SELECT[Ngay],[MaCuon],[SoLuongBD],[SoLuongSD],[SoLuongCL],[NguoiDuyet],[ViTri] FROM [POS].[dbo].[YeuCauXuatKho] WHERE SUBSTRING([ViTri],1,5) = '{0}' ORDER BY NGAY DESC", _mstable);
                     DataTable dt3 = db.GetDataTable(sql3);
                     if (dt3.Rows.Count > 0)
                     {
                         th.DataSource = dt3;
                     }
+                     Database longwayDb = Database.NewStructDatabase();
+                     string sql4 = string.Format("SELECT  [NO],[MAT],[DL],[Kho],[Dai],[SL]FROM [CPMS].[dbo].[mat]");
+                    DataTable dt4 = longwayDb.GetDataTable(sql4);
+                    DataTable dtx5 = new DataTable();
+                    dtx5.Columns.Add("LoaiGiay", typeof(string));
+                    dtx5.Columns.Add("SoMT", typeof(decimal));
+                    decimal soluong = 0;
+                    for (int i = 1; i < dt4.Rows.Count; i++)
+                    {
+                        string curr = dt4.Rows[i]["MAT"].ToString();
+                        string next = dt4.Rows[i++]["MAT"].ToString();
+                        if (curr != next)
+                        {
+                        }
+                    }
+                    lw_0_1.DataSource = dtx5;
                     break;
                 case "MV":
                     //load May 1
@@ -281,7 +299,7 @@ namespace POSApp
                         m4.DataSource = dtb4;
                     }
                     string _mstable2 = machineTable.Substring(0, 3).ToString();
-                    string sql5 = string.Format("SELECT[Ngay],[MaCuon],[SoLuongBD],[SoLuongSD],[SoLuongCL],[NguoiDuyet],[ViTri] FROM [POS].[dbo].[YeuCauXuatKho] WHERE SUBSTRING([ViTri],1,3) = '{0}'", _mstable2);
+                    string sql5 = string.Format("SELECT[Ngay],[MaCuon],[SoLuongBD],[SoLuongSD],[SoLuongCL],[NguoiDuyet],[ViTri] FROM [POS].[dbo].[YeuCauXuatKho] WHERE SUBSTRING([ViTri],1,3) = '{0}' ORDER BY NGAY DESC", _mstable2);
                     DataTable dt5= db.GetDataTable(sql5);
                     if (dt5.Rows.Count > 0)
                     {
@@ -366,7 +384,7 @@ namespace POSApp
         private void traBtn_Click(object sender, EventArgs e)
         {
             ReturnForm rtn = new ReturnForm(this);
-            rtn.Show();
+            rtn.ShowDialog();
         }
 
 
@@ -499,6 +517,11 @@ namespace POSApp
         }
 
         private void simpleButton1_Click(object sender, EventArgs e)
+        {
+            SyncMainGrid();
+        }
+
+        private void timer4_Tick(object sender, EventArgs e)
         {
             SyncMainGrid();
         }

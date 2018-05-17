@@ -34,10 +34,12 @@
             this.traBtn = new DevExpress.XtraEditors.SimpleButton();
             this.themBtn = new DevExpress.XtraEditors.SimpleButton();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.machine = new System.Windows.Forms.Label();
+            this.type = new System.Windows.Forms.Label();
             this.casx = new System.Windows.Forms.Label();
             this.usrname = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.day = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.body = new System.Windows.Forms.Panel();
             this.body_0 = new System.Windows.Forms.Panel();
             this.lw_4 = new DevExpress.XtraGrid.GridControl();
@@ -62,8 +64,8 @@
             this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.lw_0_1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.thisOrder = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.nextOrder = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.LoaiGiay = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.SoMT = new DevExpress.XtraGrid.Columns.GridColumn();
             this.body_2 = new System.Windows.Forms.Panel();
             this.th = new DevExpress.XtraGrid.GridControl();
             this.th_view = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -119,6 +121,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timer3 = new System.Windows.Forms.Timer(this.components);
+            this.timer4 = new System.Windows.Forms.Timer(this.components);
             this.header.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -165,7 +168,6 @@
             this.header.Controls.Add(this.themBtn);
             this.header.Controls.Add(this.panel3);
             this.header.Controls.Add(this.pictureBox1);
-            this.header.Controls.Add(this.day);
             this.header.Location = new System.Drawing.Point(0, 0);
             this.header.Name = "header";
             this.header.Size = new System.Drawing.Size(1098, 75);
@@ -206,12 +208,39 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.machine);
+            this.panel3.Controls.Add(this.type);
             this.panel3.Controls.Add(this.casx);
             this.panel3.Controls.Add(this.usrname);
-            this.panel3.Location = new System.Drawing.Point(125, 31);
+            this.panel3.Controls.Add(this.day);
+            this.panel3.Location = new System.Drawing.Point(125, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(381, 40);
+            this.panel3.Size = new System.Drawing.Size(381, 68);
             this.panel3.TabIndex = 22;
+            // 
+            // machine
+            // 
+            this.machine.AutoSize = true;
+            this.machine.BackColor = System.Drawing.Color.Transparent;
+            this.machine.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.machine.ForeColor = System.Drawing.Color.DimGray;
+            this.machine.Location = new System.Drawing.Point(81, 32);
+            this.machine.Name = "machine";
+            this.machine.Size = new System.Drawing.Size(25, 24);
+            this.machine.TabIndex = 23;
+            this.machine.Text = "A";
+            // 
+            // type
+            // 
+            this.type.AutoSize = true;
+            this.type.BackColor = System.Drawing.Color.Transparent;
+            this.type.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.type.ForeColor = System.Drawing.Color.DimGray;
+            this.type.Location = new System.Drawing.Point(3, 32);
+            this.type.Name = "type";
+            this.type.Size = new System.Drawing.Size(25, 24);
+            this.type.TabIndex = 22;
+            this.type.Text = "A";
             // 
             // casx
             // 
@@ -231,11 +260,23 @@
             this.usrname.BackColor = System.Drawing.Color.Transparent;
             this.usrname.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.usrname.ForeColor = System.Drawing.Color.DimGray;
-            this.usrname.Location = new System.Drawing.Point(150, 3);
+            this.usrname.Location = new System.Drawing.Point(81, 3);
             this.usrname.Name = "usrname";
             this.usrname.Size = new System.Drawing.Size(25, 24);
             this.usrname.TabIndex = 18;
             this.usrname.Text = "A";
+            // 
+            // day
+            // 
+            this.day.AutoSize = true;
+            this.day.BackColor = System.Drawing.Color.Transparent;
+            this.day.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.day.ForeColor = System.Drawing.Color.DimGray;
+            this.day.Location = new System.Drawing.Point(206, 3);
+            this.day.Name = "day";
+            this.day.Size = new System.Drawing.Size(42, 24);
+            this.day.TabIndex = 21;
+            this.day.Text = "day";
             // 
             // pictureBox1
             // 
@@ -246,18 +287,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 20;
             this.pictureBox1.TabStop = false;
-            // 
-            // day
-            // 
-            this.day.AutoSize = true;
-            this.day.BackColor = System.Drawing.Color.Transparent;
-            this.day.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.day.ForeColor = System.Drawing.Color.DimGray;
-            this.day.Location = new System.Drawing.Point(131, 6);
-            this.day.Name = "day";
-            this.day.Size = new System.Drawing.Size(42, 24);
-            this.day.TabIndex = 21;
-            this.day.Text = "day";
             // 
             // body
             // 
@@ -508,8 +537,8 @@
             this.gridView1.Appearance.FocusedRow.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gridView1.Appearance.FocusedRow.Options.UseFont = true;
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.thisOrder,
-            this.nextOrder});
+            this.LoaiGiay,
+            this.SoMT});
             this.gridView1.GridControl = this.lw_0_1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsCustomization.AllowFilter = false;
@@ -518,21 +547,23 @@
             this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.OptionsView.ShowIndicator = false;
             // 
-            // thisOrder
+            // LoaiGiay
             // 
-            this.thisOrder.Caption = "Lô này:";
-            this.thisOrder.Name = "thisOrder";
-            this.thisOrder.OptionsColumn.ReadOnly = true;
-            this.thisOrder.Visible = true;
-            this.thisOrder.VisibleIndex = 0;
+            this.LoaiGiay.Caption = "LoaiGiay";
+            this.LoaiGiay.FieldName = "LoaiGiay";
+            this.LoaiGiay.Name = "LoaiGiay";
+            this.LoaiGiay.OptionsColumn.ReadOnly = true;
+            this.LoaiGiay.Visible = true;
+            this.LoaiGiay.VisibleIndex = 0;
             // 
-            // nextOrder
+            // SoMT
             // 
-            this.nextOrder.Caption = "Lô kế tiếp: ";
-            this.nextOrder.Name = "nextOrder";
-            this.nextOrder.OptionsColumn.ReadOnly = true;
-            this.nextOrder.Visible = true;
-            this.nextOrder.VisibleIndex = 1;
+            this.SoMT.Caption = "SoMT";
+            this.SoMT.FieldName = "SoMT";
+            this.SoMT.Name = "SoMT";
+            this.SoMT.OptionsColumn.ReadOnly = true;
+            this.SoMT.Visible = true;
+            this.SoMT.VisibleIndex = 1;
             // 
             // body_2
             // 
@@ -1297,6 +1328,12 @@
             // 
             this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
             // 
+            // timer4
+            // 
+            this.timer4.Enabled = true;
+            this.timer4.Interval = 3000;
+            this.timer4.Tick += new System.EventHandler(this.timer4_Tick);
+            // 
             // PosMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1312,7 +1349,6 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.PosMain_Load);
             this.header.ResumeLayout(false);
-            this.header.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -1425,8 +1461,8 @@
         private System.Windows.Forms.Panel body_0;
         private DevExpress.XtraGrid.GridControl lw_0_1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
-        private DevExpress.XtraGrid.Columns.GridColumn thisOrder;
-        private DevExpress.XtraGrid.Columns.GridColumn nextOrder;
+        private DevExpress.XtraGrid.Columns.GridColumn LoaiGiay;
+        private DevExpress.XtraGrid.Columns.GridColumn SoMT;
         private DevExpress.XtraGrid.GridControl lw_4;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView6;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn9;
@@ -1447,6 +1483,9 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
+        private System.Windows.Forms.Timer timer4;
+        private System.Windows.Forms.Label machine;
+        private System.Windows.Forms.Label type;
 
     }
 }

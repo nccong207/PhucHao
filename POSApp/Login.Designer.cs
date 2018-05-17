@@ -36,12 +36,12 @@
             this.ca = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.numberpad1 = new paypi.numberpad();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.numberpad1 = new paypi.numberpad();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -130,16 +130,6 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "Mã Nhân Viên";
             // 
-            // numberpad1
-            // 
-            this.numberpad1.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numberpad1.Location = new System.Drawing.Point(6, 204);
-            this.numberpad1.Margin = new System.Windows.Forms.Padding(6);
-            this.numberpad1.Name = "numberpad1";
-            this.numberpad1.Size = new System.Drawing.Size(356, 272);
-            this.numberpad1.TabIndex = 4;
-            this.numberpad1.TextBox = null;
-            // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.White;
@@ -198,6 +188,16 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // numberpad1
+            // 
+            this.numberpad1.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numberpad1.Location = new System.Drawing.Point(6, 204);
+            this.numberpad1.Margin = new System.Windows.Forms.Padding(6);
+            this.numberpad1.Name = "numberpad1";
+            this.numberpad1.Size = new System.Drawing.Size(356, 272);
+            this.numberpad1.TabIndex = 4;
+            this.numberpad1.TextBox = null;
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -213,8 +213,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Login";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Đăng nhập";
+            this.TopMost = true;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Login_Load);
             this.panel1.ResumeLayout(false);

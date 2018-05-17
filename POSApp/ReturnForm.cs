@@ -45,7 +45,7 @@ namespace POSApp
             if (string.IsNullOrEmpty(dataCnn1))
             {
                 messageBox msg = new messageBox("ConnErr", "Database Err", "Không tìm thấy chuỗi kết nối database");
-                msg.Show();
+                msg.ShowDialog();
                 this.Close();
             }
             Database posDB = Database.NewCustomDatabase(dataCnn1);
@@ -61,7 +61,7 @@ namespace POSApp
             else
             {
                 messageBox msg = new messageBox("PaperErr", "Paper Err", "Không tìm thấy cuộn này trong bảng sử dụng");
-                msg.Show();
+                msg.ShowDialog();
                 this.Close();
             }
         } 

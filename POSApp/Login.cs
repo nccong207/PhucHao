@@ -85,10 +85,10 @@ namespace POSApp
             panel2.Location = new Point(0,0);
             
             panel3.Location = new Point(0,panel2.Height);
-            panel3.Width = (this.ClientSize.Width * 60) / 100;
+            panel3.Width = (this.ClientSize.Width * 50) / 100;
             panel3.Height = this.ClientSize.Height;
             
-            panel1.Width = (this.ClientSize.Width * 50) / 100;
+            panel1.Width = (this.ClientSize.Width * 60) / 100;
             panel1.Height = this.ClientSize.Height;
             panel1.Location = new Point(panel3.Width, panel2.Height);
             pictureBox1.Location = new Point(((panel3.Width * 10) / 100),(panel3.Height/2) - pictureBox1.Height);
