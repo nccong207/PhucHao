@@ -10,33 +10,29 @@ namespace POSApp
 {
     public partial class Result : Form
     {
-        public SoMay LoaiMay;
-        Main mainFrm;
+        public string machine;
+        public int xvitri;
+        PosMain posMainFrm;
         MaCuon macuonData;
-        public Result(MaCuon macuon, SoMay May, Main main)
+        public Result(MaCuon macuon, string May, PosMain posMain,int vitri)
         {
             InitializeComponent();
             label6.Text = macuon.KyHieu;
             label7.Text = macuon.Kho;
-            label8.Text = macuon.Macuon;
-            label9.Text = macuon.SoKg.ToString("###,###");
-            LoaiMay = May;
-            mainFrm = main;
+            macuonl.Text = macuon.Macuon;
+            label10.Text = macuon.SoKg.ToString("###,###");
+            machine = May;
+            xvitri = vitri;
+            posMainFrm = posMain;
             macuonData = macuon;
         }
 
         private void simpleButton1_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
-            mainFrm.LoadToGrid(macuonData, LoaiMay);
             this.Close();
         }
     }
-    public enum SoMay
-    {
-        May1,
-        May2,
-        May3
-    };
+
 
 }
