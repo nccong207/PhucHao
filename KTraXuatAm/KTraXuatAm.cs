@@ -30,16 +30,18 @@ namespace KTraXuatAm
         public void ExecuteBefore()
         {
             DataRow drCur = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
+            
+                if (drCur.RowState == DataRowState.Deleted)
+                    return;
+                DataView dv = new DataView(_data.DsData.Tables[1]);
+                dv.RowFilter = "MT32ID ='" + drCur["MT32ID"] + "'";
+                
             var ngaychungtu = DateTime.Parse(drCur["NgayCT"].ToString());
             var ngayhientai = DateTime.Today; 
             var ngayphieubanhang = ((DateTime)ngayhientai - (DateTime)ngaychungtu).Days;
             if (ngayphieubanhang <= 1 || Boolean.Parse(Config.GetValue("Admin").ToString()))
             {
 
-                if (drCur.RowState == DataRowState.Deleted)
-                    return;
-                DataView dv = new DataView(_data.DsData.Tables[1]);
-                dv.RowFilter = "MT32ID ='" + drCur["MT32ID"] + "'";
 
                 // kiem tra ngay giao hang
                 string isAdmin = Config.GetValue("Admin").ToString();
