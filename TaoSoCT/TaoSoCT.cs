@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using DevExpress;
 using CDTDatabase;
 using CDTLib;
 using Plugins;
 using System.Data;
-using System.Windows.Forms;
 using DevExpress.XtraEditors;
+using System.Globalization;
 
 namespace TaoSoCT
 {
@@ -185,7 +183,7 @@ namespace TaoSoCT
 
         public void ExecuteBefore()
         {
-                //--<><>Thông báo ngày lập phiếu của phiếu xuất sản xuất MT43<><>--//
+            //--<><>Thông báo ngày lập phiếu của phiếu xuất sản xuất MT43<><>--//
             if (_data.CurMasterIndex < 0)
                 return;
             string tb = _data.DrTableMaster["TableName"].ToString();
@@ -193,6 +191,9 @@ namespace TaoSoCT
             {
                 return;
             }
+
+            KiemTraKhoaSo();
+            if (_info.Result == false) return;
 
             string columnct = lstColumnNgayCT[lstTable.IndexOf(tb)];
 
@@ -215,7 +216,55 @@ namespace TaoSoCT
 
             if (!lstTable.Contains(tb))
                 return;
-            CreateCT();  
+            CreateCT();
+        }
+
+        private void KiemTraKhoaSo()
+        {
+            string tb = _data.DrTableMaster["TableName"].ToString();
+            if (!lstTable.Contains(tb))
+            {
+                return;
+            }
+            if (Config.GetValue("NgayKhoaSo") == null)
+                return;
+            string tmp = Config.GetValue("NgayKhoaSo").ToString();
+            DateTime ngayKhoa;
+            DateTimeFormatInfo dtInfo = new DateTimeFormatInfo();
+            dtInfo.ShortDatePattern = "dd/MM/yyyy";
+
+            if (DateTime.TryParse(tmp, dtInfo, DateTimeStyles.None, out ngayKhoa))
+            {
+                string columnNgayCt = lstColumnNgayCT[lstTable.IndexOf(tb)];
+                DataView dv = new DataView(_data.DsData.Tables[0]);
+                dv.RowStateFilter = DataViewRowState.Added | DataViewRowState.ModifiedOriginal | DataViewRowState.Deleted;
+                if (dv.Count == 0)
+                {
+                    if (_data.CurMasterIndex < 0)
+                        return;
+                    DataRow drMaster = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
+                    string pk = _data.DrTableMaster["Pk"].ToString();
+                    DataView dvdt = new DataView(_data.DsData.Tables[1]);
+                    dvdt.RowFilter = pk + " = '" + drMaster[pk].ToString() + "'";
+                    dvdt.RowStateFilter = DataViewRowState.Added | DataViewRowState.ModifiedCurrent | DataViewRowState.Deleted;
+                    if (dvdt.Count == 0)
+                        return;
+                    else
+                    {
+                        dv.RowStateFilter = DataViewRowState.CurrentRows;
+                        dv.RowFilter = pk + " = '" + drMaster[pk].ToString() + "'";
+                    }
+                }
+                DateTime ngayCT = DateTime.Parse(dv[0][columnNgayCt].ToString());
+                if (ngayCT <= ngayKhoa)
+                {
+                    string msg = "Kỳ kế toán đã khóa! Không thể chỉnh sửa số liệu!";
+                    XtraMessageBox.Show(msg);
+                    _info.Result = false;
+                }
+                else
+                    _info.Result = true;
+            }
         }
 
         public InfoCustomData Info
