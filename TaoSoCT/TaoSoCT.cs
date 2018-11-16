@@ -236,27 +236,38 @@ namespace TaoSoCT
             if (DateTime.TryParse(tmp, dtInfo, DateTimeStyles.None, out ngayKhoa))
             {
                 string columnNgayCt = lstColumnNgayCT[lstTable.IndexOf(tb)];
-                DataView dv = new DataView(_data.DsData.Tables[0]);
-                dv.RowStateFilter = DataViewRowState.Added | DataViewRowState.ModifiedOriginal | DataViewRowState.Deleted;
-                if (dv.Count == 0)
+                //thằng nào code tào lao, rối như canh hẹ
+                //DataView dv = new DataView(_data.DsData.Tables[0]);
+                //dv.RowStateFilter = DataViewRowState.Added | DataViewRowState.ModifiedOriginal
+                //    | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent;
+                //if (dv.Count == 0)
+                //{
+                //    if (_data.CurMasterIndex < 0)
+                //        return;
+                //    DataRow drMaster = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
+                //    string pk = _data.DrTableMaster["Pk"].ToString();
+                //    DataView dvdt = new DataView(_data.DsData.Tables[1]);
+                //    dvdt.RowFilter = pk + " = '" + drMaster[pk].ToString() + "'";
+                //    dvdt.RowStateFilter = DataViewRowState.Added | DataViewRowState.ModifiedCurrent | DataViewRowState.Deleted;
+                //    if (dvdt.Count == 0)
+                //        return;
+                //    else
+                //    {
+                //        dv.RowStateFilter = DataViewRowState.CurrentRows;
+                //        dv.RowFilter = pk + " = '" + drMaster[pk].ToString() + "'";
+                //    }
+                //}
+                DataRow drCurrent = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
+                DateTime ngayCT;
+                DateTime? ngayCTold = null;
+                if (drCurrent.RowState == DataRowState.Added) ngayCT = Convert.ToDateTime(drCurrent[columnNgayCt]);
+                else if (drCurrent.RowState == DataRowState.Deleted) ngayCT = Convert.ToDateTime(drCurrent[columnNgayCt, DataRowVersion.Original]);
+                else
                 {
-                    if (_data.CurMasterIndex < 0)
-                        return;
-                    DataRow drMaster = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
-                    string pk = _data.DrTableMaster["Pk"].ToString();
-                    DataView dvdt = new DataView(_data.DsData.Tables[1]);
-                    dvdt.RowFilter = pk + " = '" + drMaster[pk].ToString() + "'";
-                    dvdt.RowStateFilter = DataViewRowState.Added | DataViewRowState.ModifiedCurrent | DataViewRowState.Deleted;
-                    if (dvdt.Count == 0)
-                        return;
-                    else
-                    {
-                        dv.RowStateFilter = DataViewRowState.CurrentRows;
-                        dv.RowFilter = pk + " = '" + drMaster[pk].ToString() + "'";
-                    }
+                    ngayCT = Convert.ToDateTime(drCurrent[columnNgayCt, DataRowVersion.Current]);
+                    ngayCTold = Convert.ToDateTime(drCurrent[columnNgayCt, DataRowVersion.Original]);
                 }
-                DateTime ngayCT = DateTime.Parse(dv[0][columnNgayCt].ToString());
-                if (ngayCT <= ngayKhoa)
+                if (ngayCT <= ngayKhoa || (ngayCTold != null && ngayCTold <= ngayKhoa))
                 {
                     string msg = "Kỳ kế toán đã khóa! Không thể chỉnh sửa số liệu!";
                     XtraMessageBox.Show(msg);
