@@ -1,0 +1,6 @@
+C:\source\PHUCHAO\LayNKSX\obj\Debug\BCHHSX2_MdDt_ICC_LayNKSX.dll.licenses
+C:\source\PHUCHAO\CDT\bin\Debug\Plugins\HTC\BCHHSX2_MdDt_ICC_LayNKSX.dll
+C:\source\PHUCHAO\CDT\bin\Debug\Plugins\HTC\BCHHSX2_MdDt_ICC_LayNKSX.pdb
+C:\source\PHUCHAO\LayNKSX\obj\Debug\BCHHSX2_MdDt_ICC_LayNKSX.dll
+C:\source\PHUCHAO\LayNKSX\obj\Debug\BCHHSX2_MdDt_ICC_LayNKSX.pdb
+C:\source\PHUCHAO\LayNKSX\obj\Debug\LayNKSX.csprojResolveAssemblyReference.cache
