@@ -1,0 +1,7 @@
+C:\source\PHUCHAO\LayNKSX\DXApplication2\frm\bin\Debug\frm.exe
+C:\source\PHUCHAO\LayNKSX\DXApplication2\frm\bin\Debug\frm.pdb
+C:\source\PHUCHAO\LayNKSX\DXApplication2\frm\obj\Debug\frm.frm.resources
+C:\source\PHUCHAO\LayNKSX\DXApplication2\frm\obj\Debug\frm.Properties.Resources.resources
+C:\source\PHUCHAO\LayNKSX\DXApplication2\frm\obj\Debug\frm.csproj.GenerateResource.Cache
+C:\source\PHUCHAO\LayNKSX\DXApplication2\frm\obj\Debug\frm.exe
+C:\source\PHUCHAO\LayNKSX\DXApplication2\frm\obj\Debug\frm.pdb
