@@ -9,12 +9,12 @@ using System.Globalization;
 
 namespace TaoSoCT
 {
-    public class TaoSoCT:ICData
+    public class TaoSoCT : ICData
     {
-        List<string> lstTable = new List<string>(new string[] { "MT11", "MT12", "MT22", "MT23", "MT32", "MT33", "MT34", "MT41", "MT42", "MT43", "MT44", "MT45", "MT46", "MTBaoGia", "MTDonHang", "MTKH", "MTKH2", "MT47", "MTNPhoi", "MTXPhoi", "mMTDonHang", "mMTBanHang", "mMTKH", "mMTNK", "mMTXK", "mMTBangGia", "mMTKhuyenMai", "MTCKho", "MTMuaHang", "MTDeNghi", "MTDNTT", "MTGiaHan","MT_CP" });
-        List<string> lstPrKey = new List<string>(new string[] { "MT11ID", "MT12ID", "MT22ID", "MT23ID", "MT32ID", "MT33ID", "MT34ID", "MT41ID", "MT42ID", "MT43ID", "MT44ID", "MT45ID", "MT46ID", "MTBGID", "MTDHID", "MTKHID", "MTKHID", "MT47ID", "MTID", "MTID", "MTDHID", "MTBHID", "MTID", "MTID", "MTID", "MTID", "MTID", "MTCKID", "MTMHID", "MTDNID", "MTDNTTID", "MTGHID" , "MTCPID" });
-        List<string> lstSoCT = new List<string>(new string[] { "SoCT", "SoCT", "SoCT", "SoCT", "SoCT", "SoCT", "SoCT", "SoCT", "SoCT", "SoCT", "SoCT", "SoCT", "SoCT", "SoBG", "SoDH", "SoKH", "SoKH", "SoCT", "SoCT", "SoCT", "SoDH", "SoCT", "SoCT", "SoCT", "SoCT", "SoBG", "So", "SoCT", "SoPhieu", "SoPhieu", "SoPhieu","SoCT","SoCT" });
-        List<string> lstColumnNgayCT = new List<string>(new string[] { "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayLap", "NgayBD", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT","NgayCT" });
+        List<string> lstTable = new List<string>(new string[] { "MT11", "MT12", "MT22", "MT23", "MT32", "MT33", "MT34", "MT41", "MT42", "MT43", "MT44", "MT45", "MT46", "MTBaoGia", "MTDonHang", "MTKH", "MTKH2", "MT47", "MTNPhoi", "MTXPhoi", "mMTDonHang", "mMTBanHang", "mMTKH", "mMTNK", "mMTXK", "mMTBangGia", "mMTKhuyenMai", "MTCKho", "MTMuaHang", "MTDeNghi", "MTDNTT", "MTGiaHan", "MT_CP", "MT29", "BCHHSX2", "MT30", "MT31" });
+        List<string> lstPrKey = new List<string>(new string[] { "MT11ID", "MT12ID", "MT22ID", "MT23ID", "MT32ID", "MT33ID", "MT34ID", "MT41ID", "MT42ID", "MT43ID", "MT44ID", "MT45ID", "MT46ID", "MTBGID", "MTDHID", "MTKHID", "MTKHID", "MT47ID", "MTID", "MTID", "MTDHID", "MTBHID", "MTID", "MTID", "MTID", "MTID", "MTID", "MTCKID", "MTMHID", "MTDNID", "MTDNTTID", "MTGHID", "MTCPID", "MT29ID", "BCHHID", "MT30ID", "MT31ID" });
+        List<string> lstSoCT = new List<string>(new string[] { "SoCT", "SoCT", "SoCT", "SoCT", "SoCT", "SoCT", "SoCT", "SoCT", "SoCT", "SoCT", "SoCT", "SoCT", "SoCT", "SoBG", "SoDH", "SoKH", "SoKH", "SoCT", "SoCT", "SoCT", "SoDH", "SoCT", "SoCT", "SoCT", "SoCT", "SoBG", "So", "SoCT", "SoPhieu", "SoPhieu", "SoPhieu", "SoCT", "SoCT", "SoCT", "SoCT", "SoCT", "SoCT" });
+        List<string> lstColumnNgayCT = new List<string>(new string[] { "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayLap", "NgayBD", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT", "NgayCT" });
         private InfoCustomData _info;
         private DataCustomData _data;
         Database db = Database.NewDataDatabase();
@@ -22,7 +22,7 @@ namespace TaoSoCT
         string newSoCT = null;
 
         #region ICData Members
-  
+
         public TaoSoCT()
         {
             _info = new InfoCustomData(IDataType.MasterDetailDt);
@@ -119,7 +119,7 @@ namespace TaoSoCT
             string columnct = lstColumnNgayCT[lstTable.IndexOf(tb)];
             if (!drMaster.Table.Columns.Contains(columnct))
                 return;
-           
+
             if (drMaster.RowState == DataRowState.Added
                 || (drMaster.RowState == DataRowState.Modified && KTSuaNgay(drMaster)))
             {
@@ -135,7 +135,7 @@ namespace TaoSoCT
                 Nam = Nam.Substring(2, 2);
 
                 string suffix = "-" + Thang + Nam;
-                
+
                 sql = string.Format(@" SELECT   Top 1 {2}  
                                        FROM     {0}
                                        WHERE    {2} LIKE '{1}%{3}'
@@ -236,38 +236,27 @@ namespace TaoSoCT
             if (DateTime.TryParse(tmp, dtInfo, DateTimeStyles.None, out ngayKhoa))
             {
                 string columnNgayCt = lstColumnNgayCT[lstTable.IndexOf(tb)];
-                //thằng nào code tào lao, rối như canh hẹ
-                //DataView dv = new DataView(_data.DsData.Tables[0]);
-                //dv.RowStateFilter = DataViewRowState.Added | DataViewRowState.ModifiedOriginal
-                //    | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent;
-                //if (dv.Count == 0)
-                //{
-                //    if (_data.CurMasterIndex < 0)
-                //        return;
-                //    DataRow drMaster = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
-                //    string pk = _data.DrTableMaster["Pk"].ToString();
-                //    DataView dvdt = new DataView(_data.DsData.Tables[1]);
-                //    dvdt.RowFilter = pk + " = '" + drMaster[pk].ToString() + "'";
-                //    dvdt.RowStateFilter = DataViewRowState.Added | DataViewRowState.ModifiedCurrent | DataViewRowState.Deleted;
-                //    if (dvdt.Count == 0)
-                //        return;
-                //    else
-                //    {
-                //        dv.RowStateFilter = DataViewRowState.CurrentRows;
-                //        dv.RowFilter = pk + " = '" + drMaster[pk].ToString() + "'";
-                //    }
-                //}
-                DataRow drCurrent = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
-                DateTime ngayCT;
-                DateTime? ngayCTold = null;
-                if (drCurrent.RowState == DataRowState.Added) ngayCT = Convert.ToDateTime(drCurrent[columnNgayCt]);
-                else if (drCurrent.RowState == DataRowState.Deleted) ngayCT = Convert.ToDateTime(drCurrent[columnNgayCt, DataRowVersion.Original]);
-                else
+                DataView dv = new DataView(_data.DsData.Tables[0]);
+                dv.RowStateFilter = DataViewRowState.Added | DataViewRowState.ModifiedOriginal | DataViewRowState.Deleted;
+                if (dv.Count == 0)
                 {
-                    ngayCT = Convert.ToDateTime(drCurrent[columnNgayCt, DataRowVersion.Current]);
-                    ngayCTold = Convert.ToDateTime(drCurrent[columnNgayCt, DataRowVersion.Original]);
+                    if (_data.CurMasterIndex < 0)
+                        return;
+                    DataRow drMaster = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
+                    string pk = _data.DrTableMaster["Pk"].ToString();
+                    DataView dvdt = new DataView(_data.DsData.Tables[1]);
+                    dvdt.RowFilter = pk + " = '" + drMaster[pk].ToString() + "'";
+                    dvdt.RowStateFilter = DataViewRowState.Added | DataViewRowState.ModifiedCurrent | DataViewRowState.Deleted;
+                    if (dvdt.Count == 0)
+                        return;
+                    else
+                    {
+                        dv.RowStateFilter = DataViewRowState.CurrentRows;
+                        dv.RowFilter = pk + " = '" + drMaster[pk].ToString() + "'";
+                    }
                 }
-                if (ngayCT <= ngayKhoa || (ngayCTold != null && ngayCTold <= ngayKhoa))
+                DateTime ngayCT = DateTime.Parse(dv[0][columnNgayCt].ToString());
+                if (ngayCT <= ngayKhoa)
                 {
                     string msg = "Kỳ kế toán đã khóa! Không thể chỉnh sửa số liệu!";
                     XtraMessageBox.Show(msg);
