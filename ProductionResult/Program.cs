@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using CDTDatabase;
@@ -167,6 +167,12 @@ namespace ProductionResult
             return (o == null || o.ToString() == string.Empty) ? 0 : Convert.ToInt32(o);
         }
 
+        static int GetDuplicatedRecords(string whereCondition)
+        {
+            object o = db.GetValue(string.Format("select COUNT(*) from POResultLog where {0}", whereCondition));
+            return (o == null || o.ToString() == string.Empty) ? 0 : Convert.ToInt32(o);
+        }
+
         static Dictionary<string, object> ParseData(DataTable dtFormat, string rawData)
         {
             Dictionary<string, object> temp = new Dictionary<string, object>();
@@ -186,12 +192,19 @@ namespace ProductionResult
 
         static void AddResultLog(DataTable dtResultLog, Dictionary<string, object> allDataItems)
         {
+            string duplicatedChecking = "1 = 1";
             try
             {
                 DataRow drNew = dtResultLog.NewRow();
                 foreach (DataColumn dc in dtResultLog.Columns)
                     if (allDataItems.ContainsKey(dc.ColumnName))
+                    {
+                        duplicatedChecking += allDataItems[dc.ColumnName].ToString() == string.Empty ? string.Format(" AND {0} is NULL", dc.ColumnName) : string.Format(" AND {0} = '{1}'", dc.ColumnName, allDataItems[dc.ColumnName]);
                         drNew[dc.ColumnName] = allDataItems[dc.ColumnName].ToString() == string.Empty ? DBNull.Value : allDataItems[dc.ColumnName];
+                    }
+                //Cong thêm ngày 08/07/2019 để chặn trùng dữ liệu
+                if (GetDuplicatedRecords(duplicatedChecking) > 0) return;
+
                 drNew["TotalQTY"] = drNew[slName];
                 dtResultLog.Rows.Add(drNew);
             }
